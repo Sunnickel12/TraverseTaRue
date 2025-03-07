@@ -20,6 +20,6 @@
         @endif
     </head>
     <body>
-        <p class="text-red-500"> Bonjour je test </p>
+        <p class="text-red-500"> Test déploiement Traverse Ta Rue </p>
     </body>
 </html>
