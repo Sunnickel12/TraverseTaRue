@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('tittle');
             $table->text('contenu');
             $table->decimal('salary', 20, 2);
-            $table->foreignId('id_companie')->constrained('companies');
-            $table->timestamps();
+            $table->foreignId('id_companie')->constrained('companies', 'id_companie');            $table->timestamps();
         });
         
     }
