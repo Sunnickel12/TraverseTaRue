@@ -6,22 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('wishlist', function (Blueprint $table) {
-            $table->id();
+        Schema::create('classes', function (Blueprint $table) {
+            $table->id('id_classes');
+            $table->string('name', 13)->unique();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('wishlist');
+        Schema::dropIfExists('classes');
     }
 };

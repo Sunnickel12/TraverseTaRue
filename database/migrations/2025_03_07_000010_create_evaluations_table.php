@@ -8,16 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('asso_18', function (Blueprint $table) {
+        Schema::create('evaluations', function (Blueprint $table) {
+            $table->id('id_evaluation');
+            $table->decimal('note', 1, 1);
+            $table->string('comment', 50)->nullable();
+            $table->timestamp('create_at');
+            $table->foreignId('id_companie')->constrained('companies', 'id_companie');
             $table->foreignId('id_users')->constrained('users', 'id_users');
-            $table->foreignId('id_classes')->constrained('classes', 'id_classes');
-            $table->primary(['id_users', 'id_classes']);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('asso_18');
+        Schema::dropIfExists('evaluations');
     }
 };

@@ -6,22 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('live', function (Blueprint $table) {
-            $table->id();
+        Schema::create('regions', function (Blueprint $table) {
+            $table->id('id_region');
+            $table->string('name', 85)->unique();
+            $table->foreignId('id_country')->constrained('countries', 'id_country');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('live');
+        Schema::dropIfExists('regions');
     }
 };

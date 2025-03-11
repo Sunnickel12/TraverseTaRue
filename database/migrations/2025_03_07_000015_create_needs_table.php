@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('asso_19', function (Blueprint $table) {
+        Schema::create('needs', function (Blueprint $table) {
             $table->foreignId('id_offer')->constrained('offers', 'id_offer');
-            $table->foreignId('Id_Department')->constrained('departments', 'Id_Department');
-            $table->primary(['id_offer', 'Id_Department']);
+            $table->foreignId('id_skill')->constrained('skills', 'id_skill');
+            $table->primary(['id_offer', 'id_skill']);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('asso_19');
+        Schema::dropIfExists('needs');
     }
 };

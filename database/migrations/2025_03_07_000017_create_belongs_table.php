@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('asso_19', function (Blueprint $table) {
+        Schema::create('belongs', function (Blueprint $table) {
             $table->foreignId('id_offer')->constrained('offers', 'id_offer');
-            $table->foreignId('Id_Department')->constrained('departments', 'Id_Department');
-            $table->primary(['id_offer', 'Id_Department']);
+            $table->foreignId('id_wishlist')->constrained('wishlists', 'id_wishlist');
+            $table->primary(['id_offer', 'id_wishlist']);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('asso_19');
+        Schema::dropIfExists('belongs');
     }
 };

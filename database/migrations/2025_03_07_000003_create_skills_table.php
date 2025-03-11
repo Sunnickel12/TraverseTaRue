@@ -6,22 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('belong', function (Blueprint $table) {
-            $table->id();
+        Schema::create('skills', function (Blueprint $table) {
+            $table->id('id_skill');
+            $table->string('name', 58)->unique();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('belong');
+        Schema::dropIfExists('skills');
     }
 };

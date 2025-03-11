@@ -6,22 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('skill', function (Blueprint $table) {
-            $table->id();
+        Schema::create('wishlists', function (Blueprint $table) {
+            $table->id('id_wishlist');
+            $table->foreignId('id_users')->unique()->constrained('users', 'id_users');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('skill');
+        Schema::dropIfExists('wishlists');
     }
 };

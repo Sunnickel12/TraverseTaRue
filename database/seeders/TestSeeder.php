@@ -17,6 +17,24 @@ class TestSeeder extends Seeder
     {
         $faker = Faker::create();
 
+        // Seed Classes
+        foreach (range(1, 4) as $index) {
+            DB::table('classes')->insert([
+                'name' => $faker->word,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Seed Roles
+        foreach (range(1, 4) as $index) {
+            DB::table('roles')->insert([
+                'name' => $faker->jobTitle,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
         // Seed Users
         foreach (range(1, 4) as $index) {
             DB::table('users')->insert([
@@ -35,20 +53,13 @@ class TestSeeder extends Seeder
 
         // Seed Companies
         foreach (range(1, 4) as $index) {
-            DB::table('companie')->insert([
+            DB::table('companies')->insert([
                 'name' => $faker->company,
                 'address' => $faker->address,
                 'description' => $faker->paragraph,
                 'logo' => $faker->imageUrl,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-
-        // Seed Roles
-        foreach (range(1, 4) as $index) {
-            DB::table('role')->insert([
-                'name' => $faker->jobTitle,
+                'email' => $faker->email,
+                'phone' => $faker->phoneNumber,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -56,16 +67,7 @@ class TestSeeder extends Seeder
 
         // Seed Skills
         foreach (range(1, 4) as $index) {
-            DB::table('skill')->insert([
-                'name' => $faker->word,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-
-        // Seed Classes
-        foreach (range(1, 4) as $index) {
-            DB::table('classes')->insert([
+            DB::table('skills')->insert([
                 'name' => $faker->word,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -74,7 +76,7 @@ class TestSeeder extends Seeder
 
         // Seed Countries
         foreach (range(1, 4) as $index) {
-            DB::table('country')->insert([
+            DB::table('countries')->insert([
                 'name' => $faker->country,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -83,7 +85,7 @@ class TestSeeder extends Seeder
 
         // Seed Regions
         foreach (range(1, 4) as $index) {
-            DB::table('region')->insert([
+            DB::table('regions')->insert([
                 'name' => $faker->state,
                 'id_country' => $index,
                 'created_at' => now(),
@@ -93,7 +95,7 @@ class TestSeeder extends Seeder
 
         // Seed Sectors
         foreach (range(1, 4) as $index) {
-            DB::table('sector')->insert([
+            DB::table('sectors')->insert([
                 'name' => $faker->word,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -102,7 +104,7 @@ class TestSeeder extends Seeder
 
         // Seed Departments
         foreach (range(1, 4) as $index) {
-            DB::table('department')->insert([
+            DB::table('departments')->insert([
                 'name' => $faker->word,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -111,7 +113,7 @@ class TestSeeder extends Seeder
 
         // Seed Cities
         foreach (range(1, 4) as $index) {
-            DB::table('city')->insert([
+            DB::table('cities')->insert([
                 'name' => $faker->city,
                 'id_region' => $index,
                 'created_at' => now(),
@@ -121,7 +123,7 @@ class TestSeeder extends Seeder
 
         // Seed Offers
         foreach (range(1, 4) as $index) {
-            DB::table('offer')->insert([
+            DB::table('offers')->insert([
                 'tittle' => $faker->jobTitle,
                 'contenu' => $faker->paragraph,
                 'salary' => $faker->randomFloat(2, 30000, 100000),
@@ -135,8 +137,8 @@ class TestSeeder extends Seeder
 
         // Seed Evaluations
         foreach (range(1, 4) as $index) {
-            DB::table('evaluation')->insert([
-                'note' => $faker->randomFloat(1, 1, 5),
+            DB::table('evaluations')->insert([
+                'note' => $faker->randomFloat(1, 0, 5), // Ensure note is between 0 and 5
                 'comment' => $faker->sentence,
                 'create_at' => now(),
                 'id_companie' => $index,
@@ -148,7 +150,7 @@ class TestSeeder extends Seeder
 
         // Seed Wishlists
         foreach (range(1, 4) as $index) {
-            DB::table('wishlist')->insert([
+            DB::table('wishlists')->insert([
                 'id_users' => $index,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -157,7 +159,7 @@ class TestSeeder extends Seeder
 
         // Seed Postulations
         foreach (range(1, 4) as $index) {
-            DB::table('postulation')->insert([
+            DB::table('postulations')->insert([
                 'cv' => $faker->url,
                 'motivation_letter' => $faker->paragraph,
                 'status' => $faker->word,
