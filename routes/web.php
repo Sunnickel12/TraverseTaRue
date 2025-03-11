@@ -36,3 +36,16 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Dashboard (protected route for logged-in users)
 Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+
+use App\Http\Controllers\ControlPanelController;
+
+Route::get('/control-panel', [ControlPanelController::class, 'index'])->middleware('auth')->name('control.panel');
+
+// Admin Control Panel
+Route::get('/control-panel/admin', [ControlPanelController::class, 'admin'])->middleware('auth')->name('control.panel.admin');
+
+// Professor Control Panel
+Route::get('/control-panel/professor', [ControlPanelController::class, 'professor'])->middleware('auth')->name('control.panel.professor');
+
+// Student Control Panel
+Route::get('/control-panel/student', [ControlPanelController::class, 'student'])->middleware('auth')->name('control.panel.student');

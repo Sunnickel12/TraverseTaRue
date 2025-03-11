@@ -25,10 +25,28 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', 'You are logged in!');
+            // Redirect user based on their role after successful login
+            return $this->redirectUserBasedOnRole(Auth::user());
         }
 
         return back()->withErrors(['email' => 'Invalid email or password.'])->withInput();
+    }
+
+    // Redirect user based on role after successful login
+    protected function redirectUserBasedOnRole($user)
+    {
+        // Redirect Admin
+        if ($user->id_role == 1) {
+            return redirect()->route('control.panel.admin');
+        }
+
+        // Redirect Professor
+        if ($user->id_role == 2) {
+            return redirect()->route('control.panel.professor');
+        }
+
+        // Redirect Student (default)
+        return redirect()->route('control.panel.student');
     }
 
     // Logout function

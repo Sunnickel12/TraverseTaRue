@@ -23,6 +23,10 @@
             <a href="{{ route('companies.index') }}" class="px-6 py-3 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 transition duration-300">View Companies</a>
         </div>
 
+        <a href="{{ route('control.panel') }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+             Control Panel
+        </a>
+
         <!-- Login/User Section on the Right -->
         <div class="flex items-center space-x-4 ml-auto">
             @auth
