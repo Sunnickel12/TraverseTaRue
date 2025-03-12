@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Wishlist</title>
+
+    <!-- Lien vers le CSS -->
     <link rel="stylesheet" href="{{ asset('css/wish.css') }}">
-
 </head>
-
 <body>
     <script src="{{ asset('js/script.js') }}"></script>
 
@@ -36,14 +35,15 @@
     </header>
 
     <main>
-        <!-- Menu de navigation -->
+        <!-- Liens de navigation -->
         <div class="menu">
-            <a href="{{ route('w_offres') }}">Mes offres</a>
-            <a href="{{ route('wishlist') }}" class="active">Mes favoris</a>
+            <a href="{{ route('w_offres') }}" class="active">Mes offres</a>
+            <a href="{{ route('wishlist') }}">Mes favoris</a>
             <a href="{{ route('w_candidatures') }}">Mes candidatures</a>
         </div>
 
         <h1>Ma Wishlist</h1>
+
     </main>
 
     <footer>
@@ -55,7 +55,5 @@
             <a href="{{ route('aide_contact') }}">Aide et Contact</a>
         </div>
     </footer>
-
 </body>
-
 </html>

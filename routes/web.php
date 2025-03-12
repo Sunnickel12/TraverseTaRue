@@ -9,17 +9,26 @@ Route::get('/accueil', function () {
     return view('accueil'); // La vue pour l'accueil
 })->name('accueil');
 
-Route::get('/mes_offres', function () {
-    return view('mes_offres'); // La vue pour "Mes offres"
-})->name('mes_offres');
+Route::get('/w_offres', function () {
+    return view('partials.w_offres'); // La vue pour "Mes offres"
+})->name('w_offres');
+
+Route::get('offres', function () {  
+    return view('offres'); // La vue pour les offres
+})->name('offres');
 
 Route::get('/wishlist', function () {
-    return view('partials.wishlist'); // La vue pour "Wishlist"
+    return view('partials.wishlist'); // La vue pour "Mes favoris"
 })->name('wishlist');
 
-Route::get('/mes_candidatures', function () {
-    return view('mes_candidatures'); // La vue pour "Mes candidatures"
-})->name('mes_candidatures');
+Route::get('/w_candidatures', function () {
+    return view('partials.w_candidatures'); // La vue pour "Mes candidatures"
+})->name('w_candidatures');
+
+Route::get('/offre/{id}', function ($id) {
+    // Traite l'offre en fonction de l'id
+    return view('offre-details', compact('id')); // Passe l'id à la vue
+})->name('offre.details');
 
 Route::get('/informations-legales', function () {
     return view('info'); // Vue pour les informations légales
