@@ -8,11 +8,11 @@
             <div class="w-48 h-48 mx-auto mt-4">
                 <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" class="w-full h-full object-cover rounded-full">
             </div>
-            <p class="mt-4"><strong>Dirección:</strong> {{ $company->address }}</p>
+            <p class="mt-4"><strong>Address:</strong> {{ $company->address }}</p>
             <p class="mt-2"><strong>Description:</strong> {{ $company->description }}</p>
         </div>
 
-        <!-- Additional Information (Optional) -->
+        <!-- Additional Information -->
         <div class="mt-8">
             <h2 class="text-2xl font-semibold">More Information</h2>
             <p><strong>Location:</strong> {{ $company->location }}</p>
@@ -21,7 +21,7 @@
 
         <!-- Back to All Companies -->
         <div class="mt-8">
-            <a href="{{ route('companies.index') }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg">Back to All Companies</a>
+            <a href="{{ route('companies.index') }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Back to All Companies</a>
         </div>
     </div>
 @endsection
