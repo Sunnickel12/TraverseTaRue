@@ -16,5 +16,8 @@
     <header>
         @include('partials.header')
     </header>
+    <main>
+        @include('partials.home-page')
+    </main>
 </body>
 </html>
