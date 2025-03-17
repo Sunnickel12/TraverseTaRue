@@ -6,7 +6,7 @@
         <div class="text-center mb-8">
             <h1 class="text-4xl font-bold">{{ $company->name }}</h1>
             <div class="w-48 h-48 mx-auto mt-4">
-                <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" class="w-full h-full object-cover rounded-full">
+                <img src="{{ asset('storage/images/' . $company->logo) }}" alt="Logo" class="w-full h-full object-cover rounded-full">
             </div>
             <p class="mt-4"><strong>Address:</strong> {{ $company->address }}</p>
             <p class="mt-2"><strong>Description:</strong> {{ $company->description }}</p>
@@ -14,9 +14,9 @@
 
         <!-- Additional Information -->
         <div class="mt-8">
-            <h2 class="text-2xl font-semibold">More Information</h2>
-            <p><strong>Location:</strong> {{ $company->location }}</p>
-            <p><strong>Contact:</strong> {{ $company->contact_email }}</p>
+            <h2 class="text-2xl font-semibold">Contact</h2>
+            <p><strong>Email:</strong> {{ $company->email }}</p>
+            <p><strong>Phone:</strong> {{ $company->phone }}</p>
         </div>
 
         <!-- Back to All Companies -->

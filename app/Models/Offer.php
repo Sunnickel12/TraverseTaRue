@@ -9,9 +9,29 @@ class Offer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'salary', 'location', 'company_id'];
+    protected $fillable = [
+        'title', 'content', 'salary', 'id_city', 'id_companie', 'created_at'
+    ];
 
-    public function company() {
-        return $this->belongsTo(Company::class);
+    // Custom primary key
+    protected $primaryKey = 'id_offer';
+
+    public $incrementing = true;
+    protected $keyType = 'int';
+
+    /**
+     * Get the company that owns the offer.
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'id_companie');
+    }
+
+    /**
+     * Get the city the offer is located in.
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'id_city');
     }
 }

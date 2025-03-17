@@ -15,8 +15,10 @@ Route::get('/', function () {
 })->name('lobby');
 
 // Public access to companies, offers, and users
-Route::resource('companies', CompanyController::class);
-Route::resource('offers', OfferController::class)->only(['index', 'show']);
+Route::resource('companies', CompanyController::class)->parameters([
+    'companies' => 'company:id_companie'
+]);
+Route::resource('offers', OfferController::class);
 Route::resource('users', UserController::class);
 
 // Explicit show routes for better clarity (optional but clearer)
@@ -52,3 +54,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 });
+
+Route::get('/offers/search', [OfferController::class, 'search'])->name('offers.search');
+Route::get('/companies/search', [CompanyController::class, 'search'])->name('companies.search');

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Models\City;
+use App\Models\Region;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -24,23 +27,23 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:companies',
-            'address' => 'required',
+            'name' => 'required|unique:companies|max:75',
+            'address' => 'required|max:255',
             'description' => 'required',
-            'logo' => 'required|image|max:2048',
+            'logo' => 'nullable|image|max:2048',
+            'email' => 'nullable|email|max:50',
+            'phone' => 'nullable|string|max:50',
         ]);
 
-        // Handle logo upload
-        $logoPath = $request->file('logo')->store('logos', 'public');
+        $logoPath = $request->file('logo')->storeAs('images', $request->file('logo')->getClientOriginalName(), 'public');
 
-        // Create the company
         Company::create([
             'name' => $request->name,
             'address' => $request->address,
             'description' => $request->description,
-            'location' => $request->location ?? '',
-            'contact_email' => $request->contact_email ?? '',
             'logo' => $logoPath,
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
 
         return redirect()->route('companies.index')->with('success', 'Company created successfully!');
@@ -62,32 +65,57 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $request->validate([
-            'name' => 'required|unique:companies,name,' . $company->id,
-            'address' => 'required',
+            'name' => 'required|unique:companies,name,' . $company->id_companie . ',id_companie|max:75',
+            'address' => 'required|max:255',
             'description' => 'required',
             'logo' => 'nullable|image|max:2048',
+            'email' => 'nullable|email|max:50',
+            'phone' => 'nullable|string|max:50',
         ]);
 
-        // Check if a new logo is uploaded
         if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
-            $company->logo = $logoPath;
-        }
+            if ($company->logo) {
+                Storage::disk('public')->delete($company->logo);
+            }
+            $company->logo = $request->file('logo')->store('images', 'public');
+        }        
 
         $company->update([
             'name' => $request->name,
             'address' => $request->address,
             'description' => $request->description,
-            'location' => $request->location,
-            'contact_email' => $request->contact_email,
+            'email' => $request->email,
+            'phone' => $request->phone,
         ]);
 
         return redirect()->route('companies.index')->with('success', 'Company updated successfully!');
     }
 
+    //Search fonction
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $cityId = $request->input('city');
+        $regionId = $request->input('region');
+
+        $companies = Company::with('city')
+            ->search($keyword, $cityId, $regionId)
+            ->paginate(10);
+
+        $cities = City::all();
+        $regions = Region::all();
+
+        return view('companies.search', compact('companies', 'cities', 'regions'));
+    }
+
+
     // Delete a company
     public function destroy(Company $company)
     {
+        if ($company->logo) {
+            Storage::disk('public')->delete($company->logo);
+        }
+        
         $company->delete();
         return redirect()->route('companies.index')->with('success', 'Company deleted successfully!');
     }

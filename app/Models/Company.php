@@ -8,15 +8,35 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['name', 'address', 'description', 'logo', 'location', 'contact_email'];
-
-    // Set custom primary key
+    // The fills have to be reviewed
     protected $primaryKey = 'id_companie';
+    
+    protected $fillable = [
+        'name', 'address', 'description', 'logo', 'phone', 'email'
+    ];
 
-    // Ensure the primary key is not auto-incrementing if it's not an integer
+    // Custom primary key
+    
+    
+
+    // Primary key type and auto-increment setting
     public $incrementing = true;
-
-    // Set the primary key type if needed (e.g., 'string' if UUIDs are used)
     protected $keyType = 'int';
+
+    /**
+     * Get the offers associated with the company.
+     */
+    public function offers()
+    {
+        return $this->hasMany(Offer::class, 'id_companie');
+    }
+
+    
+    /**
+     * Get the city the company is located in.
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'location', 'id_city');
+    }
 }

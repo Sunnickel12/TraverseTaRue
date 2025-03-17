@@ -24,24 +24,35 @@
         </div>
 
         <a href="{{ route('control.panel') }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-             Control Panel
+            Control Panel
         </a>
 
         <!-- Login/User Section on the Right -->
         <div class="flex items-center space-x-4 ml-auto">
             @auth
-                <!-- Display username and logout button when authenticated -->
-                <a href="{{ route('dashboard') }}" class="text-lg hover:underline">{{ auth()->user()->name }}</a>
-                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Logout</button>
-                </form>
+            <!-- Display username and logout button when authenticated -->
+            <a href="{{ route('dashboard') }}" class="text-lg hover:underline">{{ auth()->user()->name }}</a>
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Logout</button>
+            </form>
             @else
-                <!-- Display login link when not authenticated -->
-                <a href="{{ route('login') }}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Login</a>
+            <!-- Display login link when not authenticated -->
+            <a href="{{ route('login') }}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Login</a>
             @endauth
         </div>
     </div>
+
+    <form action="{{ route('offers.search') }}" method="GET">
+        <input type="text" name="keyword" placeholder="Search offers...">
+        <button type="submit">Search</button>
+    </form>
+
+    <form action="{{ route('companies.search') }}" method="GET">
+        <input type="text" name="keyword" placeholder="Search companies...">
+        <button type="submit">Search</button>
+    </form>
+
 
     <!-- Main Content Section -->
     <div class="container mx-auto p-6">

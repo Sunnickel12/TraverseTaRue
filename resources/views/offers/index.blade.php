@@ -1,20 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Offers</h1>
-    <a href="{{ route('offers.create') }}">Create New Offer</a>
+    <h1 class="text-3xl font-bold mb-6">Job Offers</h1>
 
-    @foreach($offers as $offer)
-        <div>
-            <h2><a href="{{ route('offers.show', $offer) }}">{{ $offer->title }}</a></h2>
-            <p>{{ $offer->description }}</p>
-            <p><strong>Salary:</strong> {{ $offer->salary }}</p>
-            <p><strong>Location:</strong> {{ $offer->location }}</p>
-            <form action="{{ route('offers.destroy', $offer) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Delete</button>
-            </form>
-        </div>
-    @endforeach
+    <div class="grid grid-cols-3 gap-6">
+        @foreach($offers as $offer)
+            <a href="{{ route('offers.show', $offer) }}" class="block border rounded-lg shadow-lg p-4 hover:shadow-xl transition">
+                <h2 class="text-xl font-semibold">{{ $offer->tittle }}</h2>
+                <p class="text-gray-600">{{ Str::limit($offer->contenu, 100) }}</p>
+                <p class="text-green-500 mt-2">💼 {{ $offer->company->name }}</p>
+                <p class="text-blue-500 mt-2">📍 {{ $offer->city->name }}</p>
+                <p class="mt-2">💰 {{ number_format($offer->salary, 2) }} €</p>
+            </a>
+        @endforeach
+    </div>
+
+    <div class="mt-8">{{ $offers->links() }}</div>
 @endsection
