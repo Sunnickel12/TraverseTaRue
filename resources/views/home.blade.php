@@ -165,11 +165,6 @@
                 </div>
             </div>
     </main>
-
-    <footer>
-        <p class="bg-[#3a3a3a]"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, veniam tempora ad
-            deserunt </p>
-    </footer>
 </body>
 
 </html>
