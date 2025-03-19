@@ -46,10 +46,11 @@
 <div id="login-popup"
     class="local-font-gliker fixed top-0 left-0 w-full h-full flex justify-center items-center hidden z-20">
     <div class="bg-black opacity-50 absolute inset-0"></div>
-    <div class="bg-white w-96 p-8 rounded-lg shadow-xl z-10 relative">
+    <div class="bg-white w-[500px] max-h-[90vh] p-10 rounded-lg shadow-xl z-10 relative overflow-y-auto">
         <form>
             <div class="mb-6">
-                <label for="email" class="block text-3xl text-center font-medium text-[#6e9ae6] mb-2">Identifiant</label>
+                <label for="email"
+                    class="block text-4xl text-center font-medium text-[#6e9ae6] mb-4">Identifiant</label>
                 <input type="email" id="email" name="email" placeholder="Entrez votre email"
                     class="w-full p-2 border-2 border-[#3a3a3a] rounded-md focus:border-[#6e9ae6] focus:ring-2 focus:ring-[#6e9ae6] focus:outline-none transition-all duration-300"
                     required>
@@ -74,7 +75,7 @@
                     class="bg-[#6e9ae6] text-white py-2 px-6 rounded-md hover:bg-[#5a85d1] transform hover:scale-105">
                     Se connecter
                 </button>
-                <a href="#" class="text-sm text-[#6e9ae6] hover:underline">Mot de passe oublié ?</a>
+                <a href="#" class="text-base text-[#6e9ae6] hover:underline">Mot de passe oublié ?</a>
             </div>
         </form>
         <button id="close-login-popup"
