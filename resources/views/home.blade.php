@@ -22,30 +22,30 @@
         <nav class="bg-[#ffff] local-font-gliker">
             <div>
                 <!-- Titre principal -->
-                <h1 class="text-[#6e9ae6] text-3xl font-bold mt-4 text-center lg:text-left lg:text-4xl">Traverse Ta Rue</h1>
-                <p class="bg-[#3a3a3a] text-[#ffff] text-sm py-3 text-center">
+                <h1 class="text-[#6e9ae6] text-3xl font-bold mt-4 text-center md:text-left md:text-5xl md:ml-6">Traverse Ta Rue</h1>
+                <p class="bg-[#3a3a3a] text-[#ffff] text-sm py-3 text-center md:text-xl">
                     Quelques pas suffisent pour saisir une opportunité !
                 </p>
             </div>
             <!-- Banner avec barre de recherche superposée -->
-            <div class="relative">
+            <div class="relative z-10 ">
                 <!-- Bannière -->
-                <img src="{{ asset('images/banner2.png') }}" class="rounded-3xl mt-4 w-full" alt="banner z-[1]" />
+                <img src="{{ asset('images/banner2.png') }}" class="rounded-3xl mt-4 w-full md:w-2xl lg:w-4xl xl:w-6xl block mx-auto" alt="banner z-[1]" />
 
                 <!-- Barre de recherche superposée -->
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="relative w-[240px]">
+                    <div class="relative w-[250px] md:w-[450px] lg:w-[600px] xl:w-[800px]">
                         <form id="searchForm"
-                            class="flex items-center bg-white border-2 border-[#3a3a3a] rounded-lg shadow-md">
+                            class="flex items-center bg-white border-3 border-[#3a3a3a] rounded-lg shadow-md">
                             <!-- Bouton avec l'image de la loupe -->
                             <button type="submit"
-                                class="flex items-center justify-center bg-white border-r-2 border-[#3a3a3a] hover:scale-110 active:scale-95 transition-transform focus:outline-none px-3 py-2 rounded-l-lg">
+                                class="flex items-center justify-center bg-white border-r-3 transition-transform px-3 py-1.5 md:py-3 lg:py-3 xl:py-4 rounded-l-lg">
                                 <img src="{{ asset('images/search.png') }}" alt="Search Icon"
-                                    class="h-5 object-contain">
+                                    class="h-4 object-contain md:mx-2 lg:h-6 lg:mx-2 xl:h-8 xl:mx-4">
                             </button>
                             <!-- Champ de recherche -->
                             <input type="search" id="default-search"
-                                class="block w-full p-2 pl-3 text-xs text-[#3a3a3a] border-none rounded-r-lg bg-white placeholder-gray-400 focus:ring-2 focus:ring-[#6e9ae6] focus:outline-none"
+                                class="block w-full p-2 pl-3 text-[8px] md:text-sm lg:text-lg xl:text-xl text-[#3a3a3a] rounded-r-lg bg-white placeholder-gray-400 focus:outline-none"
                                 placeholder="Rechercher une opportunité..." required />
                         </form>
                     </div>
@@ -57,13 +57,13 @@
         </hr>
 
         <nav>
-            <h1 class="md:text-start text-[#6e9ae6] text-3xl font-bold mt-6 local-font-gliker">
+            <h1 class="text-[#6e9ae6] text-3xl text-center md:text-left md:text-5xl md:ml-6 font-bold mt-6 local-font-gliker">
                 Qui sommes-nous ?
             </h1>
-            <div class="mt-2 mx-0.5">
+            <div class="mt-2 md:mt-3 mx-0.5">
                 <div id="paragraph-container"
-                    class="overflow-hidden max-h-24 transition-all duration-200 ease-in-out rounded-3xl border-3 border-[#6e9ae6] bg-[#ffffff] shadow-lg p-2 mx-2 z-10">
-                    <p id="paragraph" class="text-base text-[#3a3a3a] leading-relaxed">
+                    class="overflow-hidden max-h-24 md:max-h-full transition-all duration-200 ease-in-out rounded-3xl border-3 border-[#6e9ae6] bg-[#ffffff] shadow-lg p-2 mx-2 z-10">
+                    <p id="paragraph" class="text-base lg:text-lg text-[#3a3a3a] leading-relaxed">
                         Nous sommes une équipe de jeunes passionnés par l'entrepreneuriat et le développement
                         personnel. Nous avons décidé de créer cette plateforme pour vous aider à trouver des
                         opportunités de stage, d'emploi, de formation et de financement. Chez Traverse Ta Rue, nous
@@ -78,7 +78,7 @@
                 </div>
                 <!-- Bouton pour afficher plus / moins -->
                 <button id="homeBtn"
-                    class="block ml-auto mr-3 mt-3 px-3 py-1.5 bg-[#6e9ae6] text-white font-medium text-sm rounded-md shadow hover:bg-[#5a85d1] focus:ring-2 focus:ring-[#81affe] focus:outline-none transition-all">
+                    class="block md:hidden ml-auto mr-3 mt-3 px-3 py-1.5 bg-[#6e9ae6] text-white font-medium text-sm rounded-md shadow hover:bg-[#5a85d1] focus:ring-2 focus:ring-[#81affe] focus:outline-none transition-all">
                     Lire plus
                 </button>
             </div>
@@ -86,9 +86,9 @@
             <!-- Cartes des membres de l'équipe -->
             <div class="relative mt-8">
                 <!-- Conteneur des cartes -->
-                <div class=" space-x-5 mx-1 overflow-x-auto whitespace-nowrap scroll-smooth">
+                <div class="flex justify-start md:justify-center space-x-5 mx-auto overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide">
                     <!-- Carte 1 -->
-                    <div class="inline-block w-50 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg">
+                    <div class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg ml-2">
                         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center h-full">
                             <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
                                 class="w-16 h-16 rounded-full mb-4">
@@ -97,7 +97,7 @@
                     </div>
 
                     <!-- Carte 2 -->
-                    <div class="inline-block w-50 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg">
+                    <div class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg">
                         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
                             <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
                                 class="w-16 h-16 rounded-full mb-4">
@@ -106,7 +106,7 @@
                     </div>
 
                     <!-- Carte 3 -->
-                    <div class="inline-block w-50 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg">
+                    <div class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg mr-2">
                         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center h-full">
                             <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
                                 class="w-16 h-16 rounded-full mb-4">
@@ -124,19 +124,19 @@
         <nav>
             <nav>
                 <!-- Titre "Entreprises partenaires" -->
-                <h1 class="text-[#6e9ae6] text-3xl text-center font-bold local-font-gliker mt-12 lg:text-left lg:text-4xl">Entreprises partenaires</h1>
+                <h1 class="text-[#6e9ae6] text-3xl text-center font-bold local-font-gliker mt-12 md:text-left md:text-5xl md:ml-6">Entreprises partenaires</h1>
             </nav>
 
             <!-- Carrousel des entreprises partenaires -->
             <div class="relative w-full mt-6">
                 <!-- Flèches de navigation -->
                 <button id="prevBtn"
-                    class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-transparent focus:outline-none z-10 bg-white rounded-full">
+                    class="absolute left-2 top-1/2 transform -translate-y-1/2 focus:outline-none z-10 bg-white rounded-full">
                     <img src="{{ asset('images/left.png') }}" alt="Flèche gauche"
                         class="w-8 h-8 hover:scale-110 transition-transform">
                 </button>
                 <button id="nextBtn"
-                    class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-transparent focus:outline-none z-10 bg-white rounded-full">
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 focus:outline-none z-10 bg-white rounded-full">
                     <img src="{{ asset('images/right.png') }}" alt="Flèche droite"
                         class="w-8 h-8 hover:scale-110 transition-transform">
                 </button>
