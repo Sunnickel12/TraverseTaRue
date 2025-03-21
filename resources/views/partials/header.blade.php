@@ -2,7 +2,7 @@
     <div class="mx-auto flex items-center px-4">
 
         <!-- Menu burger à gauche (affiché sur mobile uniquement) -->
-        <button id="burger-icon" class="md:hidden text-white focus:outline-none">
+        <button id="burger-icon" class="md:hidden text-white mr-4 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
@@ -30,7 +30,7 @@
 
     <!-- Menu mobile (barre latérale) -->
     <div id="mobile-menu"
-        class="md:hidden fixed top-0 left-0 w-48 h-full bg-[#2d2d2d] transform -translate-x-full transition-all duration-300">
+        class="md:hidden fixed top-0 left-0 w-48 h-full bg-[#2d2d2d] transform -translate-x-full transition-all duration-300 z-90">
         <div class="flex justify-end p-4">
             <button id="close-menu" class="text-white text-3xl">&times;</button>
         </div>
@@ -44,7 +44,7 @@
 
 <!-- Pop-up de connexion -->
 <div id="login-popup"
-    class="local-font-gliker fixed top-0 left-0 w-full h-full flex justify-center items-center hidden z-20">
+    class="local-font-gliker fixed top-0 left-0 w-full h-full flex justify-center items-center hidden z-100">
     <div class="bg-black opacity-50 absolute inset-0"></div>
     <div class="bg-white w-[500px] max-h-[90vh] p-10 rounded-lg shadow-xl z-10 relative overflow-y-auto">
         <form>
