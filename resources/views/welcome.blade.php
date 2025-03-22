@@ -16,7 +16,7 @@
     <header>
         @include('partials.header')
     </header>
-    <main class="text-9xl">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit harum delectus, quaerat non officia inventore, qui quidem pariatur quod error numquam. Nobis, maiores laborum libero et recusandae molestiae iusto alias.</main> 
+    <main class="text-6xl text-center">lorem<main> 
     <footer>
         @include('partials.footer')
     </footer>
