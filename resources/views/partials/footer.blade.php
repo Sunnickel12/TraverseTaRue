@@ -5,15 +5,15 @@
                 <img src="{{ asset('images/LogoTTR.png') }}" class="h-3 md:h-8" alt="Logo" />
                 <span class="self-center text-xs sm:text-sm md:text-xl font-semibold whitespace-nowrap hover:text-[#6e9ae6] text-[#ffffff]">Traverse Ta Rue</span>
             </a>
-            <ul class="flex flex-wrap items-center text-center md:text-end mb-4 text-[10px] sm:text-xs md:text-sm font-medium text-gray-300 sm:mb-0">
+            <ul class="flex flex-wrap items-center mb-4 text-[10px] sm:text-xs md:text-sm font-medium text-gray-300 sm:mb-0">
                 <li>
-                    <a href="#" class="hover:underline hover:text-[#6e9ae6] sm:me-4 md:me-6">Informations légales</a>
+                    <a href="#" class="hover:underline  mx-2 hover:text-[#6e9ae6] sm:me-4 md:me-6">Informations légales</a>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline hover:text-[#6e9ae6] sm:me-4 md:me-6">Politique de confidentialité</a>
+                    <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6] sm:me-4 md:me-6">Politique de confidentialité</a>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline hover:text-[#6e9ae6]">Contact</a>
+                    <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6]">Contact</a>
                 </li>
             </ul>
         </div>
