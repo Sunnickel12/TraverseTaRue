@@ -1,3 +1,3 @@
 import './bootstrap';
-import './header';
 import './home';
+import './header';

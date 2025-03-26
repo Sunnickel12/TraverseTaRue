@@ -12,6 +12,11 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -117,7 +122,7 @@
         window.eyeClosedIcon = "{{ asset('images/eye-closed.png') }}";
         window.eyeOpenIcon = "{{ asset('images/eye-open.png') }}";
     </script>
-    
+
 </body>
 
 </html>
