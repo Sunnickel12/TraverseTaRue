@@ -1,7 +1,3 @@
-   <!-- Styles / Scripts -->
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
-   </head>
-   
    <body>
        @extends('layouts.header')
        <main>
@@ -140,5 +136,3 @@
            </nav>
        </main>
    </body>
-
-   </html>
