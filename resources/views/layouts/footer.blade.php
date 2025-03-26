@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Traverse Ta Rue</title>
+
+    <!-- Styles / Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+</head>
+
 <nav id="footer" class="fixed bottom-0 left-0 w-full rounded-t-xl shadow-sm bg-[#3a3a3a] local-font-gliker">
     <div class="w-full max-w-screen-xl mx-auto p-2 md:py-4">
         <div class="sm:flex sm:items-center sm:justify-between mt-2">
