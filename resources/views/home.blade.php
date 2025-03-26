@@ -35,7 +35,7 @@
                             class="flex items-center bg-white border-3 border-[#3a3a3a] rounded-lg shadow-md">
                             <!-- Bouton avec l'image de la loupe -->
                             <button type="submit"
-                                class="flex items-center justify-center bg-white border-r-3 transition-transform px-3 py-1.5 md:py-3 lg:py-3 xl:py-4 rounded-l-lg">
+                                class="flex items-center justify-center bg-white border-r-3 border-[#3a3a3a] transition-transform px-3 py-1.5 md:py-3 lg:py-3 xl:py-4 rounded-l-lg">
                                 <img src="{{ asset('images/search.png') }}" alt="Search Icon"
                                     class="h-4 object-contain md:mx-2 lg:h-6 lg:mx-2 xl:h-8 xl:mx-4">
                             </button>
@@ -147,5 +147,4 @@
         </nav>
     </main>
 </body>
-
 </html>
