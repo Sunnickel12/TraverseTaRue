@@ -8,21 +8,16 @@
     <link rel="icon" type="image/png" href="{{ asset('images/pagelogo.png') }}" />
 
     <!-- Styles / Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/header.js', 'resources/js/homepage.js'])
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    <header>
-        @include('partials.header')
-    </header>
-
     <main>
         <nav class="bg-[#ffff] local-font-gliker">
             <div>
                 <!-- Titre principal -->
-                <h1 class="text-[#6e9ae6] text-3xl font-bold mt-4 text-center md:text-left md:text-5xl md:ml-6">Traverse Ta Rue</h1>
+                <h1 class="text-[#6e9ae6] text-3xl font-bold mt-4 text-center md:text-left md:text-5xl md:ml-6">Traverse
+                    Ta Rue</h1>
                 <p class="bg-[#3a3a3a] text-[#ffff] text-sm py-3 text-center md:text-xl">
                     Quelques pas suffisent pour saisir une opportunité !
                 </p>
@@ -30,7 +25,8 @@
             <!-- Banner avec barre de recherche superposée -->
             <div class="relative z-10 ">
                 <!-- Bannière -->
-                <img src="{{ asset('images/banner2.png') }}" class="rounded-3xl mt-4 w-full md:w-2xl lg:w-4xl xl:w-6xl block mx-auto" alt="banner z-[1]" />
+                <img src="{{ asset('images/banner2.png') }}"
+                    class="rounded-3xl mt-4 w-full md:w-2xl lg:w-4xl xl:w-6xl block mx-auto" alt="banner z-[1]" />
 
                 <!-- Barre de recherche superposée -->
                 <div class="absolute inset-0 flex items-center justify-center">
@@ -57,7 +53,8 @@
         </hr>
 
         <nav>
-            <h1 class="text-[#6e9ae6] text-3xl text-center md:text-left md:text-5xl md:ml-6 font-bold mt-6 local-font-gliker">
+            <h1
+                class="text-[#6e9ae6] text-3xl text-center md:text-left md:text-5xl md:ml-6 font-bold mt-6 local-font-gliker">
                 Qui sommes-nous ?
             </h1>
             <div class="mt-2 md:mt-3 mx-0.5">
@@ -86,9 +83,11 @@
             <!-- Cartes des membres de l'équipe -->
             <div class="relative mt-8">
                 <!-- Conteneur des cartes -->
-                <div class="flex justify-start md:justify-center space-x-5 mx-auto overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide">
+                <div
+                    class="flex justify-start md:justify-center space-x-5 mx-auto overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide">
                     <!-- Carte 1 -->
-                    <div class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg ml-2">
+                    <div
+                        class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg ml-2">
                         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center h-full">
                             <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
                                 class="w-16 h-16 rounded-full mb-4">
@@ -97,7 +96,8 @@
                     </div>
 
                     <!-- Carte 2 -->
-                    <div class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg">
+                    <div
+                        class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg">
                         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
                             <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
                                 class="w-16 h-16 rounded-full mb-4">
@@ -106,7 +106,8 @@
                     </div>
 
                     <!-- Carte 3 -->
-                    <div class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg mr-2">
+                    <div
+                        class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg mr-2">
                         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center h-full">
                             <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
                                 class="w-16 h-16 rounded-full mb-4">
@@ -124,7 +125,9 @@
         <nav>
             <nav>
                 <!-- Titre "Entreprises partenaires" -->
-                <h1 class="text-[#6e9ae6] text-3xl text-center font-bold local-font-gliker mt-12 md:text-left md:text-5xl md:ml-6">Entreprises partenaires</h1>
+                <h1
+                    class="text-[#6e9ae6] text-3xl text-center font-bold local-font-gliker mt-12 md:text-left md:text-5xl md:ml-6">
+                    Entreprises partenaires</h1>
             </nav>
 
             <!-- Carrousel des entreprises partenaires -->
@@ -140,31 +143,9 @@
                     <img src="{{ asset('images/right.png') }}" alt="Flèche droite"
                         class="w-8 h-8 hover:scale-110 transition-transform">
                 </button>
-
-                <!-- Carrousel des entreprises partenaires -->
-                <div id="partnerCarousel" class="flex overflow-x-auto space-x-4 snap-x scroll-smooth scrollbar-hide px-16">
-                    @foreach ($entreprises as $entreprise)
-                    <div
-                        class="flex-shrink-0 w-64 border border-gray-300 bg-white shadow-lg rounded-lg p-4 snap-center hover:scale-105 transition-transform duration-300">
-                        <!-- Vérification si le logo existe -->
-                        @if (!empty($entreprise->logo))
-                        <img src="{{ asset('public/images/' . $entreprise->logo) }}" alt="{{ $entreprise->nom }} Logo"
-                            class="w-auto h-20 mx-auto mb-3 rounded-full border-2 border-[#6e9ae6]">
-                        @else
-                        <img src="{{ asset('images/default-logo.png') }}" alt="Logo par défaut"
-                            class="w-auto h-20 mx-auto mb-3 rounded-full border-2 border-[#6e9ae6]">
-                        @endif
-                        <h3 class="text-base font-semibold text-[#3a3a3a] text-center">{{ $entreprise->nom }}</h3>
-                        <p class="text-xs text-gray-600 text-center mt-1">{{ $entreprise->description }}</p>
-                    </div>
-                    @endforeach
-                </div>
             </div>
         </nav>
     </main>
-    <footer class="mt-8">
-        @include('partials.footer')
-    </footer>
 </body>
 
 </html>

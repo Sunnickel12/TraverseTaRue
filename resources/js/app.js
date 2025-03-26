@@ -1,3 +1,2 @@
 import './bootstrap';
-import 'flowbite';
-import './header';
+import './homepage';
