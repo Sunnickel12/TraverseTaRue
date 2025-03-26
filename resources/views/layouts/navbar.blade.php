@@ -7,6 +7,10 @@
     <title>@yield('title', 'Traverse Ta Rue')</title>
     <link rel="icon" type="image/png" href="{{ asset('images/pagelogo.png') }}" />
 
+    <script>
+    window.eyeClosedIcon = "{{ asset('images/eye-closed.png') }}";
+    window.eyeOpenIcon = "{{ asset('images/eye-open.png') }}";
+    </script>
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -110,11 +114,6 @@
                     class="absolute top-4 right-4 text-3xl text-gray-600 hover:text-[#6e9ae6] transition-all duration-200 transform hover:scale-110">&times;</button>
             </div>
         </div>
-
-        <script>
-            window.eyeClosedIcon = "{{ asset('images/eye-closed.png') }}";
-            window.eyeOpenIcon = "{{ asset('images/eye-open.png') }}";
-        </script>
     </header>
 
     <main>
