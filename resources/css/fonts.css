@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Gliker';
+    src: url("../fonts/gliker-regular.ttf") format("truetype"), 
+}
+
+.local-font-gliker {
+    font-family: 'Gliker' !important;
+}
