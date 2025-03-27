@@ -75,18 +75,18 @@
         <div id="login-popup"
             class="local-font-gliker fixed top-0 w-full h-full flex justify-center items-center hidden z-100">
             <div class="bg-black opacity-50 absolute inset-0"></div>
-            <div class="bg-white w-96 p-8 rounded-lg shadow-xl z-10 relative">
+            <div class="bg-white w-90 md:w-130 p-8 rounded-lg shadow-xl z-10 relative">
                 <form>
                     <div class="mb-6">
                         <label for="email"
-                            class="block text-3xl text-center font-medium text-[#6e9ae6] mb-2">Identifiant</label>
+                            class="block text-xl md:text-4xl text-center font-medium text-[#6e9ae6] mb-2">Identifiant</label>
                         <input type="email" id="email" name="email" placeholder="Entrez votre email"
                             class="w-full p-2 border-2 border-[#3a3a3a] rounded-md focus:border-[#6e9ae6] focus:ring-2 focus:ring-[#6e9ae6] focus:outline-none transition-all duration-300"
                             required>
                     </div>
                     <div class="mb-6">
                         <label for="password"
-                            class="block text-xl md:text-3xl text-center font-medium text-[#6e9ae6] mb-2">Mot
+                            class="block text-xl md:text-4xl text-center font-medium text-[#6e9ae6] mb-2">Mot
                             de passe</label>
                         <div class="relative">
                             <input type="password" id="password" name="password" placeholder="Mot de passe"
@@ -100,14 +100,14 @@
                     <div class="flex items-center mb-4">
                         <input type="checkbox" id="remember-me"
                             class="w-6 h-6 border-2 border-[#3a3a3a] rounded-sm checked:bg-[#6e9ae6] focus:outline-none">
-                        <label for="remember-me" class="ml-2 text-sm text-gray-700">Se souvenir de moi</label>
+                        <label for="remember-me" class="ml-2 text-[16px] text-gray-700">Se souvenir de moi</label>
                     </div>
                     <div class="flex justify-between items-center">
                         <button type="submit"
-                            class="bg-[#6e9ae6] text-white text-sm md:text-lg py-2 px-6 rounded-md hover:bg-[#6e9ae6] transform hover:scale-105">
+                            class="bg-[#6e9ae6] text-white text-[14px] md:text-lg py-2 px-4 rounded-md hover:bg-[#6e9ae6] transform hover:scale-105">
                             Se connecter
                         </button>
-                        <a href="#" class="text-sm text-[#6e9ae6] hover:underline">Mot de passe oublié ?</a>
+                        <a href="#" class="text-sm text-[#6e9ae6] text-[14px] md:text-lg hover:underline">Mot de passe oublié ?</a>
                     </div>
                 </form>
                 <button id="close-login-popup"
@@ -121,26 +121,26 @@
     </main>
 
     <footer>
-        <nav id="footer" class="bottom-0 left-0 w-full rounded-t-xl shadow-sm bg-[#3a3a3a] local-font-gliker" aria-label="Pied de page">
+        <nav id="footer" class="bottom-0 left-0 w-full mt-6 rounded-t-xl shadow-sm bg-[#3a3a3a] local-font-gliker" aria-label="Pied de page">
             <div class="w-full max-w-screen-xl mx-auto p-2 md:py-4">
                 <div class="sm:flex sm:items-center sm:justify-between mt-2">
                     <a href="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse transition duration-200 hover:scale-110">
-                        <img src="{{ asset('images/LogoTTR.png') }}" class="h-3 md:h-8" alt="Logo" />
+                        <img src="{{ asset('images/LogoTTR.png') }}" class="h-4 md:h-8" alt="Logo" />
                         <span class="self-center text-xs sm:text-sm md:text-xl font-semibold whitespace-nowrap hover:text-[#6e9ae6] text-[#ffffff]">Traverse Ta Rue</span>
                     </a>
                     <ul class="flex flex-wrap items-center mb-4 text-[10px] sm:text-xs md:text-sm font-medium text-gray-300 sm:mb-0">
                         <li>
-                            <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6] sm:me-4 md:me-6">Informations légales</a>
+                            <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6] sm:me-2 md:me-6">Informations légales</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6] sm:me-4 md:me-6">Politique de confidentialité</a>
+                            <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6] sm:me-2 md:me-6">Politique de confidentialité</a>
                         </li>
                         <li>
                             <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6]">Contact</a>
                         </li>
                     </ul>
                 </div>
-                <hr class="my-4 border-[#ffffff] sm:mx-auto lg:my-6" />
+                <hr class="my-2 border-[#ffffff] sm:mx-auto lg:my-6" />
                 <span class="block text-[10px] sm:text-xs md:text-sm text-gray-300 sm:text-center">© 2025 <a href="#" class="hover:underline hover:text-[#6e9ae6]">Traverse Ta Rue</a>. All Rights Reserved.</span>
             </div>
         </nav>
