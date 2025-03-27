@@ -43,12 +43,29 @@
                 </div>
 
                 <!-- Bouton "Mon Compte" -->
-                <button id="account-btn"
-                    class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
-                    <img src="{{ asset('images/icon-user.png') }}" class=" bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
-                        alt="User Icon" />
-                    <span class="ml-2">Compte</span>
-                </button>
+                @if(Auth::check())
+                    <!-- Affichage pour un utilisateur connecté -->
+                    <div class="flex items-center ml-auto">
+                        <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/default-user.png') }}"
+                            alt="Photo de profil"
+                            class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
+                        <span class="ml-2 text-white text-base md:text-xl lg:text-2xl xl:text-3xl font-medium">
+                            {{ Auth::user()->first_name }}
+                        </span>
+                        <a href="{{ route('logout') }}"
+                            class="ml-4 bg-[#6e9ae6] text-white text-sm md:text-lg py-1 px-3 rounded-md hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
+                            Déconnexion
+                        </a>
+                    </div>
+                @else
+                    <!-- Affichage pour un utilisateur non connecté -->
+                    <button id="account-btn"
+                        class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
+                        <img src="{{ asset('images/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
+                            alt="User Icon" />
+                        <span class="ml-2">Compte</span>
+                    </button>
+                @endif
             </div>
         </nav>
 
@@ -76,11 +93,12 @@
             class="local-font-gliker fixed top-0 w-full h-full flex justify-center items-center hidden z-100">
             <div class="bg-black opacity-50 absolute inset-0"></div>
             <div class="bg-white w-90 md:w-130 p-8 rounded-lg shadow-xl z-10 relative">
-                <form>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
                     <div class="mb-6">
                         <label for="email"
                             class="block text-xl md:text-4xl text-center font-medium text-[#6e9ae6] mb-2">Identifiant</label>
-                        <input type="email" id="email" name="email" placeholder="Entrez votre email"
+                        <input type="email" id="email" name="email" placeholder="Entrez votre email" value="{{ old('email') }}"
                             class="w-full p-2 border-2 border-[#3a3a3a] rounded-md focus:border-[#6e9ae6] focus:ring-2 focus:ring-[#6e9ae6] focus:outline-none transition-all duration-300"
                             required>
                     </div>
@@ -98,7 +116,7 @@
                         </div>
                     </div>
                     <div class="flex items-center mb-4">
-                        <input type="checkbox" id="remember-me"
+                        <input type="checkbox" id="remember-me" name="remember"
                             class="w-6 h-6 border-2 border-[#3a3a3a] rounded-sm checked:bg-[#6e9ae6] focus:outline-none">
                         <label for="remember-me" class="ml-2 text-[16px] text-gray-700">Se souvenir de moi</label>
                     </div>
