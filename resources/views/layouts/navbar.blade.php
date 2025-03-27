@@ -18,7 +18,7 @@
 
 <body>
     <header>
-        <nav class="bg-[#3a3a3a] local-font-gliker shadow-md py-3 rounded-b-3xl fixed top-0 left-0 w-full z-50">
+        <nav class="bg-[#3a3a3a] local-font-gliker shadow-md py-3 rounded-b-3xl top-0 left-0 w-full z-50">
             <div class="flex mx-auto items-center">
 
                 <!-- Menu burger à gauche (affiché sur mobile uniquement) -->
@@ -61,7 +61,7 @@
             <div class="flex justify-end p-4">
                 <button id="close-menu" class="text-white text-3xl">&times;</button>
             </div>
-            <div class="flex flex-col space-y-4 mt-6 px-4">
+            <div class="flex flex-col local-font-gliker space-y-4 mt-6 px-4">
                 <a href="#"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Offres</a>
                 <a href="#"
@@ -121,7 +121,7 @@
     </main>
 
     <footer>
-        <nav id="footer" class="fixed bottom-0 left-0 w-full rounded-t-xl shadow-sm bg-[#3a3a3a] local-font-gliker" aria-label="Pied de page">
+        <nav id="footer" class="bottom-0 left-0 w-full rounded-t-xl shadow-sm bg-[#3a3a3a] local-font-gliker" aria-label="Pied de page">
             <div class="w-full max-w-screen-xl mx-auto p-2 md:py-4">
                 <div class="sm:flex sm:items-center sm:justify-between mt-2">
                     <a href="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse transition duration-200 hover:scale-110">
