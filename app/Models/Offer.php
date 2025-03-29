@@ -34,4 +34,9 @@ class Offer extends Model
     {
         return $this->belongsTo(City::class, 'id_city');
     }
+
+    public function postulations()
+    {
+        return $this->hasMany(Postulation::class, 'id_offer', 'id_offer');
+    }
 }

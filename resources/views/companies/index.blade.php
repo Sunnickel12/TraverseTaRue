@@ -5,10 +5,10 @@
 @section('content')
 <h1 class="text-3xl font-bold mb-6">Companies</h1>
 
-@if(auth()->check() && auth()->user()->id_role === 1)
-    <a href="{{ route('companies.create') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
-        + Create Company
-    </a>
+@if(auth()->check() && (auth()->user()->id_role === 1 || auth()->user()->id_role === 2))
+<a href="{{ route('companies.create') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
+    + Create Company
+</a>
 @endif
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -27,7 +27,7 @@
             <p class="text-gray-600">{{ Str::limit($company->description, 100) }}</p>
         </a>
 
-        @if(auth()->check() && auth()->user()->id_role === 1)
+        @if(auth()->check() && (auth()->user()->id_role === 1 || auth()->user()->id_role === 2))
         <div class="mt-4 flex justify-between gap-2">
             <div>
                 <a href="{{ route('companies.edit', $company->id_companie) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition block">

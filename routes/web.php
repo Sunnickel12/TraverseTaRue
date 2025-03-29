@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ControlPanelController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PostulationController;
 
 // Lobby/Homepage
 Route::get('/', function () {
@@ -20,6 +21,18 @@ Route::resource('companies', CompanyController::class)->parameters([
 ]);
 Route::resource('offers', OfferController::class);
 Route::resource('users', UserController::class);
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index'); // List users
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); // Show create form
+    Route::post('/users', [UserController::class, 'store'])->name('users.store'); // Store new user
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show'); // Show user details
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); // Show edit form
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update'); // Update user
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); // Delete user
+});
+
 
 // Explicit show routes for better clarity (optional but clearer)
 Route::get('offers/{offer}', [OfferController::class, 'show'])->name('offers.show');
@@ -57,3 +70,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/offers/search', [OfferController::class, 'search'])->name('offers.search');
 Route::get('/companies/search', [CompanyController::class, 'search'])->name('companies.search');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/offers/{id_offer}/postulate', [PostulationController::class, 'create'])->name('postulations.create');
+    Route::post('/offers/{id_offer}/postulate', [PostulationController::class, 'store'])->name('postulations.store');
+});

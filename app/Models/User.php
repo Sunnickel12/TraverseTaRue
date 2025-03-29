@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ClassModel; // Ensure this class exists in the specified namespace
+use App\Models\RoleModel; // Ensure this class exists in the specified namespace
 
 class User extends Authenticatable
 {
@@ -36,4 +37,8 @@ class User extends Authenticatable
         return $this->belongsTo(ClassModel::class, 'id_classes', 'id_classes');
     }
 
+    public function role()
+    {
+        return $this->belongsTo(RoleModel::class, 'id_role', 'id_role');
+    }
 }

@@ -43,17 +43,6 @@
         </div>
     </div>
 
-    <form action="{{ route('offers.search') }}" method="GET">
-        <input type="text" name="keyword" placeholder="Search offers...">
-        <button type="submit">Search</button>
-    </form>
-
-    <form action="{{ route('companies.search') }}" method="GET">
-        <input type="text" name="keyword" placeholder="Search companies...">
-        <button type="submit">Search</button>
-    </form>
-
-
     <!-- Main Content Section -->
     <div class="container mx-auto p-6">
         @yield('content')
