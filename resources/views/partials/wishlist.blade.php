@@ -20,7 +20,7 @@
 
         <!-- Accueil -->
         <div class="nav-links">
-            <a href="{{ route('accueil') }}">Accueil</a>
+            <a href="{{ route('home') }}">Accueil</a>
         </div>
 
         <!-- Barre de recherche -->

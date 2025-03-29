@@ -307,7 +307,8 @@ main h1 {
 
 .job-logo {
     height: 50px;
-    margin-left: 10px;
+    width: auto;
+    object-fit: contain;
 }
 
 #icon {

@@ -44,7 +44,7 @@
         <!-- Loop through the 'offres' and display them -->
         @foreach ($offres as $offre)
         <div class="job">
-            <h2><a href="{{ route('offre.details', ['id_offers' => $offre->id_offers]) }}">{{ $offre->title }}</a></h2>
+            <h2><a href="{{ route('offres.show', ['id_offers' => $offre->id_offers]) }}">{{ $offre->title }}</a></h2>
             <p class="published"> Publié il y a {{($offre->publication_date)}}</p> <!-- Affiche la date de publication -->
             <div class="characteristics">
                 <button class="toutes">{{ $offre->niveau }}</button>
@@ -53,17 +53,18 @@
                 <!--<button class="toutes">{{ $offre->skills }}</button>-->
             </div>
             <span class="heart" data-id="{{ $offre->id_offers }}">♡</span> <!-- Cœur vide par défaut -->
-            <img src="{{ asset($offre->logo_path) }}" alt="Logo de {{ $offre->company }}" class="job-logo">
+            <img src="{{ asset($offre->company->logo_path) }}" alt="Logo de {{ $offre->company->name }}" class="job-logo">
         </div>
         @endforeach
     </main>
     
-    <footer>
-        <nav class="footer-nav">
-            <a href="#">Informations légales</a>
-            <a href="#">CGU</a>
-            <a href="#">Politique de confidentialité</a>
-            <a href="#">Aide et Contact</a>
+    <!-- Footer -->
+    <footer class="bg-gray-800 p-4 mt-8">
+        <nav class="flex space-x-4">
+            <a href="#" class="text-white">Informations légales</a>
+            <a href="#" class="text-white">CGU</a>
+            <a href="#" class="text-white">Politique de confidentialité</a>
+            <a href="#" class="text-white">Aide et Contact</a>
         </nav>
     </footer>
 </body>

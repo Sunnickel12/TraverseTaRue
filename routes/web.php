@@ -1,21 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\WishlistController;
+
+Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/accueil', function () {
-    return view('accueil'); // La vue pour l'accueil
-})->name('accueil');
+Route::get('/home', function () {
+    return view('partials.home-page'); // La vue pour l'accueil
+})->name('home');
 
 Route::get('/w_offres', function () {
     return view('partials.w_offres'); // La vue pour "Mes offres"
 })->name('w_offres');
 
-Route::get('offres', function () {  
-    return view('offres'); // La vue pour les offres
-})->name('offres');
+Route::get('/offres', [OfferController::class, 'index'])->name('offres');
 
 Route::get('/wishlist', function () {
     return view('partials.wishlist'); // La vue pour "Mes favoris"
@@ -24,11 +27,9 @@ Route::get('/wishlist', function () {
 Route::get('/w_candidatures', function () {
     return view('partials.w_candidatures'); // La vue pour "Mes candidatures"
 })->name('w_candidatures');
+Route::get('/offres', [OfferController::class, 'index'])->name('offres');
+Route::get('/offre/{id_offers}', [OfferController::class, 'show'])->name('offres.show');
 
-Route::get('/offre/{id}', function ($id) {
-    // Traite l'offre en fonction de l'id
-    return view('offre-details', compact('id')); // Passe l'id à la vue
-})->name('offre.details');
 
 Route::get('/informations-legales', function () {
     return view('info'); // Vue pour les informations légales
