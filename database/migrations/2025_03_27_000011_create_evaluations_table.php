@@ -12,8 +12,9 @@ return new class extends Migration
             $table->id('id_evaluation');
             $table->integer('note');
             $table->text('comment')->nullable();
+            // Correction de la clé étrangère sur la colonne 'id_user' dans la table 'users'
+            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade');
             $table->foreignId('id_company')->constrained('companies', 'id_company')->onDelete('cascade');
-            $table->foreignId('id_users')->constrained('users', 'id_users')->onDelete('cascade');
             $table->timestamps();
         });
     }

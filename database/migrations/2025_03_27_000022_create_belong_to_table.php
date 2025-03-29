@@ -9,11 +9,10 @@ class CreateBelongToTable extends Migration
     public function up()
     {
         Schema::create('belong_to', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_users');
-            $table->unsignedBigInteger('id_classes');
-            $table->primary(['id_users', 'id_classes']);
-            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade');
-            $table->foreign('id_classes')->references('id_classes')->on('classes')->onDelete('cascade');
+            // On n'a plus besoin de déclarer 'id_user' manuellement
+            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade');
+            $table->foreignId('id_classes')->constrained('classes', 'id_classes')->onDelete('cascade');
+            $table->primary(['id_user', 'id_classes']);
         });
     }
 
