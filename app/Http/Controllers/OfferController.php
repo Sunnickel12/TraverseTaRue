@@ -25,6 +25,7 @@ class OfferController extends Controller
 
             // Ajouter le chemin du logo à chaque offre
             $offre->logo_path = $logoPath;
+            
         }
         return view('offres.index', compact('offres'));
         
@@ -34,8 +35,7 @@ class OfferController extends Controller
     public function show($id_offers)
     {
         // Trouver l'offre par son ID
-        $offre = Offer::findOrFail($id_offers);
-
+        $offre = Offer::where('id_offers', $id_offers)->firstOrFail();
         // Retourner la vue avec l'offre
         return view('offres.show', compact('offre')); // La vue 'offres.show' pour une seule offre
     }

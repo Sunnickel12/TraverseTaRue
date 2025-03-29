@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Offer extends Model
 {
-    protected $table = 'offers'; // Définir la table (si nécessaire)
+    protected $table = 'offers'; 
+    protected $primaryKey = 'id_offers';
+
     protected $fillable = [
         'id_offers', 
         'title', 
