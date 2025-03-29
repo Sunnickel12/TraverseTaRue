@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -8,11 +10,6 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run()
     {
-        // Création des rôles
-        $admin = Role::create(['name' => 'admin']);
-        $pilote = Role::create(['name' => 'pilote']);
-        $etudiant = Role::create(['name' => 'etudiant']);
-
         // Liste des permissions
         $permissions = [
             'authentifier',
@@ -41,14 +38,19 @@ class RolesAndPermissionsSeeder extends Seeder
             'postuler_offre',
         ];
 
-        // Création des permissions et attribution aux rôles
+        // Création des permissions
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         }
+
+        // Création des rôles
+        $admin = Role::firstOrCreate(['name' => 'admin']);
+        $pilote = Role::firstOrCreate(['name' => 'pilote']);
+        $etudiant = Role::firstOrCreate(['name' => 'etudiant']);
 
         // Attribution des permissions aux rôles
         $admin->givePermissionTo(Permission::all());
-        
+
         $pilote->givePermissionTo([
             'authentifier',
             'rechercher_entreprise', 'creer_entreprise', 'modifier_entreprise', 'evaluer_entreprise', 'supprimer_entreprise', 'consulter_stats_entreprises',

@@ -4,12 +4,16 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use RolesAndPermissionsSeeder;
+use App\Models\User;
+use App\Models\Role;
+use Database\Seeders\RolesAndPermissionsSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+        // Appel de tous les seeders nécessaires
         $this->call([
             CompanySeeder::class,
             RolesAndPermissionsSeeder::class,
@@ -17,12 +21,12 @@ class DatabaseSeeder extends Seeder
             ClassesSeeder::class,
             CountrySeeder::class,
             RegionSeeder::class,
+            DepartementSeeder::class,
+            CitySeeder::class,
             SectorSeeder::class,
-            DepartmentSeeder::class,
             StatusSeeder::class,
             UsersSeeder::class,
             EvaluationSeeder::class,
-            CitySeeder::class,
             WishlistSeeder::class,
             OfferSeeder::class,
             PostulationSeeder::class,
@@ -33,9 +37,7 @@ class DatabaseSeeder extends Seeder
             WorkSeeder::class,
             DefineSeeder::class,
             BelongToSeeder::class,
-            OfferDepartmentSeeder::class,
             PostulationStatusSeeder::class,
-            SectorDepartmentSeeder::class,
         ]);
     }
 }

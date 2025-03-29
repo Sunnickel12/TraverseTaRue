@@ -10,11 +10,11 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id('id_city');
-            $table->string('name')->unique();
-            $table->unsignedBigInteger('id_region');
+            $table->string('name');
+            $table->unsignedBigInteger('id_departement');
             $table->timestamps();
 
-            $table->foreign('id_region')->references('id_region')->on('regions')->onDelete('cascade');
+            $table->foreign('id_departement')->references('id_departement')->on('departements')->onDelete('cascade');
         });
     }
 

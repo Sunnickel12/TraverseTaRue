@@ -18,11 +18,6 @@ class CompanySeeder extends Seeder
             'Renault' => 'images/renault.png',
             'Airbus' => 'images/airbus.png',
             'Orange' => 'images/orange.png',
-            'Carrefour' => 'images/carrefour.png',
-            'Danone' => 'images/danone.png',
-            'BNP Paribas' => 'images/bnp-paribas.png',
-            'Société Générale' => 'images/societe-generale.png',
-            'Michelin' => 'images/michelin.png',
         ];
 
         foreach ($companiesWithLogos as $companyName => $logoPath) {
