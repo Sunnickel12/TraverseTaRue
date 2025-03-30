@@ -52,12 +52,16 @@
                     <span class="ml-2 text-white text-base md:text-xl lg:text-2xl xl:text-3xl font-medium">
                         {{ Auth::user()->first_name }}
                     </span>
-                    <form method="POST" action="{{ route('logout') }}" class="ml-4 inline">
+
+                    <!-- Nouveau bouton avec un logo personnalisé -->
+                    <button type="submit"
+                        class="bg-[#6e9ae6] text-white text-sm md:text-lg py-1 px-3 rounded-md hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300 ml-4"
+                        onclick="document.getElementById('logout-form').submit();">
+                        Déconnexion
+                    </button>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                         @csrf
-                        <button type="submit"
-                            class="bg-[#6e9ae6] text-white text-sm md:text-lg py-1 px-3 rounded-md hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
-                            Déconnexion
-                        </button>
                     </form>
                 </div>
                 @else

@@ -14,4 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
             homeBtn.textContent = isCollapsed ? 'Lire moins' : 'Lire plus';
         });
     }
+
+    // Hide success popup after 2 seconds
+    setTimeout(function () {
+        let popup = document.getElementById('success-popup');
+        if (popup) {
+            popup.style.display = 'none';
+        }
+    }, 2000); 
 });

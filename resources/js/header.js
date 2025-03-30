@@ -81,4 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
             togglePasswordIcon.src = isPassword ? window.eyeOpenIcon : window.eyeClosedIcon;
         });
     }
+
+    // Menu utilisateur (affichage du menu burger après connexion)
+    const userMenuBtn = document.getElementById('user-menu-btn');
+    const userMenu = document.getElementById('user-menu');
+
+    if (userMenuBtn && userMenu) {
+        // Afficher le menu burger lorsque l'utilisateur clique sur son nom/icone
+        userMenuBtn.addEventListener('click', () => {
+            userMenu.classList.toggle('hidden');
+        });
+    }
 });
