@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         if (!Schema::hasTable('postulations')) {
             Schema::create('postulations', function (Blueprint $table) {
-                $table->bigIncrements('id_postulations');
+                $table->bigIncrements('id_postulation');
                 $table->unsignedBigInteger('id_users'); 
                 $table->unsignedBigInteger('id_offers'); 
                 $table->string('cv',255); 

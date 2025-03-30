@@ -110,8 +110,26 @@
             <a href="{{ route('wishlist') }}" class="active">Mes favoris</a>
             <a href="{{ route('w_candidatures') }}">Mes candidatures</a>
         </div>
+        <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-semibold text-center mb-6">Ma Wishlist</h1>
 
-        <h1>Ma Wishlist</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach ($wishlistOffres as $offre)
+                    <div class="job p-4 border rounded-lg shadow-md">
+                        <h2 class="text-xl font-semibold"><a href="{{ route('offres.show', ['id_offers' => $offre->id_offers]) }}">{{ $offre->title }}</a></h2>
+                        <p class="text-sm text-gray-500">Publié il y a {{ $offre->publication_date }}</p>
+                        <div class="characteristics">
+                            <button class="toutes">{{ $offre->niveau }}</button>
+                            <button class="toutes">{{ $offre->duree }}</button>
+                            <button class="toutes">{{ $offre->salary }} €/mois</button>
+                        </div>
+                        <span class="heart text-2xl text-red-500" data-id="{{ $offre->id_offers }}">❤️</span>
+                        <img src="{{ asset($offre->logo_path) }}" alt="Logo de {{ $offre->company->name }}" class="job-logo mt-4">
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
     </main>
 
     <footer>

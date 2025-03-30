@@ -48,7 +48,34 @@ class PostulationController extends Controller
     ]);
 
     return redirect()->route('offres')->with('success', 'Postulation successful !');
-}
+    }
+    /*p
+
+    public function update(Request $request, $id_postulation)
+    {
+        $request->validate([
+            'cv' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
+            'motivation_letter' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
+        ]);
+
+        $postulation = Postulation::findOrFail($id_postulation);
+
+        if ($request->hasFile('cv')) {
+            $cvPath = $request->file('cv')->store('cvs', 'public');
+            $postulation->cv = $cvPath;
+        }
+
+        if ($request->hasFile('motivation_letter')) {
+            $motivationPath = $request->file('motivation_letter')->store('motivation_letters', 'public');
+            $postulation->motivation_letter = $motivationPath;
+        }
+
+        $postulation->save();
+
+        return redirect()->route('w_candidatures')->with('success', 'Candidature mise à jour avec succès.');
+    }*/
+
+
 
 
     // Affiche la liste des candidatures de l'utilisateur (wishlist)
@@ -59,4 +86,19 @@ class PostulationController extends Controller
 
         return view('partials.w_candidatures', compact('postulations'));
     }
+    
 }
+/*public function wishlist()
+{
+    if (Auth::check()) {
+        $userId = Auth::id(); // Récupère l'ID de l'utilisateur connecté
+        
+        // Récupérer toutes les postulations de l'utilisateur connecté
+        $postulations = Postulation::where('id_users', $userId)->with('offer')->get();
+
+        return view('partials.w_candidatures', compact('postulations'));
+    } else {
+        // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion
+        return redirect()->route('login');
+    }
+}*/

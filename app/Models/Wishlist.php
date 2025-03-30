@@ -10,4 +10,8 @@ class Wishlist extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'offer_id'];
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class, 'offer_id');
+    }
 }

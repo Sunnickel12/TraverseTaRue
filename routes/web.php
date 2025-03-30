@@ -5,8 +5,13 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
 
-Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
-Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+    Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
+    Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +33,7 @@ Route::get('/wishlist', function () {
 Route::get('/w_candidatures', function () {
     return view('partials.w_candidatures'); // La vue pour "Mes candidatures"
 })->name('w_candidatures');
+
 Route::get('/offres', [OfferController::class, 'index'])->name('offres');
 Route::get('/offre/{id_offers}', [OfferController::class, 'show'])->name('offres.show');
 
@@ -53,3 +59,10 @@ Route::post('/offer/{id_offers}/apply', [PostulationController::class, 'store'])
 Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
 
 Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
+/*
+Route::get('postulations/{id_postulation}/edit', [PostulationController::class, 'edit'])->name('postulations.edit');
+
+Route::put('/postulations/{id_postulation}/update', [PostulationController::class, 'update'])->name('postulations.update');
+Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulations.destroy');
+
+*/
