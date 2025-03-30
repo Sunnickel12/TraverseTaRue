@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\PostulationController;
 
 Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
 Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
@@ -43,7 +44,12 @@ Route::get('/aide_contact', function () {
     return view('aide_contact'); // Vue pour l'aide et contact
 })->name('aide_contact');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/postuler/{id_offers}', [PostulationController::class, 'create'])->name('postulation.create');
-    Route::post('/postuler/{id_offers}', [PostulationController::class, 'store'])->name('postulation.store');
-});
+// Afficher le formulaire de postulation
+Route::get('/offer/{id_offers}/apply', [PostulationController::class, 'create'])->name('postulation.create');
+
+// Soumettre la postulation
+Route::post('/offer/{id_offers}/apply', [PostulationController::class, 'store'])->name('postulation.store');
+// Route pour afficher la wishlist (les candidatures)
+Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
+
+Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');

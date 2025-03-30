@@ -15,6 +15,9 @@ class Company extends Model
         'description', 
         'logo'
     ];
-
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
     public $timestamps = false; // Désactiver les timestamps si ta table n'a pas created_at / updated_at
 }

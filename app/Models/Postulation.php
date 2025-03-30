@@ -9,12 +9,12 @@ class Postulation extends Model
 {
     use HasFactory;
 
-    protected $table = 'postulation'; // Table concernée
-    protected $primaryKey = 'id_postulation'; // Clé primaire
+    protected $table = 'postulations'; // Table concernée
+    protected $primaryKey = 'id_postulations'; // Clé primaire
 
     protected $fillable = [
         'id_users',
-        'id_offer',
+        'id_offers',
         'cv',
         'motivation_letter',
         'status',

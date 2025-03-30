@@ -33,4 +33,10 @@ class WishlistController extends Controller
 
         return response()->json(['message' => 'Offre retirée de la wishlist']);
     }
+    // Afficher les offres de la wishlist
+    public function index()
+    {
+        $wishlistedOffers = Wishlist::where('user_id', Auth::id())->with('offer')->get();
+        return view('wishlist.index', compact('wishlistedOffers'));
+    }
 }

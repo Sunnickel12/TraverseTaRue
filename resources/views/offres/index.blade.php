@@ -35,6 +35,8 @@
                     class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Entreprises</a>
                 <a href="#"
                     class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Contact</a>
+                <a href="{{ route('wishlist') }}"
+                    class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Wishlist</a>
             </div>
 
             <!-- Bouton "Mon Compte" -->
@@ -152,7 +154,7 @@
                 <!--<button class="toutes">{{ $offre->skills }}</button>-->
             </div>
             <span class="heart" data-id="{{ $offre->id_offers }}">♡</span> <!-- Cœur vide par défaut -->
-            <img src="{{ asset($offre->company->logo_path) }}" alt="Logo de {{ $offre->company->name }}" class="job-logo">
+            <img src="{{ asset($offre->logo_path) }}" alt="Logo de {{ $offre->company->name }}" class="job-logo">
         </div>
         @endforeach
         <!-- PAGINATION PERSONNALISÉE -->
@@ -225,5 +227,7 @@
     </footer>
     <!-- Appel du script JS externe -->
     <script src="{{ asset('js/pagination.js') }}"></script>
+    <script src="{{ asset('js/postulation.js') }}"></script>
+
 </body>
 </html>

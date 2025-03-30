@@ -9,22 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('offers', function (Blueprint $table) {
-            $table->unsignedBigInteger('company_id');  // Clé étrangère vers 'companies'
-            $table->foreign('company_id')->references('id_companies')->on('companies')->onDelete('cascade');  // Lien avec la table 'companies'
+            if (!Schema::hasColumn('offers', 'company_id')) {
+                $table->bigInteger('company_id')->unsigned()->notNull();
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::table('offers', function (Blueprint $table) {
-            $table->dropForeign(['company_id']);
             $table->dropColumn('company_id');
         });
     }
+
+
 };
