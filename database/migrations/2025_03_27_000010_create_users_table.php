@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('id_user');
             $table->string('name', 47);
             $table->string('first_name', 35);
-            $table->date('birthdate')->nullable();
+            $table->date('birthdate')->nullable(); // A modifer plus tard
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
@@ -37,12 +37,12 @@ return new class extends Migration
         // Création de la table sessions
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('id_user')->nullable()->index();  // Reference à id_user dans la table users
+            $table->foreignId('user_id')->nullable()->constrained('users', 'id_user')->onDelete('cascade');
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
-        });
+        });        
     }
 
     /**
