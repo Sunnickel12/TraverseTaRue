@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 
 <head>
     <meta charset="utf-8">
@@ -36,39 +38,39 @@
                 <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-8 font-bold text-white">
                     <a href="#"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Offres</a>
-                    <a href="#"
+                    <a href="{{ route('companies.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Entreprises</a>
                     <a href="#"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Contact</a>
                 </div>
 
                 <!-- Bouton "Mon Compte" -->
-                @if(Auth::check())
+                @if(auth()->check())
                 <!-- Affichage pour un utilisateur connecté -->
-                <div class="flex items-center ml-auto">
-                    <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/default-user.png') }}"
-                        alt="Photo de profil"
-                        class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
-                    <span class="ml-2 text-white text-base md:text-xl lg:text-2xl xl:text-3xl font-medium">
-                        {{ Auth::user()->first_name }}
-                    </span>
-                    <form method="POST" action="{{ route('logout') }}" class="ml-4 inline">
-                        @csrf
-                        <button type="submit"
-                            class="bg-[#6e9ae6] text-white text-sm md:text-lg py-1 px-3 rounded-md hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
-                            Déconnexion
-                        </button>
-                    </form>
-                </div>
+                    <div class="flex items-center ml-auto">
+                        <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/default-user.png') }}"
+                            alt="Photo de profil"
+                            class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
+                        <span class="ml-2 text-white text-base md:text-xl lg:text-2xl xl:text-3xl font-medium">
+                            {{ Auth::user()->first_name }}
+                        </span>
+                        <form method="POST" action="{{ route('logout') }}" class="ml-4 inline">
+                            @csrf
+                            <button type="submit"
+                                class="bg-[#6e9ae6] text-white text-sm md:text-lg py-1 px-3 rounded-md hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
+                                Déconnexion
+                            </button>
+                        </form>
+                    </div>
                 @else
                 <!-- Affichage pour un utilisateur non connecté -->
-                <button id="account-btn"
-                    class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300"
-                    onclick="document.getElementById('login-popup').classList.remove('hidden');">
-                    <img src="{{ asset('images/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
-                        alt="User Icon" />
-                    <span class="ml-2">Compte</span>
-                </button>
+                    <button id="account-btn"
+                        class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300"
+                        onclick="document.getElementById('login-popup').classList.remove('hidden');">
+                        <img src="{{ asset('images/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
+                            alt="User Icon" />
+                        <span class="ml-2">Compte</span>
+                    </button>
                 @endif
             </div>
         </nav>

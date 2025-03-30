@@ -31,7 +31,9 @@ class LoginController extends Controller
         // Tentative de connexion
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             // Si la connexion est réussie, rediriger vers la page d'accueil
-            return redirect()->intended(route('home'))->with('success', 'Bienvenue, ' . Auth::user()->first_name . ' ! Connexion réussie.');
+            logger('User authenticated: ' . Auth::user()->email);
+
+            return redirect()->intended(route('home'))->with('success', 'Bienvenue, ' . Auth::user()->first_name . ' ! Connexion réussie.');            
         }
 
         // Si la connexion échoue, retourner avec un message d'erreur

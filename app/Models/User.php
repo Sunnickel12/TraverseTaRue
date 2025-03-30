@@ -30,5 +30,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function hasRole($role)
+    {
+        // Assuming you have a 'role' column in your users table
+        return $this->role === $role;
+    }
 }
 
