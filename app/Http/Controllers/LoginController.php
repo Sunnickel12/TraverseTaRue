@@ -11,7 +11,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         if (Auth::check()) {
-            return redirect()->route('home'); // Redirige si déjà connecté
+            return redirect()->route('home'); 
         }
 
         return view('auth.login');

@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker; 
-use App\Models\Company; 
+use App\Models\Companies; 
 
-class CompanySeeder extends Seeder
+class CompaniesSeeder extends Seeder
 {
     public function run()
     {
@@ -21,7 +21,7 @@ class CompanySeeder extends Seeder
         ];
 
         foreach ($companiesWithLogos as $companyName => $logoPath) {
-            Company::create([
+            Companies::create([
                 'name' => $companyName,
                 'address' => $faker->address,
                 'description' => $faker->paragraph,

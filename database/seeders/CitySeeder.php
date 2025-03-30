@@ -13,7 +13,7 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        // Liste des principales villes par département
+        // Liste des villes à insérer par département
         $villesParDepartement = [
             'Paris' => ['Paris'],
             'Seine-et-Marne' => ['Melun', 'Meaux'],
@@ -56,29 +56,41 @@ class CitySeeder extends Seeder
             'Mayotte' => ['Mamoudzou', 'Dzaoudzi']
         ];
 
+        // Parcours chaque département et ses villes
         foreach ($villesParDepartement as $departementName => $villes) {
+            // Récupère le département par son nom
             $departement = Departement::where('name', $departementName)->first();
 
-            if ($departement) { // Vérifie que le département existe avant d'insérer ses villes
+            if ($departement) { // Si le département existe, on ajoute ses villes
                 foreach ($villes as $ville) {
-                    $this->createCityIfNotExists($ville, $departement->id_departement);
+                    $this->createCityIfNotExists($ville, $departement->id); // Utilise l'ID du département pour lier la ville
                 }
+            } else {
+                // Si le département n'existe pas, affiche un message d'erreur
+                \Log::warning("Département introuvable : $departementName");
             }
         }
     }
 
+    /**
+     * Crée la ville si elle n'existe pas déjà.
+     *
+     * @param string $cityName
+     * @param int $departementId
+     */
     private function createCityIfNotExists($cityName, $departementId)
     {
-        // Vérifier si la ville existe déjà avant de l'ajouter
+        // Vérifie si la ville n'existe pas déjà dans ce département
         $existingCity = City::where('name', $cityName)
-                            ->where('id_departement', $departementId)
+                            ->where('departement_id', $departementId) 
                             ->first();
-    
+
         if (!$existingCity) {
-            City::create([
+            // Si la ville n'existe pas, on la crée
+            City::create([ 
                 'name' => $cityName,
-                'id_departement' => $departementId
+                'departement_id' => $departementId
             ]);
         }
     }
-}   
+}

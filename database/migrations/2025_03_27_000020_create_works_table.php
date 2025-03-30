@@ -9,11 +9,11 @@ class CreateWorksTable extends Migration
     public function up()
     {
         Schema::create('works', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_company');
-            $table->unsignedBigInteger('id_sectors');
-            $table->primary(['id_company', 'id_sectors']);
-            $table->foreign('id_company')->references('id_company')->on('companies')->onDelete('cascade');
-            $table->foreign('id_sectors')->references('id_sectors')->on('sectors')->onDelete('cascade');
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('sector_id');
+            $table->primary(['company_id', 'sector_id']);
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
         });
     }
 

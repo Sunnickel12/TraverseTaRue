@@ -9,15 +9,14 @@ class CreatePostulationStatusTable extends Migration
     public function up()
     {
         Schema::create('postulation_status', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_offer');
-            $table->unsignedBigInteger('id_postulation');
-            $table->unsignedBigInteger('Id_Status');
-            $table->primary(['id_user', 'id_offer', 'id_postulation', 'Id_Status']);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('offer_id');
+            $table->unsignedBigInteger('postulation_id');
+            $table->unsignedBigInteger('statuse_id');
+            $table->primary(['user_id', 'offer_id', 'postulation_id', 'statuse_id']);
             
-            // Correction : On fait référence à 'users' et non 'postulations'
-            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
-            $table->foreign('Id_Status')->references('id_status')->on('statuses')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('statuse_id')->references('id')->on('statuses')->onDelete('cascade');
         });
     }
 

@@ -9,9 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('postulations', function (Blueprint $table) {
-            $table->id('id_postulation');
-            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade');
-            $table->foreignId('id_offer')->constrained('offers', 'id_offer')->onDelete('cascade');
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('offers_id')->constrained()->onDelete('cascade');
             $table->string('cv', 255);
             $table->string('motivation_letter', 255)->nullable();
             $table->timestamps();

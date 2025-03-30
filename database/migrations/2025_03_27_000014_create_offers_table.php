@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('offers', function (Blueprint $table) {
-            $table->id('id_offer');
+            $table->id();
             $table->string('tittle', 255);
             $table->text('contenu');
             $table->decimal('salary', 20, 2);
@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('start_date', 50);
             $table->string('end_date', 50);
             $table->string('duration', 50);
-            $table->foreignId('id_city')->constrained('cities', 'id_city')->onDelete('cascade');
-            $table->foreignId('id_company')->constrained('companies', 'id_company')->onDelete('cascade');
+            $table->foreignId('city_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

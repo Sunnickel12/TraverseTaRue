@@ -13,6 +13,7 @@ class DepartementSeeder extends Seeder
      */
     public function run(): void
     {
+        // Liste des départements par région
         $departementsParRegion = [
             'Île-de-France' => ['Paris', 'Seine-et-Marne', 'Yvelines', 'Essonne', 'Hauts-de-Seine', 'Seine-Saint-Denis', 'Val-de-Marne', 'Val-d\'Oise'],
             'Provence-Alpes-Côte d\'Azur' => ['Alpes-de-Haute-Provence', 'Hautes-Alpes', 'Alpes-Maritimes', 'Bouches-du-Rhône', 'Var', 'Vaucluse'],
@@ -34,16 +35,21 @@ class DepartementSeeder extends Seeder
             'Mayotte' => ['Mayotte'],
         ];
 
+        // Boucle pour chaque région et ses départements
         foreach ($departementsParRegion as $regionName => $departements) {
+            // Trouve la région par son nom
             $region = Region::where('name', $regionName)->first();
             
-            if ($region) { // Vérifie que la région existe bien avant d'insérer les départements
+            if ($region) { // Si la région existe, on ajoute ses départements
                 foreach ($departements as $departementName) {
                     Departement::create([
                         'name' => $departementName,
-                        'id_region' => $region->id_region
+                        'region_id' => $region->id // Clé étrangère vers la région
                     ]);
                 }
+            } else {
+                // Si la région n'existe pas, afficher un message (facultatif, mais utile pour le débogage)
+                \Log::warning("Région introuvable : $regionName");
             }
         }
     }

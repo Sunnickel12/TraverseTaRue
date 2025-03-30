@@ -9,30 +9,22 @@ class Departement extends Model
 {
     use HasFactory;
 
-    protected $table = 'departements'; // Nom de la table
+    protected $table = 'departements'; 
 
-    protected $primaryKey = 'id_departement'; // Clé primaire personnalisée
-
-    public $timestamps = true; // Active les timestamps (created_at, updated_at)
+    public $timestamps = true; 
 
     protected $fillable = [
         'name',
-        'id_region'
+        'region_id', 
     ];
 
-    /**
-     * Relation avec la région (Un département appartient à une seule région)
-     */
     public function region()
     {
-        return $this->belongsTo(Region::class, 'id_region', 'id_region');
+        return $this->belongsTo(Region::class, 'region_id'); 
     }
 
-    /**
-     * Relation avec les villes (Un département a plusieurs villes)
-     */
     public function cities()
     {
-        return $this->hasMany(City::class, 'id_departement', 'id_departement');
+        return $this->hasMany(City::class, 'departement_id');
     }
 }

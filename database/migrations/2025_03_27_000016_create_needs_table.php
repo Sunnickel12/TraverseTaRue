@@ -9,11 +9,12 @@ class CreateNeedsTable extends Migration
     public function up()
     {
         Schema::create('needs', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_offer');
-            $table->unsignedBigInteger('id_skill');
-            $table->primary(['id_offer', 'id_skill']);
-            $table->foreign('id_offer')->references('id_offer')->on('offers')->onDelete('cascade');
-            $table->foreign('id_skill')->references('id_skill')->on('skills')->onDelete('cascade');
+            $table->unsignedBigInteger('offer_id');
+            $table->unsignedBigInteger('skill_id');
+            $table->primary(['offer_id', 'skill_id']);
+            
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
+            $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
         });
     }
 

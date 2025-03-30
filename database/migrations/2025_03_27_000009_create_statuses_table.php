@@ -9,13 +9,14 @@ class CreateStatusesTable extends Migration
     public function up()
     {
         Schema::create('statuses', function (Blueprint $table) {
-            $table->id('id_status');
-            $table->string('status')->unique();
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('statuses'); 
     }
 };

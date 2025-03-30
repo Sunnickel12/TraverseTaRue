@@ -9,7 +9,7 @@ class CreateClassesTable extends Migration
     public function up()
     {
         Schema::create('classes', function (Blueprint $table) {
-            $table->id('id_classes');
+            $table->id();
             $table->string('name')->unique();
             $table->timestamps();
         });
