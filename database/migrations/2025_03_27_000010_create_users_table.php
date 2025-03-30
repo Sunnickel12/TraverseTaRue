@@ -37,7 +37,7 @@ return new class extends Migration
         // Création de la table sessions
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('id_user')->nullable()->index();  // Reference à id_user dans la table users
+            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade'); 
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
