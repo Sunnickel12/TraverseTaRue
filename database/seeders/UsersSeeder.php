@@ -33,7 +33,7 @@ class UsersSeeder extends Seeder
         // Création d'un utilisateur étudiant
         $student = User::factory()->create([
             'name' => 'Student',
-            'first_name' => 'StudentFirst',
+            'first_name' => 'Thomas',
             'email' => 'student@example.com',
             'password' => bcrypt('password')
         ]);

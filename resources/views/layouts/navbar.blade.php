@@ -8,8 +8,8 @@
     <link rel="icon" type="image/png" href="{{ asset('images/pagelogo.png') }}" />
 
     <script>
-    window.eyeClosedIcon = "{{ asset('images/eye-closed.png') }}";
-    window.eyeOpenIcon = "{{ asset('images/eye-open.png') }}";
+        window.eyeClosedIcon = "{{ asset('images/eye-closed.png') }}";
+        window.eyeOpenIcon = "{{ asset('images/eye-open.png') }}";
     </script>
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -44,27 +44,31 @@
 
                 <!-- Bouton "Mon Compte" -->
                 @if(Auth::check())
-                    <!-- Affichage pour un utilisateur connecté -->
-                    <div class="flex items-center ml-auto">
-                        <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/default-user.png') }}"
-                            alt="Photo de profil"
-                            class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
-                        <span class="ml-2 text-white text-base md:text-xl lg:text-2xl xl:text-3xl font-medium">
-                            {{ Auth::user()->first_name }}
-                        </span>
-                        <a href="{{ route('logout') }}"
-                            class="ml-4 bg-[#6e9ae6] text-white text-sm md:text-lg py-1 px-3 rounded-md hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
+                <!-- Affichage pour un utilisateur connecté -->
+                <div class="flex items-center ml-auto">
+                    <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/default-user.png') }}"
+                        alt="Photo de profil"
+                        class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
+                    <span class="ml-2 text-white text-base md:text-xl lg:text-2xl xl:text-3xl font-medium">
+                        {{ Auth::user()->first_name }}
+                    </span>
+                    <form method="POST" action="{{ route('logout') }}" class="ml-4 inline">
+                        @csrf
+                        <button type="submit"
+                            class="bg-[#6e9ae6] text-white text-sm md:text-lg py-1 px-3 rounded-md hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
                             Déconnexion
-                        </a>
-                    </div>
+                        </button>
+                    </form>
+                </div>
                 @else
-                    <!-- Affichage pour un utilisateur non connecté -->
-                    <button id="account-btn"
-                        class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300">
-                        <img src="{{ asset('images/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
-                            alt="User Icon" />
-                        <span class="ml-2">Compte</span>
-                    </button>
+                <!-- Affichage pour un utilisateur non connecté -->
+                <button id="account-btn"
+                    class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300"
+                    onclick="document.getElementById('login-popup').classList.remove('hidden');">
+                    <img src="{{ asset('images/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
+                        alt="User Icon" />
+                    <span class="ml-2">Compte</span>
+                </button>
                 @endif
             </div>
         </nav>
@@ -90,7 +94,7 @@
 
         <!-- Pop-up de connexion -->
         <div id="login-popup"
-            class="local-font-gliker fixed top-0 w-full h-full flex justify-center items-center hidden z-100">
+            class="local-font-gliker fixed top-0 w-full h-full flex justify-center items-center {{ session('error') ? '' : 'hidden' }} z-100">
             <div class="bg-black opacity-50 absolute inset-0"></div>
             <div class="bg-white w-90 md:w-130 p-8 rounded-lg shadow-xl z-10 relative">
                 <form method="POST" action="{{ route('login') }}">

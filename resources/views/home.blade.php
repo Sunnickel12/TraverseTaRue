@@ -1,5 +1,11 @@
 @extends('layouts.navbar')
 
+@if (session('success'))
+    <div class="bg-green-500 text-white text-center py-2">
+        {{ session('success') }}
+    </div>
+@endif
+
 @section('content')
     @vite(['resources/js/header.js'])
 
