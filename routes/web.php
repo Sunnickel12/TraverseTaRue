@@ -42,3 +42,8 @@ Route::get('/cgu', function () {
 Route::get('/aide_contact', function () {
     return view('aide_contact'); // Vue pour l'aide et contact
 })->name('aide_contact');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/postuler/{id_offers}', [PostulationController::class, 'create'])->name('postulation.create');
+    Route::post('/postuler/{id_offers}', [PostulationController::class, 'store'])->name('postulation.store');
+});

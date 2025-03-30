@@ -27,6 +27,7 @@ class OfferController extends Controller
             $offre->logo_path = $logoPath;
             
         }
+        $offres = Offer::paginate(5);
         return view('offres.index', compact('offres'));
         
     }
