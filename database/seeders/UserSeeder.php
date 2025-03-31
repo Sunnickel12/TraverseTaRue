@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'first_name' => 'AdminFirst',
             'email' => 'admin@example.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('c')
         ]);
         $admin->assignRole('admin');
 
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'name' => 'Pilot',
             'first_name' => 'PilotFirst',
             'email' => 'pilot@example.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('c')
         ]);
         $pilot->assignRole('pilote');
 
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'name' => 'Student',
             'first_name' => 'Thomas',
             'email' => 'student@example.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('c')
         ]);
         $student->assignRole('etudiant');
     }

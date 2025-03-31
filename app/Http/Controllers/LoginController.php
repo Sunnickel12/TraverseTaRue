@@ -7,17 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // Show the login form
+    // Affiche le formulaire de connexion
     public function showLoginForm()
     {
         if (Auth::check()) {
             return redirect()->route('home'); 
         }
 
-        return view('auth.login');
+        return view('home'); 
     }
 
-    // Handle login logic
+    // Traite la logique de connexion
     public function login(Request $request)
     {
         // Valider les entrées
@@ -30,7 +30,7 @@ class LoginController extends Controller
 
         // Tentative de connexion
         if (Auth::attempt($credentials, $request->filled('remember'))) {
-            // Si la connexion est réussie, rediriger vers la page d'accueil
+            // Si la connexion réussie, rediriger vers la page d'accueil
             return redirect()->intended(route('home'))->with('success', 'Bienvenue, ' . Auth::user()->first_name . ' ! Connexion réussie.');
         }
 
@@ -38,10 +38,10 @@ class LoginController extends Controller
         return back()->withErrors(['error' => 'Identifiant ou mot de passe incorrect.'])->withInput();
     }
 
-    // Log out user and redirect to home page
+    // Déconnexion de l'utilisateur et redirection vers la page d'accueil
     public function logout()
     {
-        Auth::logout(); // Déconnexion de l'utilisateur
-        return redirect()->route('home'); // Redirection vers la page d'accueil après déconnexion
+        Auth::logout(); 
+        return redirect()->route('home'); 
     }
 }

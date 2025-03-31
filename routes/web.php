@@ -5,7 +5,7 @@ use App\Http\Controllers\LoginController;
 
 // Route pour la page d'accueil
 Route::get('/', function () {
-return view('home'); 
+    return view('home');
 })->name('home');
 
 // Route pour la page de connexion
