@@ -13,6 +13,7 @@ class CreateRegionsTable extends Migration
             $table->string('name')->unique();
             $table->foreignId('country_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

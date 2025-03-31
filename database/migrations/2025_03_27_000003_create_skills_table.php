@@ -12,6 +12,7 @@ class CreateSkillsTable extends Migration
             $table->id();
             $table->string('name', 58)->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('departement_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

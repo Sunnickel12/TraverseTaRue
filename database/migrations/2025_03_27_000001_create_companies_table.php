@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

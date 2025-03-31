@@ -12,6 +12,7 @@ class CreateDepartementsTable extends Migration{
             $table->string('name')->unique();
             $table->foreignId('region_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
