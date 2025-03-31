@@ -34,9 +34,8 @@
     <div class="border border-gray-300 p-4 rounded-lg hover:shadow-lg transition flex flex-col">
         <!-- Clickable image -->
         <a href="{{ route('companies.show', $company->id) }}" class="w-full h-40 overflow-hidden mb-4 block">
-            <img src="{{ asset('storage/images/' . $company->logo) }}" alt="{{ $company->name }}" class="w-full h-full object-cover rounded-md">
+            <img src="{{ asset('images/' . $company->logo) }}" alt="{{ $company->name }}" class="w-full h-full object-cover rounded-md">
         </a>
-
         <!-- Clickable text -->
         <a href="{{ route('companies.show', $company->id) }}" class="block">
             <h2 class="text-xl font-semibold">{{ $company->name }}</h2>
