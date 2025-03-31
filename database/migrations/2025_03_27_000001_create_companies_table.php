@@ -12,7 +12,7 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('address');
-            $table->text('description')->nullable();
+            $table->text('description');
             $table->string('logo')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->nullable();

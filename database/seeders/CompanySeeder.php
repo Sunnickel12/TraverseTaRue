@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker; 
-use App\Models\Companies; 
+use App\Models\Company;
 
 class CompanySeeder extends Seeder
 {
