@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-<<<<<<< HEAD
     use HasFactory;
 
     protected $table = 'companies';

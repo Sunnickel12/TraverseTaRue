@@ -158,4 +158,4 @@ if (loginForm && submitButton) {
             togglePasswordIcon.src = isPassword ? window.eyeOpenIcon : window.eyeClosedIcon;
         });
     }
-});
+};

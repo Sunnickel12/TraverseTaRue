@@ -68,6 +68,8 @@ Route::post('/offer/{id_offers}/apply', [PostulationController::class, 'store'])
 Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
 
 Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
+
+
 /*
 Route::get('postulations/{id_postulation}/edit', [PostulationController::class, 'edit'])->name('postulations.edit');
 
