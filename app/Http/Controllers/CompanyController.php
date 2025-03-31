@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -119,4 +120,3 @@ class CompanyController extends Controller
 
         return redirect()->route('companies.index')->with('success', 'Company deleted successfully!');
     }
-}
