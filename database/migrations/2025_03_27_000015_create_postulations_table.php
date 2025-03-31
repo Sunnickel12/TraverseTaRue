@@ -10,11 +10,13 @@ return new class extends Migration
     {
         Schema::create('postulations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('offers_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('offers_id')->constrained();
             $table->string('cv', 255);
             $table->string('motivation_letter', 255)->nullable();
+            $table->foreignId('status_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
