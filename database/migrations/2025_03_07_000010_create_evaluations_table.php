@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id('id_evaluation');
-            $table->decimal('note', 1, 1);
-            $table->string('comment', 50)->nullable();
+            $table->decimal('note', 2, 1);
+            $table->text('comment')->nullable();
             $table->timestamp('create_at');
             $table->foreignId('id_companie')->constrained('companies', 'id_companie');
             $table->foreignId('id_users')->constrained('users', 'id_users');

@@ -75,3 +75,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/offers/{id_offer}/postulate', [PostulationController::class, 'create'])->name('postulations.create');
     Route::post('/offers/{id_offer}/postulate', [PostulationController::class, 'store'])->name('postulations.store');
 });
+
+use App\Http\Controllers\UserDashboardController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+});

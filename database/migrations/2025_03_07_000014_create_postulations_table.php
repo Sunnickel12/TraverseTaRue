@@ -11,9 +11,8 @@ return new class extends Migration
         Schema::create('postulations', function (Blueprint $table) {
             $table->id('id_postulation');
             $table->string('cv', 255);
-            $table->string('motivation_letter', 255)->nullable();
+            $table->text('motivation_letter')->nullable();
             $table->string('status', 15);
-            $table->timestamp('create_at');
             $table->foreignId('id_users')->constrained('users', 'id_users');
             $table->foreignId('id_offer')->constrained('offers', 'id_offer');
             $table->timestamps();
