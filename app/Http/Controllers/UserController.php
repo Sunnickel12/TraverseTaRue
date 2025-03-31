@@ -12,10 +12,44 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // Display a listing of users (Read)
-    public function index()
+
+    public function index(Request $request)
     {
-        $users = User::all();
+        $search = $request->input('search');
+        $currentUser = Auth::user();
+
+        if ($currentUser->roles->contains('name', 'admin')) {
+            // Admin sees all users and can search by name, email, or class
+            $users = User::with('roles', 'class')
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%")
+                ->orWhere('first_name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhereHas('class', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                });
+            })
+            ->get();
+        } elseif ($currentUser->roles->contains('name', 'pilote')) {
+            // Pilote sees only users with the role 'etudiant' and can search
+            $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'etudiant');
+            })
+            ->with('roles', 'class')
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%")
+                ->orWhere('first_name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhereHas('class', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                });
+            })
+            ->get();
+        } else {
+            // Etudiant sees nothing
+            return view('users.index')->with('unauthorized', true);
+        }
+
         return view('users.index', compact('users'));
     }
 

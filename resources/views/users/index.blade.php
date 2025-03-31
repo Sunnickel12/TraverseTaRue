@@ -8,6 +8,22 @@
 @role('admin|pilote')
     <h1 class="text-3xl font-bold mb-6">Users</h1>
 
+    <!-- Search Form -->
+    <form action="{{ route('users.index') }}" method="GET" class="mb-6">
+        <input 
+            type="text" 
+            name="search" 
+            value="{{ request('search') }}" 
+            placeholder="Search for users..." 
+            class="border border-gray-300 rounded-lg py-2 px-4 w-full md:w-1/3"
+        >
+        <button 
+            type="submit" 
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mt-2 md:mt-0">
+            Search
+        </button>
+    </form>
+    
     @role('admin|pilote')
         <a href="{{ route('users.create') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md mb-4 inline-block">+ Add User</a>
     @endrole
