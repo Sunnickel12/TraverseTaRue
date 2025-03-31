@@ -8,7 +8,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
 
-
+//Route pour la wishlist
 Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
     Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
@@ -16,11 +16,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/w_candidatures', [WishlistController::class, 'candidatures'])->name('w_candidatures');
+// Route pour afficher la wishlist (les candidatures)
+Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
 
+Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
 
 // Route pour la page d'accueil
 Route::get('/', function () {
-
     return view('home');
 })->name('home');
 
@@ -59,22 +61,20 @@ Route::get('/aide_contact', function () {
 Route::get('/w_offres', function () {
     return view('partials.w_offres'); // La vue pour "Mes offres"
 })->name('w_offres');
+
 // Afficher le formulaire de postulation
 Route::get('/offer/{id_offers}/apply', [PostulationController::class, 'create'])->name('postulation.create');
 
 // Soumettre la postulation
 Route::post('/offer/{id_offers}/apply', [PostulationController::class, 'store'])->name('postulation.store');
-// Route pour afficher la wishlist (les candidatures)
-Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
-
-Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
 
 
-/*
-Route::get('postulations/{id_postulation}/edit', [PostulationController::class, 'edit'])->name('postulations.edit');
 
-Route::put('/postulations/{id_postulation}/update', [PostulationController::class, 'update'])->name('postulations.update');
-Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulations.destroy');
-Route::get('/wishlist', function () {
-    return view('partials.wishlist'); // La vue pour "Mes favoris"
-})->name('wishlist');
+
+// Route::get('postulations/{id_postulation}/edit', [PostulationController::class, 'edit'])->name('postulations.edit');
+
+// Route::put('/postulations/{id_postulation}/update', [PostulationController::class, 'update'])->name('postulations.update');
+// Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulations.destroy');
+// Route::get('/wishlist', function () {
+//     return view('partials.wishlist'); // La vue pour "Mes favoris"
+// })->name('wishlist');
