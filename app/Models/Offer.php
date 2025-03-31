@@ -20,11 +20,11 @@ class Offer extends Model
     ];
     public function company()
     {
-        return $this->belongsTo(Company::class, 'company_id', 'id_companies');
+        return $this->belongsTo(Company::class, 'company_id', 'id');
     }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_wishlist', 'offer_id', 'id_offers', 'user_id', 'id_users');
+        return $this->belongsToMany(User::class, 'user_wishlist', 'offer_id', 'id', 'user_id', 'id');
     }
 
 

@@ -12,7 +12,7 @@ class Company extends Model
     //protected $primaryKey = 'id'; 
 
     protected $fillable = [
-        'id_companies', 
+        'id', 
         'name', 
         'city', 
         'address', 

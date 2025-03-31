@@ -31,7 +31,7 @@
 
         <!-- Navigation principale (mode PC) -->
         <div class="hidden md:flex justify-start space-x-8 font-bold text-white">
-            <a href="{{ route('offres') }}" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">Offres</a>
+            <a href="{{ route('offers') }}" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">offers</a>
             <a href="#" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">Entreprises</a>
             <a href="#" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">Contact</a>
         </div>
@@ -50,7 +50,7 @@
             </div>
             <div class="flex flex-col space-y-6 mt-6 px-4">
                 <div class="space-y-4">
-                    <a href="{{route('offres')}}" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">Offres</a>
+                    <a href="{{route('offers')}}" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">offers</a>
                     <a href="#" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">Entreprises</a>
                     <a href="#" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">Contact</a>
                     <a href="#" class="active">Wishlist</a>
@@ -103,7 +103,7 @@
     <main>
         <!-- Liens de navigation -->
         <div class="absolute top-5 left-5 flex space-x-16 text-lg font-bold">
-            <a href="{{ route('w_offres') }}" class="relative text-gray-700 pb-1 border-b-2 {{ request()->routeIs('w_offres') ? 'border-gray-700' : 'border-gray-300 hover:border-gray-500 transition' }}">
+            <a href="{{ route('w_offers') }}" class="relative text-gray-700 pb-1 border-b-2 {{ request()->routeIs('w_offers') ? 'border-gray-700' : 'border-gray-300 hover:border-gray-500 transition' }}">
                 Mes favoris
             </a>
             <a href="{{ route('w_candidatures') }}" class="relative text-gray-700 pb-1 border-b-2 {{ request()->routeIs('w_candidatures') ? 'border-gray-700' : 'border-gray-300 hover:border-gray-500 transition' }}">
