@@ -9,7 +9,7 @@ class CreateSkillsTable extends Migration
     public function up()
     {
         Schema::create('skills', function (Blueprint $table) {
-            $table->id('id_skill');
+            $table->id();
             $table->string('name', 58)->unique();
             $table->timestamps();
         });

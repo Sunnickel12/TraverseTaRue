@@ -9,7 +9,7 @@ class CreateSectorsTable extends Migration
     public function up()
     {
         Schema::create('sectors', function (Blueprint $table) {
-            $table->id('id_sectors');
+            $table->id();
             $table->string('name')->unique();
             $table->timestamps();
         });

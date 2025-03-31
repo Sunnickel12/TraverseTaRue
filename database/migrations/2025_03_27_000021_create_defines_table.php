@@ -10,10 +10,10 @@ class CreateDefinesTable extends Migration
     {
         Schema::create('defines', function (Blueprint $table) {
             $table->unsignedBigInteger('id_offer');
-            $table->unsignedBigInteger('id_sectors');
-            $table->primary(['id_offer', 'id_sectors']);
-            $table->foreign('id_offer')->references('id_offer')->on('offers')->onDelete('cascade');
-            $table->foreign('id_sectors')->references('id_sectors')->on('sectors')->onDelete('cascade');
+            $table->unsignedBigInteger('id_sector');
+            $table->primary(['id_offer', 'id_sector']);
+            $table->foreign('id_offer')->references('id')->on('offers')->onDelete('cascade');
+            $table->foreign('id_sector')->references('id')->on('sectors')->onDelete('cascade');
         });
     }
 

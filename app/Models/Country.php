@@ -10,16 +10,12 @@ class Country extends Model
 {
     use HasFactory;
 
-    // Spécifier les attributs pouvant être assignés en masse
     protected $fillable = [
         'name',
     ];
 
-    /**
-     * Une relation de type "Un pays a plusieurs régions".
-     */
     public function regions(): HasMany
     {
-        return $this->hasMany(Region::class, 'id_country');
+        return $this->hasMany(Region::class, 'countrie_id', 'id');
     }
 }

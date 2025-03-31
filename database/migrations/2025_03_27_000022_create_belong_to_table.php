@@ -9,10 +9,9 @@ class CreateBelongToTable extends Migration
     public function up()
     {
         Schema::create('belong_to', function (Blueprint $table) {
-            // On n'a plus besoin de déclarer 'id_user' manuellement
-            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade');
-            $table->foreignId('id_classes')->constrained('classes', 'id_classes')->onDelete('cascade');
-            $table->primary(['id_user', 'id_classes']);
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('classe_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->primary(['user_id', 'classe_id']);
         });
     }
 

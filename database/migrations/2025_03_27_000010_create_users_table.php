@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Création de la table users
         Schema::create('users', function (Blueprint $table) {
-            $table->id('id_user');
+            $table->id();
             $table->string('name', 47);
             $table->string('first_name', 35);
             $table->date('birthdate')->nullable();
@@ -21,7 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
             $table->string('pp', 255)->nullable();
-            $table->foreignId('id_classes')->nullable()->constrained('classes', 'id_classes')->onDelete('cascade');
+            // Référence à la clé primaire de la table 'classes' (par défaut, 'id')
+            $table->foreignId('classes_id')->nullable()->constrained()->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -32,17 +32,7 @@ return new class extends Migration
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
-        });
-
-        // Création de la table sessions
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('id_user')->constrained('users', 'id_user')->onDelete('cascade'); 
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
-        });
+        });         
     }
 
     /**
@@ -52,6 +42,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
     }
 };

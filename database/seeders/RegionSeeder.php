@@ -16,28 +16,29 @@ class RegionSeeder extends Seeder
         // France Métropolitaine
         $france = Country::where('name', 'France')->first();
 
-        // Exemple de régions métropolitaines
-        $regionsMetropole = [
-            'Île-de-France',
-            'Provence-Alpes-Côte d\'Azur',
-            'Auvergne-Rhône-Alpes',
-            'Nouvelle-Aquitaine',
-            'Bretagne',
-            'Hauts-de-France',
-            'Normandie',
-            'Pays de la Loire',
-            'Centre-Val de Loire',
-            'Grand Est',
-            'Occitanie',
-            'Bourgogne-Franche-Comté',
-            'Corse'
-        ];
+        if ($france) { 
+            $regionsMetropole = [
+                'Île-de-France',
+                'Provence-Alpes-Côte d\'Azur',
+                'Auvergne-Rhône-Alpes',
+                'Nouvelle-Aquitaine',
+                'Bretagne',
+                'Hauts-de-France',
+                'Normandie',
+                'Pays de la Loire',
+                'Centre-Val de Loire',
+                'Grand Est',
+                'Occitanie',
+                'Bourgogne-Franche-Comté',
+                'Corse'
+            ];
 
-        foreach ($regionsMetropole as $regionName) {
-            Region::create([
-                'name' => $regionName,
-                'id_country' => $france->id_country
-            ]);
+            foreach ($regionsMetropole as $regionName) {
+                Region::create([
+                    'name' => $regionName,
+                    'country_id' => $france->id 
+                ]);
+            }
         }
 
         // France d'Outre-Mer
@@ -57,10 +58,13 @@ class RegionSeeder extends Seeder
 
         foreach ($regionsOutreMer as $regionName => $countryName) {
             $country = Country::where('name', $countryName)->first();
-            Region::create([
-                'name' => $regionName,
-                'id_country' => $country->id_country
-            ]);
+
+            if ($country) { 
+                Region::create([
+                    'name' => $regionName,
+                    'country_id' => $country->id 
+                ]);
+            }
         }
     }
 }

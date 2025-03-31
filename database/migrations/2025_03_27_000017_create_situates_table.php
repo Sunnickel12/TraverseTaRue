@@ -9,11 +9,11 @@ class CreateSituatesTable extends Migration
     public function up()
     {
         Schema::create('situates', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_company');
-            $table->unsignedBigInteger('id_city');
-            $table->primary(['id_company', 'id_city']);
-            $table->foreign('id_company')->references('id_company')->on('companies')->onDelete('cascade');
-            $table->foreign('id_city')->references('id_city')->on('cities')->onDelete('cascade');
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('city_id');
+            $table->primary(['company_id', 'city_id']);
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
     }
 

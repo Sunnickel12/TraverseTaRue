@@ -9,15 +9,12 @@ class City extends Model
 {
     use HasFactory;
 
-    protected $table = 'cities'; // Nom de la table
-
-    protected $primaryKey = 'id_city'; // Clé primaire personnalisée
-
-    public $timestamps = true; // Active les timestamps (created_at, updated_at)
+    protected $table = 'cities'; 
+    public $timestamps = true; 
 
     protected $fillable = [
         'name',
-        'id_departement'
+        'departement_id'
     ];
 
     /**
@@ -25,6 +22,7 @@ class City extends Model
      */
     public function departement()
     {
-        return $this->belongsTo(Departement::class, 'id_departement', 'id_departement');
+        return $this->belongsTo(Departement::class, 'departement_id');
+
     }
 }
