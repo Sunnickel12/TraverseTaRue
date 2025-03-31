@@ -75,4 +75,17 @@ class WishlistController extends Controller
 
         return view('wishlist.index', compact('wishlistedOffers'));
     }
+    public function candidatures()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('home')->with('error', 'Vous devez être connecté.');
+        }
+
+        // Récupérer les candidatures de l'utilisateur connecté
+        $postulations = Wishlist::where('user_id', Auth::id())->with('offer')->get();
+
+        return view('partials.w_candidatures', compact('postulations'));
+    }
+
+
 }

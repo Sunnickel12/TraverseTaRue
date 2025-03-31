@@ -102,11 +102,15 @@
 
     <main>
         <!-- Liens de navigation -->
-        <div class="menu">
-            <a href="{{ route('w_offres') }}" class="active">Mes offres</a>
-            <a href="{{ route('wishlist') }}">Mes favoris</a>
-            <a href="{{ route('w_candidatures') }}">Mes candidatures</a>
+        <div class="absolute top-5 left-5 flex space-x-16 text-lg font-bold">
+            <a href="{{ route('w_offres') }}" class="relative text-gray-700 pb-1 border-b-2 {{ request()->routeIs('w_offres') ? 'border-gray-700' : 'border-gray-300 hover:border-gray-500 transition' }}">
+                Mes favoris
+            </a>
+            <a href="{{ route('w_candidatures') }}" class="relative text-gray-700 pb-1 border-b-2 {{ request()->routeIs('w_candidatures') ? 'border-gray-700' : 'border-gray-300 hover:border-gray-500 transition' }}">
+                Mes candidatures
+            </a>
         </div>
+
 
         <h1>Ma Wishlist</h1>
 

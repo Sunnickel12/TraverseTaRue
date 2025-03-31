@@ -86,6 +86,29 @@ class PostulationController extends Controller
 
         return view('partials.w_candidatures', compact('postulations'));
     }
+    public function manage($id_postulation)
+    {
+        $postulation = Postulation::findOrFail($id_postulation); // Récupérer la candidature
+        return view('postulation.manage', compact('postulation')); // Passer les données à la vue
+    }
+    public function update(Request $request, $id_postulation)
+    {
+        $postulation = Postulation::findOrFail($id_postulation);
+        $postulation->status = $request->status;
+        $postulation->save();
+
+        return redirect()->route('w_candidatures')->with('success', 'Statut mis à jour avec succès.');
+    }
+
+    public function destroy($id_postulation)
+    {
+        $postulation = Postulation::findOrFail($id_postulation);
+        $postulation->delete();
+
+        return redirect()->route('w_candidatures')->with('success', 'Candidature supprimée avec succès.');
+    }
+
+
     
 }
 /*public function wishlist()

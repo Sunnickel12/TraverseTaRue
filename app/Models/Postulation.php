@@ -10,7 +10,7 @@ class Postulation extends Model
     use HasFactory;
 
     protected $table = 'postulations'; // Table concernée
-    protected $primaryKey = 'id_postulations'; // Clé primaire
+    protected $primaryKey = 'id_postulation'; // Clé primaire
 
     protected $fillable = [
         'id_users',

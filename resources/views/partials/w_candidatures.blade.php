@@ -102,11 +102,15 @@
 
     <main>
         <!-- Liens de navigation -->
-        <div class="menu">
-            <a href="{{ route('w_offres') }}">Mes offres</a>
-            <a href="{{ route('wishlist') }}">Mes favoris</a>
-            <a href="{{ route('w_candidatures') }}" class="active">Mes candidatures</a>
+        <div class="absolute top-5 left-5 flex space-x-16 text-lg font-bold">
+            <a href="{{ route('w_offres') }}" class="relative text-gray-700 pb-1 border-b-2 {{ request()->routeIs('w_offres') ? 'border-gray-700' : 'border-gray-300 hover:border-gray-500 transition' }}">
+                Mes favoris
+            </a>
+            <a href="{{ route('w_candidatures') }}" class="relative text-gray-700 pb-1 border-b-2 {{ request()->routeIs('w_candidatures') ? 'border-gray-700' : 'border-gray-300 hover:border-gray-500 transition' }}">
+                Mes candidatures
+            </a>
         </div>
+
 
         <h1 class="text-3xl font-semibold text-gray-800 mb-6">Mes candidatures</h1>
         @if(session('success'))
@@ -116,15 +120,15 @@
             
         @endif
         <!-- Affichage des candidatures dans la wishlist -->
-        <div class="wishlist-item bg-white p-6 rounded-lg shadow-md border border-gray-200">
-            @if($postulations->isEmpty())
+        <div class="wishlist-container flex flex-row flex-wrap gap-6">
+            @if(isset($postulations) && $postulations->isEmpty())
                 <p>Aucune candidature enregistrée.</p>
             @else
-                @foreach($postulations as $postulation)
-                    <div class="wishlist-item">
-                    <!-- Titre de l'offre -->
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">
-                            @if($postulation->offer)
+            @foreach($postulations as $postulation)
+                @if($postulation->id) <!-- Vérifiez si l'ID de la postulation est présent -->
+                    <div class="wishlist-item bg-white p-6 rounded-lg shadow-md border border-gray-200 flex-grow-0 flex-shrink-0 md:w-1/3 lg:w-1/4">
+                        <h3 class="text-xl font-bold text-gray-900">
+                            @if(isset($postulation->offer))
                                 {{ $postulation->offer->title }}
                             @else
                                 <span class="text-red-500">Offre supprimée</span>
@@ -146,21 +150,35 @@
                                 <p><em>Aucune lettre de motivation fournie.</em></p>
                             @endif
                         </div>
-                            <!-- Bouton "Voir l'offre" -->
-                            @if($postulation->offer)
-                                <div class="postulation-actions">
-                                    <a href="{{ route('offres.show', ['id_offers' => $postulation->offer->id_offers]) }}" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
-                                        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-                                            Voir l'offre
-                                        </span>
-                                    </a>
-                                </div>
-                            @endif
-                        </div>
-                        
 
+                        <!-- Affichage des actions si l'offre existe -->
+                        @if($postulation->offer)
+                            <div class="postulation-actions flex space-x-4 mt-4">
+                                <!-- Lien "Voir l'offre" -->
+                                <a href="{{ route('offres.show', ['id_offers' => $postulation->offer->id_offers]) }}" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                                        Voir l'offre
+                                    </span>
+                                </a>
+
+                                <!-- Lien "Gérer la candidature" -->
+                                <a href="{{ route('postulation.manage', ['id_postulation' => $postulation->id]) }}" 
+                                class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800
+                                @if($postulation->status == null) pointer-events-none opacity-50 @endif">
+                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                                        Gérer la candidature
+                                    </span>
+                                </a>
+                            </div>
+                        @else
+                            <p>Cette candidature n'a pas d'offre associée.</p>
+                        @endif
                     </div>
-                @endforeach
+                @else
+                    <p>Aucune candidature valide pour cette postulation (ID manquant).</p>
+                @endif
+            @endforeach
+
             @endif
         </div>
 

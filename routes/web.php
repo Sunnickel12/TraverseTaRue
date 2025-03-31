@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
+use App\Http\Controllers\LoginController;
 
 
 Route::middleware('auth')->group(function () {
@@ -12,6 +13,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
 });
 
+Route::get('/w_candidatures', [WishlistController::class, 'candidatures'])->name('w_candidatures');
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,19 +22,18 @@ Route::get('/home', function () {
     return view('partials.home-page'); // La vue pour l'accueil
 })->name('home');
 
-Route::get('/w_offres', function () {
-    return view('partials.w_offres'); // La vue pour "Mes offres"
-})->name('w_offres');
 
-Route::get('/offres', [OfferController::class, 'index'])->name('offres');
+// Route pour la page de connexion
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::get('/wishlist', function () {
-    return view('partials.wishlist'); // La vue pour "Mes favoris"
-})->name('wishlist');
+Route::get('/postulations/{id_postulation}/manage', [PostulationController::class, 'manage'])->name('postulation.manage');
+Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulation.delete');
+Route::put('/postulations/{id_postulation}', [PostulationController::class, 'update'])->name('postulation.update');
 
-Route::get('/w_candidatures', function () {
-    return view('partials.w_candidatures'); // La vue pour "Mes candidatures"
-})->name('w_candidatures');
+
+Route::get('/w_candidatures', [PostulationController::class, 'wishlist'])->name('w_candidatures');
 
 Route::get('/offres', [OfferController::class, 'index'])->name('offres');
 Route::get('/offre/{id_offers}', [OfferController::class, 'show'])->name('offres.show');
@@ -49,7 +50,9 @@ Route::get('/cgu', function () {
 Route::get('/aide_contact', function () {
     return view('aide_contact'); // Vue pour l'aide et contact
 })->name('aide_contact');
-
+Route::get('/w_offres', function () {
+    return view('partials.w_offres'); // La vue pour "Mes offres"
+})->name('w_offres');
 // Afficher le formulaire de postulation
 Route::get('/offer/{id_offers}/apply', [PostulationController::class, 'create'])->name('postulation.create');
 
@@ -64,5 +67,10 @@ Route::get('postulations/{id_postulation}/edit', [PostulationController::class, 
 
 Route::put('/postulations/{id_postulation}/update', [PostulationController::class, 'update'])->name('postulations.update');
 Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulations.destroy');
+Route::get('/wishlist', function () {
+    return view('partials.wishlist'); // La vue pour "Mes favoris"
+})->name('wishlist');
+
+
 
 */

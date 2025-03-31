@@ -59,7 +59,7 @@
             <button id="close-menu" class="text-white text-3xl">&times;</button>
         </div>
         <div class="flex flex-col space-y-4 mt-6 px-4">
-            <a href="#"
+            <a href="{{route('offres')}}"
                 class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Offres</a>
             <a href="#"
                 class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
