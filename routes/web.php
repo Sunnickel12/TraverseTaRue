@@ -36,45 +36,26 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 Route::resource('companies', CompanyController::class);
 
 //Route::get('companies/{id_company}', [CompanyController::class, 'show'])->name('companies.show');
-Route::get('/postulations/{id_postulation}/manage', [PostulationController::class, 'manage'])->name('postulation.manage');
-Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulation.delete');
-Route::put('/postulations/{id_postulation}', [PostulationController::class, 'update'])->name('postulation.update');
+Route::get('/postulations/{id}/manage', [PostulationController::class, 'manage'])->name('postulation.manage');
+Route::delete('/postulations/{id}', [PostulationController::class, 'destroy'])->name('postulation.delete');
+Route::put('/postulations/{id}', [PostulationController::class, 'update'])->name('postulation.update');
 
 
 Route::get('/w_candidatures', [PostulationController::class, 'wishlist'])->name('w_candidatures');
 
-Route::get('/offres', [OfferController::class, 'index'])->name('offres');
-Route::get('/offre/{id_offers}', [OfferController::class, 'show'])->name('offres.show');
+Route::get('/offers', [OfferController::class, 'index'])->name('offers');
+Route::get('/offers/{id}', [OfferController::class, 'show'])->name('offers.show');
 
 
-Route::get('/informations-legales', function () {
-    return view('info'); // Vue pour les informations légales
-})->name('info');
-
-Route::get('/cgu', function () {
-    return view('cgu'); // Vue pour les CGU
-})->name('cgu');
-
-Route::get('/aide_contact', function () {
-    return view('aide_contact'); // Vue pour l'aide et contact
-})->name('aide_contact');
-Route::get('/w_offres', function () {
-    return view('partials.w_offres'); // La vue pour "Mes offres"
-})->name('w_offres');
-
+Route::get('/w_offers', function () {
+    return view('partials.w_offers'); // La vue pour "Mes offers"
+})->name('w_offers');
 // Afficher le formulaire de postulation
-Route::get('/offer/{id_offers}/apply', [PostulationController::class, 'create'])->name('postulation.create');
+Route::get('/offer/{id}/apply', [PostulationController::class, 'create'])->name('postulation.create');
 
 // Soumettre la postulation
-Route::post('/offer/{id_offers}/apply', [PostulationController::class, 'store'])->name('postulation.store');
+Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('postulation.store');
+// Route pour afficher la wishlist (les candidatures)
+Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
 
-
-
-
-// Route::get('postulations/{id_postulation}/edit', [PostulationController::class, 'edit'])->name('postulations.edit');
-
-// Route::put('/postulations/{id_postulation}/update', [PostulationController::class, 'update'])->name('postulations.update');
-// Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulations.destroy');
-// Route::get('/wishlist', function () {
-//     return view('partials.wishlist'); // La vue pour "Mes favoris"
-// })->name('wishlist');
+Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');

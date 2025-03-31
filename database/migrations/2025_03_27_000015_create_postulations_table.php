@@ -14,8 +14,6 @@ return new class extends Migration
             $table->foreignId('offers_id')->constrained()->onDelete('cascade');
             $table->string('cv', 255);
             $table->string('motivation_letter', 255)->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('offer_id')->constrained()->onDelete('cascade');
             $table->foreignId('status_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

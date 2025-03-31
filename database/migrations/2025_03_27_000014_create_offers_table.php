@@ -10,14 +10,14 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->string('tittle', 255);
+            $table->string('title', 255);
             $table->text('contenu');
             $table->decimal('salary', 20, 2);
             $table->string('level', 50);
             $table->string('start_date', 50);
-            $table->string('end_date', 50);
+            $table->string('end_date', 50)->nullable();
             $table->string('duration', 50);
-            $table->foreignId('city_id')->constrained()->onDelete('cascade');;
+            // $table->foreignId('city_id')->constrained()->onDelete('cascade');;
             $table->foreignId('company_id')->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
