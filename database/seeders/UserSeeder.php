@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
         $admin = User::factory()->create([
             'name' => 'Admin',
             'first_name' => 'AdminFirst',
+            'birthdate' => '1995-06-15',
             'email' => 'admin@example.com',
             'password' => bcrypt('c')
         ]);
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
         $pilot = User::factory()->create([
             'name' => 'Pilot',
             'first_name' => 'PilotFirst',
+            'birthdate' => '1995-06-15',
             'email' => 'pilot@example.com',
             'password' => bcrypt('c')
         ]);
@@ -34,6 +36,7 @@ class UserSeeder extends Seeder
         $student = User::factory()->create([
             'name' => 'Student',
             'first_name' => 'Thomas',
+            'birthdate' => '1995-06-15',
             'email' => 'student@example.com',
             'password' => bcrypt('c')
         ]);

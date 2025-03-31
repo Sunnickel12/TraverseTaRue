@@ -13,11 +13,11 @@ class CompanySeeder extends Seeder
         $faker = Faker::create();
 
         $companiesWithLogos = [
-            'TotalEnergies' => 'images/totalenergies.png',
-            'LVMH' => 'images/lvmh.png',
-            'Renault' => 'images/renault.png',
-            'Airbus' => 'images/airbus.png',
-            'Orange' => 'images/orange.png',
+            'TotalEnergies' => 'totalenergies.png',
+            'LVMH' => 'lvmh.png',
+            'Renault' => 'renault.png',
+            'Airbus' => 'airbus.png',
+            'Orange' => 'orange.png',
         ];
 
         foreach ($companiesWithLogos as $companyName => $logoPath) {

@@ -7,17 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // Affiche le formulaire de connexion
-    public function showLoginForm()
-    {
-        if (Auth::check()) {
-            return redirect()->route('home'); 
-        }
-
-        return view('home'); 
-    }
-
-    // Traite la logique de connexion
     public function login(Request $request)
     {
         // Valider les entrées
@@ -30,18 +19,24 @@ class LoginController extends Controller
 
         // Tentative de connexion
         if (Auth::attempt($credentials, $request->filled('remember'))) {
-            // Si la connexion réussie, rediriger vers la page d'accueil
-            return redirect()->intended(route('home'))->with('success', 'Bienvenue, ' . Auth::user()->first_name . ' ! Connexion réussie.');
+            // Rediriger vers la page où l'utilisateur était avant de se connecter
+            return redirect()->to(url()->previous())->with('success', 'Connexion réussie.');
         }
 
-        // Si la connexion échoue, retourner avec un message d'erreur
+        // Si la connexion échoue
         return back()->withErrors(['error' => 'Identifiant ou mot de passe incorrect.'])->withInput();
     }
-
+    
     // Déconnexion de l'utilisateur et redirection vers la page d'accueil
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout(); 
-        return redirect()->route('home'); 
+        $previousUrl = url()->previous();
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->to($previousUrl)->with('success', 'Vous avez été déconnecté.');
     }
 }
