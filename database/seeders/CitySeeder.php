@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 use App\Models\City;
 use App\Models\Departement;
 
@@ -67,7 +68,7 @@ class CitySeeder extends Seeder
                 }
             } else {
                 // Si le département n'existe pas, affiche un message d'erreur
-                \Log::warning("Département introuvable : $departementName");
+                Log::warning("Département introuvable : $departementName");
             }
         }
     }

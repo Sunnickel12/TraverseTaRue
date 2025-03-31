@@ -21,7 +21,7 @@ class CompanySeeder extends Seeder
         ];
 
         foreach ($companiesWithLogos as $companyName => $logoPath) {
-            Companies::create([
+           company::Create([
                 'name' => $companyName,
                 'address' => $faker->address,
                 'description' => $faker->paragraph,

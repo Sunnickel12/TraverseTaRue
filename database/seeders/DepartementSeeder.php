@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 use App\Models\Departement;
 use App\Models\Region;
 
@@ -49,7 +50,7 @@ class DepartementSeeder extends Seeder
                 }
             } else {
                 // Si la région n'existe pas, afficher un message (facultatif, mais utile pour le débogage)
-                \Log::warning("Région introuvable : $regionName");
+                Log::warning("Région introuvable : $regionName");
             }
         }
     }

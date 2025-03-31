@@ -4,6 +4,7 @@
 @section('title', 'Companies List')
 
 @section('content')
+<body class="local-font-gliker">
 <h1 class="text-3xl font-bold mb-6">Companies</h1>
 
 <!-- Search Form -->
@@ -71,4 +72,6 @@
 <div class="mt-8">
     {{ $companies->links() }}
 </div>
+</body>
 @endsection
+
