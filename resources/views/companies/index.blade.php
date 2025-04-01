@@ -1,6 +1,6 @@
 @extends('layouts.navbar')
 
-@section('title', 'Companies List')
+@section('title', 'Entreprise')
 
 @section('content')
 @vite(['resources/js/header.js'])
@@ -28,7 +28,7 @@
             + Create Company
         </a>
     </div>
-    @endroleQ
+    @endrole
 
     <!-- Bouton pour afficher/masquer les filtres sur mobile -->
     <div class="md:hidden text-center mt-4">
