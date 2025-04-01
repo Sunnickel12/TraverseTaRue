@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Work extends Model
+class Situate extends Model
 {
     use HasFactory;
 
@@ -23,7 +23,7 @@ class Work extends Model
      */
     protected $fillable = [
         'company_id',
-        'sector_id',
+        'city_id',
     ];
 
     /**
@@ -35,10 +35,10 @@ class Work extends Model
     }
 
     /**
-     * Define the relationship with the Sector model.
+     * Define the relationship with the City model.
      */
-    public function sector()
+    public function city()
     {
-        return $this->belongsTo(Sector::class);
+        return $this->belongsTo(City::class);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Work extends Model
+class Need extends Model
 {
     use HasFactory;
 
@@ -22,23 +22,23 @@ class Work extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'company_id',
-        'sector_id',
+        'offer_id',
+        'skill_id',
     ];
 
     /**
-     * Define the relationship with the Company model.
+     * Define the relationship with the Offer model.
      */
-    public function company()
+    public function offer()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Offer::class);
     }
 
     /**
-     * Define the relationship with the Sector model.
+     * Define the relationship with the Skill model.
      */
-    public function sector()
+    public function skill()
     {
-        return $this->belongsTo(Sector::class);
+        return $this->belongsTo(Skill::class);
     }
 }

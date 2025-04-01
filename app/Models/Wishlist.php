@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Sector extends Model
+class Wishlist extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -16,6 +16,14 @@ class Sector extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'user_id',
     ];
+
+    /**
+     * Define the relationship with the User model.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

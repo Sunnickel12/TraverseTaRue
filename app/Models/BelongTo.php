@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Work extends Model
+class BelongTo extends Model
 {
     use HasFactory;
 
@@ -16,29 +16,32 @@ class Work extends Model
      */
     public $timestamps = false;
 
+    protected $table = 'belong_to';
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'company_id',
-        'sector_id',
+        'user_id',
+        'classe_id',
     ];
 
     /**
-     * Define the relationship with the Company model.
+     * Define the relationship with the User model.
      */
-    public function company()
+    public function user()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * Define the relationship with the Sector model.
+     * Define the relationship with the Class model.
      */
-    public function sector()
+    public function class()
     {
-        return $this->belongsTo(Sector::class);
+        return $this->belongsTo(ClassModel::class, 'classe_id');
     }
 }

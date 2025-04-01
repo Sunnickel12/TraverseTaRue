@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User; 
+use Faker\Factory as Faker;
 
 class UserSeeder extends Seeder
 {
@@ -12,6 +13,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $faker = Faker::create();
+
         // Création d'un utilisateur admin
         $admin = User::factory()->create([
             'name' => 'Admin',
@@ -41,5 +45,33 @@ class UserSeeder extends Seeder
             'password' => bcrypt('c')
         ]);
         $student->assignRole('etudiant');
+
+        // Create 10 teachers
+        for ($i = 0; $i < 10; $i++) {
+            $firstName = $faker->firstName;
+            $lastName = $faker->lastName;
+            $teacher = User::factory()->create([
+                'name' => $lastName,
+                'first_name' => $firstName,
+                'birthdate' => $faker->date('Y-m-d', '2000-01-01'),
+                'email' => strtolower("{$firstName}.{$lastName}@example.com"), // Generate email
+                'password' => bcrypt('password'),
+            ]);
+            $teacher->assignRole('pilote');
+        }
+
+        // Create 50 students
+        for ($i = 0; $i < 50; $i++) {
+            $firstName = $faker->firstName;
+            $lastName = $faker->lastName;
+            $student = User::factory()->create([
+                'name' => $lastName,
+                'first_name' => $firstName,
+                'birthdate' => $faker->date('Y-m-d', '2005-01-01'),
+                'email' => strtolower("{$firstName}.{$lastName}@example.com"), // Generate email
+                'password' => bcrypt('password'),
+            ]);
+            $student->assignRole('etudiant');
+        }
     }
 }

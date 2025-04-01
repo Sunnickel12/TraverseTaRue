@@ -30,5 +30,18 @@ class CompanySeeder extends Seeder
                 'phone' => $faker->numerify('+33 #########'),
             ]);
         }
+
+        // Generate additional companies using Faker
+        $numberOfAdditionalCompanies = 50; // Define the number of additional companies to create
+        for ($i = 0; $i < $numberOfAdditionalCompanies; $i++) {
+            Company::create([
+                'name' => $faker->unique()->company,
+                'address' => $faker->address,
+                'description' => $faker->paragraph,
+                'logo' => 'default.png',
+                'email' => $faker->unique()->companyEmail,
+                'phone' => $faker->phoneNumber,
+            ]);
+        }
     }
 }
