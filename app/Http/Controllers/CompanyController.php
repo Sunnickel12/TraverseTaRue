@@ -15,7 +15,7 @@ class CompanyController extends Controller
         $search = $request->input('search');
         $location = $request->input('location');
         $category = $request->input('category');
-    
+
         // Fetch companies with evaluations and calculate the average evaluation score
         $companies = Company::with('evaluations')
             ->when($search, function ($query, $search) {
@@ -31,14 +31,15 @@ class CompanyController extends Controller
                     $q->where('id', $category);
                 });
             })
-            ->paginate(4); // Use paginate instead of get()
-    
+            ->whereNull('deleted_at') // Exclude soft-deleted companies
+            ->paginate(4);
+
         // Calculate the average evaluation for each company
         $companies->getCollection()->transform(function ($company) {
             $company->average_evaluation = $company->evaluations->avg('note') ?? 'N';
             return $company;
         });
-    
+
         return view('companies.index', [
             'companies' => $companies,
             'locations' => City::pluck('name', 'id'),
@@ -129,15 +130,9 @@ class CompanyController extends Controller
     // Supprimer une entreprise
     public function destroy(Company $company)
     {
-        if ($company->logo) {
-            $logoPath = public_path('images/' . $company->logo);
-            if (file_exists($logoPath)) {
-                unlink($logoPath);
-            }
-        }
-
+        // Soft delete the company
         $company->delete();
 
-        return redirect()->route('companies.index')->with('success', 'Company deleted successfully!');
+        return redirect()->route('companies.index')->with('success', 'Company soft deleted successfully!');
     }
 }

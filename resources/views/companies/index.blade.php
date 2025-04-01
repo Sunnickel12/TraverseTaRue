@@ -90,8 +90,6 @@
             });
         </script>
 
-
-
         <!-- Liste des entreprises -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:w-full mx-4 md:mx-8">
             @foreach ($companies as $company)
@@ -112,6 +110,20 @@
                 <a href="{{ route('companies.show', $company->id) }}" class="block">
                     <p class="text-gray-600">{{ Str::limit($company->description, 100) }}</p>
                 </a>
+                @role('admin|pilote')
+                <div class="mt-4 flex justify-between">
+                    <a href="{{ route('companies.edit', $company->id) }}" class="bg-[#6e9ae6] hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
+                        Edit
+                    </a>
+                    <form action="{{ route('companies.destroy', $company->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+                @endrole
             </div>
             @endforeach
         </div>
