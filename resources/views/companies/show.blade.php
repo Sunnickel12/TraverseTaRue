@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
-    <div class="max-w-6xl mx-auto p-6 bg-white shadow-xl rounded-2xl border border-[#3a3a3a] m-10">
+    <div class="max-w-6xl mx-4 p-6 bg-white shadow-xl rounded-2xl border-2 border-[#3a3a3a] m-10 ">
         <!-- Conteneur principal -->
         <div class="flex flex-col md:flex-row items-center md:items-stretch gap-6">
 

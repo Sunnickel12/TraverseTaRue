@@ -23,8 +23,8 @@
     </div>
 
     @role('admin|manager')
-    <div class="text-center md:text-left mt-4">
-        <a href="{{ route('companies.create') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
+    <div class="text-center md:text-left mt-4 md:ml-4">
+        <a href="{{ route('companies.create') }}" class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
             + Create Company
         </a>
     </div>
@@ -32,7 +32,7 @@
 
     <!-- Bouton pour afficher/masquer les filtres sur mobile -->
     <div class="md:hidden text-center mt-4">
-        <button id="filterButton" class="bg-[#6e9ae6] hover:bg-blue-400 text-white py-2 px-4 rounded-md transition">
+        <button id="filterButton" class="bg-[#6e9ae6]  text-white py-2 px-4 rounded-md transition">
             Ouvrir les filtres
         </button>
     </div>

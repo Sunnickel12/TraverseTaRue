@@ -122,7 +122,6 @@ class CompanyController extends Controller
     // Supprimer une entreprise
     public function destroy(Company $company)
     {
-        // Supprimer le fichier logo s'il existe
         if ($company->logo) {
             $logoPath = public_path('images/' . $company->logo);
             if (file_exists($logoPath)) {

@@ -19,7 +19,7 @@ use Database\Seeders\WishlistsSeeder;
 use Database\Seeders\BelongsSeeder;
 use Database\Seeders\EvaluationsSeeder;
 use Database\Seeders\SkillsSeeder;
-use Database\Seeders\SectorsSeeder;
+use Database\Seeders\SectorSeeder;
 use Database\Seeders\StatusesSeeder;
 use Database\Seeders\LivesSeeder;
 use Database\Seeders\BelongToSeeder;
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
             OffersSeeder::class,
             SkillsSeeder::class,
             WishlistsSeeder::class,
-            SectorsSeeder::class,
+            SectorSeeder::class,
             StatusesSeeder::class,
 
             // Seeders for companies and related data
