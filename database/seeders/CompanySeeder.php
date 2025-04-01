@@ -27,7 +27,7 @@ class CompanySeeder extends Seeder
                 'description' => $faker->paragraph,
                 'logo' => $logoPath, 
                 'email' => strtolower(str_replace(' ', '', $companyName)) . '@example.com',
-                'phone' => $faker->phoneNumber,
+                'phone' => $faker->numerify('+33 #########'),
             ]);
         }
     }

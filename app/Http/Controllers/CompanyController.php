@@ -19,7 +19,7 @@ class CompanyController extends Controller
         $companies = Company::when($search, function ($query, $search) {
             return $query->where('name', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%");
-        })->paginate(9);
+        })->paginate(4);
 
         return view('companies.index', compact('companies'));
     }

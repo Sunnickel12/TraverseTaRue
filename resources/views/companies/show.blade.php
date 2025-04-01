@@ -1,27 +1,49 @@
 @extends('layouts.navbar')
 
 @section('content')
-    <div class="max-w-7xl mx-auto p-6">
-        <!-- Company Details -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold">{{ $company->name }}</h1>
-            <div class="w-48 h-48 mx-auto mt-4">
-                <img src="{{ asset('storage/images/' . $company->logo) }}" alt="Logo" class="w-full h-full object-cover rounded-full">
+    <div class="max-w-6xl mx-auto p-6 bg-white shadow-xl rounded-2xl border border-[#3a3a3a] m-10">
+        <!-- Conteneur principal -->
+        <div class="flex flex-col md:flex-row items-center md:items-stretch gap-6">
+
+            <!-- Company Logo -->
+            <div class="w-full md:w-1/3 flex items-center justify-center md:self-stretch">
+                <div class="w-40 h-40 md:w-60 md:h-60 p-3 rounded-xl flex items-center justify-center">
+                    <img src="{{ asset('images/' . $company->logo) }}" alt="Logo"
+                        class="w-full h-full object-contain rounded-lg">
+                </div>
             </div>
-            <p class="mt-4"><strong>Address:</strong> {{ $company->address }}</p>
-            <p class="mt-2"><strong>Description:</strong> {{ $company->description }}</p>
+
+            <!-- Company Info -->
+            <div class="w-full md:w-2/3 text-center md:text-left">
+                <h1 class="text-3xl md:text-5xl text-[#6e9ae6] font-extrabold">{{ $company->name }}</h1>
+
+                <p class="mt-4 text-base md:text-lg text-[#3a3a3a]">
+                    <strong class="text-[#3a3a3a] text-lg md:text-2xl">Address:</strong> {{ $company->address }}
+                </p>
+                <p class="mt-2 text-base md:text-lg text-gray-700">
+                    <strong class="text-[#3a3a3a]">Description:</strong> {{ $company->description }}
+                </p>
+
+                <!-- Contact Information -->
+                <div class="mt-6 bg-white p-4 rounded-xl">
+                    <h2 class="text-xl md:text-2xl font-semibold text-[#3a3a3a] mb-2">Contact</h2>
+                    <p class="text-gray-700">
+                        <strong>Email:</strong>
+                        <a href="mailto:{{ $company->email }}" class="text-[#6e9ae6] hover:underline">
+                            {{ $company->email }}
+                        </a>
+                    </p>
+                    <p class="text-gray-700"><strong>Phone:</strong> {{ $company->phone }}</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Additional Information -->
-        <div class="mt-8">
-            <h2 class="text-2xl font-semibold">Contact</h2>
-            <p><strong>Email:</strong> {{ $company->email }}</p>
-            <p><strong>Phone:</strong> {{ $company->phone }}</p>
-        </div>
-
-        <!-- Back to All Companies -->
-        <div class="mt-8">
-            <a href="{{ route('companies.index') }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Back to All Companies</a>
+        <!-- Bouton Retour -->
+        <div class="mt-6 flex justify-center">
+            <a href="{{ route('companies.index') }}"
+                class="bg-[#6e9ae6] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-400 transition duration-300 transform hover:scale-105">
+                ← Back to All Companies
+            </a>
         </div>
     </div>
 @endsection
