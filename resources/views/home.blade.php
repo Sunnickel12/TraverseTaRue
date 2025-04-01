@@ -21,7 +21,7 @@
         <!-- Banner avec barre de recherche superposée -->
         <div class="relative z-10 ">
             <!-- Bannière -->
-            <img src="{{ asset('images/banner2.png') }}"
+            <img src="{{ asset('images/site/banner2.png') }}"
                 class="rounded-3xl mt-4 w-full md:w-2xl lg:w-4xl xl:w-6xl block mx-auto" alt="banner z-[1]" />
 
             <!-- Barre de recherche superposée -->
@@ -32,7 +32,7 @@
                         <!-- Bouton avec l'image de la loupe -->
                         <button type="submit"
                             class="flex items-center justify-center bg-white border-r-3 border-[#3a3a3a] transition-transform px-3 py-1.5 md:py-3 lg:py-3 xl:py-4 rounded-l-lg">
-                            <img src="{{ asset('images/search.png') }}" alt="Search Icon"
+                            <img src="{{ asset('images/site/search.png') }}" alt="Search Icon"
                                 class="h-4 object-contain md:mx-2 lg:h-6 lg:mx-2 xl:h-8 xl:mx-4">
                         </button>
                         <!-- Champ de recherche -->
@@ -84,7 +84,7 @@
                 <div
                     class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg ml-2">
                     <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center h-full">
-                        <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
+                        <img src="{{ asset('images/site/icon-user.png') }}" alt="Icon User"
                             class="w-16 h-16 rounded-full mb-4">
                         <h3 class="text-lg font-semibold text-[#3a3a3a]">Shayna</h3>
                     </div>
@@ -94,7 +94,7 @@
                 <div
                     class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg">
                     <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
-                        <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
+                        <img src="{{ asset('images/site/icon-user.png') }}" alt="Icon User"
                             class="w-16 h-16 rounded-full mb-4">
                         <h3 class="text-lg font-semibold text-[#3a3a3a]">Thomas</h3>
                     </div>
@@ -104,7 +104,7 @@
                 <div
                     class="inline-block flex-shrink-0 w-64 h-full border-2 drop-shadow-xl border-[#3a3a3a] mb-4 rounded-lg mr-2">
                     <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center h-full">
-                        <img src="{{ asset('images/icon-user.png') }}" alt="Icon User"
+                        <img src="{{ asset('images/site/icon-user.png') }}" alt="Icon User"
                             class="w-16 h-16 rounded-full mb-4">
                         <h3 class="text-lg font-semibold text-[#3a3a3a]">Steven</h3>
                     </div>

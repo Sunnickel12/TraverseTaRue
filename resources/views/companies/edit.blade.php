@@ -54,7 +54,7 @@
             <label class="block text-sm font-medium text-[#3a3a3a]">Logo actuel</label>
             @if($company->logo)
                 <div class="flex justify-center">
-                    <img src="{{ asset('images/' . $company->logo) }}" alt="Company Logo" class="w-40 h-40 object-cover rounded-md border">
+                    <img src="{{ asset('images/company/' . $company->logo) }}" alt="Company Logo" class="w-40 h-40 object-cover rounded-md border">
                 </div>
             @else
                 <p class="text-center text-[#3a3a3a]">Aucun logo disponible</p>

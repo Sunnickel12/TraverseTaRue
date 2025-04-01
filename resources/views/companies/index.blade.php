@@ -15,7 +15,7 @@
         <div class="relative w-full max-w-xs md:max-w-lg lg:max-w-xl xl:max-w-2xl">
             <form id="searchForm" action="{{ route('companies.index') }}" method="GET" class="flex items-center border-2 border-white rounded-lg shadow-md transition focus-within:border-[#6e9ae6] focus-within:ring-2 focus-within:ring-[#6e9ae6]">
                 <button type="submit" class="flex items-center justify-center border-r-2 border-white px-3 py-2 rounded-l-lg">
-                    <img src="{{ asset('images/white-search.png') }}" alt="Search Icon" class="h-4 md:h-6 xl:h-8 object-contain transition-transform duration-300 hover:scale-150 focus:scale-125">
+                    <img src="{{ asset('images/site/white-search.png') }}" alt="Search Icon" class="h-4 md:h-6 xl:h-8 object-contain transition-transform duration-300 hover:scale-150 focus:scale-125">
                 </button>
                 <input type="search" name="search" value="{{ request('search') }}" id="default-search" class="block w-full p-2 text-white text-sm md:text-lg bg-transparent placeholder-white focus:outline-none transition" placeholder="Rechercher une entreprise..." />
             </form>

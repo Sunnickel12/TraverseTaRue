@@ -55,7 +55,7 @@
             
             <!-- Aperçu de l'image -->
             <div id="logoPreview" class="mt-2 hidden">
-                <img id="preview" class="max-w-full h-auto rounded-md" src="#" alt="Aperçu Logo" />
+                <img id="preview" class="max-w-full h-auto rounded-md items-center" src="#" alt="Aperçu Logo" />
             </div>
         </div>
 
