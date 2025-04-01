@@ -14,11 +14,11 @@ return new class extends Migration
             $table->text('contenu');
             $table->decimal('salary', 20, 2);
             $table->string('level', 50);
-            $table->date('start_date', 50);
-            $table->date('end_date', 50)->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->string('duration', 50);
-            // $table->foreignId('city_id')->constrained()->onDelete('cascade');;
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('city_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
