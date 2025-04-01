@@ -1,9 +1,13 @@
 <?php
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feature_CRUD_users
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ClassModel extends Model
@@ -25,4 +29,18 @@ class ClassModel extends Model
      * @var string
      */
     protected $table = 'classes';
+=======
+
+class ClassModel extends Model
+{
+    use HasFactory;
+
+    protected $table = 'classes'; // Ensure this matches your database table name
+    protected $primaryKey = 'id'; // Ensure this matches your table's primary key
+
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+>>>>>>> origin/feature_CRUD_users
 }
