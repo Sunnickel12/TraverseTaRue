@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
-use App\Models\Company;
-use App\Models\Region;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\RegionSeeder;
@@ -19,13 +16,42 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            // Seeders for geographical data
             CountrySeeder::class,
             RegionSeeder::class,
             DepartementSeeder::class,
             CitySeeder::class,
+
+            // Seeders for roles and permissions
             RolesAndPermissionsSeeder::class,
+
+            // Seeders for users and related data
             UserSeeder::class,
+            ClassesTableSeeder::class,
+            BelongToTableSeeder::class,
+
+            // Seeders for companies and related data
             CompanySeeder::class,
+            SituatesTableSeeder::class,
+            WorksTableSeeder::class,
+
+            // Seeders for offers and related data
+            OffersTableSeeder::class,
+            NeedsTableSeeder::class,
+            DefinesTableSeeder::class,
+
+            // Seeders for wishlists and related data
+            WishlistsTableSeeder::class,
+            BelongsTableSeeder::class,
+
+            // Seeders for evaluations
+            EvaluationsTableSeeder::class,
+
+            // Seeders for additional data
+            SkillsTableSeeder::class,
+            SectorsTableSeeder::class,
+            StatusesTableSeeder::class,
+            LivesTableSeeder::class,
         ]);
     }
 }
