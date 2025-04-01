@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use App\Models\Skill;
 
-class SkillsTableSeeder extends Seeder
+class SkillsSeeder extends Seeder
 {
     public function run()
     {
@@ -74,19 +74,27 @@ class SkillsTableSeeder extends Seeder
             'IT Project Management',
         ];
 
-        // Insert predefined skills
-        foreach ($realSkills as $skillName) {
-            Skill::create([
-                'name' => $skillName,
-            ]);
-        }
-
-        // Generate additional skills by randomly selecting from the predefined list
-        $numberOfAdditionalSkills = 50; // Define the number of additional skills to create
-        for ($i = 0; $i < $numberOfAdditionalSkills; $i++) {
-            Skill::create([
-                'name' => $faker->unique()->randomElement($realSkills),
-            ]);
-        }
+         // Insert predefined skills
+         $insertedSkills = [];
+         foreach ($realSkills as $skillName) {
+             if (!in_array($skillName, $insertedSkills)) {
+                 Skill::create([
+                     'name' => $skillName,
+                 ]);
+                 $insertedSkills[] = $skillName;
+             }
+         }
+ 
+         // Generate additional unique skills
+         $numberOfAdditionalSkills = 50; // Define the number of additional skills to create
+         while (count($insertedSkills) < count($realSkills) + $numberOfAdditionalSkills) {
+             $newSkill = $faker->unique()->word;
+             if (!in_array($newSkill, $insertedSkills)) {
+                 Skill::create([
+                     'name' => $newSkill,
+                 ]);
+                 $insertedSkills[] = $newSkill;
+             }
+         }
     }
 }

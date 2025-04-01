@@ -7,7 +7,7 @@ use App\Models\BelongTo;
 use App\Models\User;
 use App\Models\ClassModel;
 
-class BelongToTableSeeder extends Seeder
+class BelongToSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -16,6 +16,9 @@ class BelongTo extends Model
      */
     public $timestamps = false;
 
+    protected $table = 'belong_to';
+
+
     /**
      * The attributes that are mass assignable.
      *

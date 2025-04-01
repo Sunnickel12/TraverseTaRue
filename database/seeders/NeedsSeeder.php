@@ -7,7 +7,7 @@ use App\Models\Need;
 use App\Models\Offer;
 use App\Models\Skill;
 
-class NeedsTableSeeder extends Seeder
+class NeedsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

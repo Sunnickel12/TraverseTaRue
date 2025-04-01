@@ -7,7 +7,7 @@ use App\Models\Work;
 use App\Models\Company;
 use App\Models\Sector;
 
-class WorksTableSeeder extends Seeder
+class WorksSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -7,7 +7,7 @@ use App\Models\Company;
 use App\Models\City;
 use App\Models\Situate;
 
-class SituatesTableSeeder extends Seeder
+class SituatesSeeder extends Seeder
 {
     /**
      * Run the database seeds.

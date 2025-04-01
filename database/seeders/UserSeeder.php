@@ -46,12 +46,15 @@ class UserSeeder extends Seeder
         ]);
         $student->assignRole('etudiant');
 
+        // Create 10 teachers
         for ($i = 0; $i < 10; $i++) {
+            $firstName = $faker->firstName;
+            $lastName = $faker->lastName;
             $teacher = User::factory()->create([
-                'name' => $faker->lastName,
-                'first_name' => $faker->firstName,
+                'name' => $lastName,
+                'first_name' => $firstName,
                 'birthdate' => $faker->date('Y-m-d', '2000-01-01'),
-                'email' => strtolower($faker->firstName . $i . '@example.com'),
+                'email' => strtolower("{$firstName}.{$lastName}@example.com"), // Generate email
                 'password' => bcrypt('password'),
             ]);
             $teacher->assignRole('pilote');
@@ -59,11 +62,13 @@ class UserSeeder extends Seeder
 
         // Create 50 students
         for ($i = 0; $i < 50; $i++) {
+            $firstName = $faker->firstName;
+            $lastName = $faker->lastName;
             $student = User::factory()->create([
-                'name' => $faker->lastName,
-                'first_name' => $faker->firstName,
+                'name' => $lastName,
+                'first_name' => $firstName,
                 'birthdate' => $faker->date('Y-m-d', '2005-01-01'),
-                'email' => strtolower($faker->firstName . $i . '@example.com'),
+                'email' => strtolower("{$firstName}.{$lastName}@example.com"), // Generate email
                 'password' => bcrypt('password'),
             ]);
             $student->assignRole('etudiant');

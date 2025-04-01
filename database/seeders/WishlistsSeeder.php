@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Wishlist;
 use App\Models\User;
 
-class WishlistsTableSeeder extends Seeder
+class WishlistsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

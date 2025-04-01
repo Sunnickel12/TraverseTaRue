@@ -8,7 +8,7 @@ use App\Models\City;
 use App\Models\Company;
 use Faker\Factory as Faker;
 
-class OffersTableSeeder extends Seeder
+class OffersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -35,7 +35,7 @@ class OffersTableSeeder extends Seeder
                 'salary' => $faker->randomFloat(2, 600, 1200), 
                 'level' => $faker->randomElement(['Junior', 'Mid-Level', 'Senior']),
                 'start_date' => $faker->dateTimeBetween('now', '+4 month')->format('Y-m-d'),
-                'end_date' => $faker->optional()->dateTimeBetween('+3 months', '+6 months')->format('Y-m-d'),
+                'end_date' => $faker->dateTimeBetween('+3 months', '+6 months')->format('Y-m-d'),
                 'duration' => $faker->randomElement(['3 months', '6 months']),
                 'city_id' => $cities->random()->id,
                 'company_id' => $companies->random()->id,

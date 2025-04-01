@@ -7,7 +7,7 @@ use App\Models\Belong;
 use App\Models\Offer;
 use App\Models\Wishlist;
 
-class BelongsTableSeeder extends Seeder
+class BelongsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

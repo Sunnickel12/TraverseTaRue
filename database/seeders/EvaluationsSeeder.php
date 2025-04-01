@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Company;
 use Faker\Factory as Faker;
 
-class EvaluationsTableSeeder extends Seeder
+class EvaluationsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

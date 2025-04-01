@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Sector;
 
-class SectorsTableSeeder extends Seeder
+class SectorsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

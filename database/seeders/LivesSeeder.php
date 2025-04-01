@@ -7,7 +7,7 @@ use App\Models\Live;
 use App\Models\User;
 use App\Models\City;
 
-class LivesTableSeeder extends Seeder
+class LivesSeeder extends Seeder
 {
     /**
      * Run the database seeds.

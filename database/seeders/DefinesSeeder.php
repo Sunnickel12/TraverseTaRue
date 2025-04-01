@@ -7,7 +7,7 @@ use App\Models\Define;
 use App\Models\Offer;
 use App\Models\Sector;
 
-class DefinesTableSeeder extends Seeder
+class DefinesSeeder extends Seeder
 {
     /**
      * Run the database seeds.

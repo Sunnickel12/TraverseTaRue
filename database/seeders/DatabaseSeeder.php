@@ -10,6 +10,21 @@ use Database\Seeders\CitySeeder;
 use Database\Seeders\RolesAndPermissionsSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\CompanySeeder;
+use Database\Seeders\SituatesSeeder;
+use Database\Seeders\WorksSeeder;
+use Database\Seeders\OffersSeeder;
+use Database\Seeders\NeedsSeeder;
+use Database\Seeders\DefinesSeeder;
+use Database\Seeders\WishlistsSeeder;
+use Database\Seeders\BelongsSeeder;
+use Database\Seeders\EvaluationsSeeder;
+use Database\Seeders\SkillsSeeder;
+use Database\Seeders\SectorsSeeder;
+use Database\Seeders\StatusesSeeder;
+use Database\Seeders\LivesSeeder;
+use Database\Seeders\BelongToSeeder;
+use Database\Seeders\ClasseSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,31 +42,37 @@ class DatabaseSeeder extends Seeder
 
             // Seeders for users and related data
             UserSeeder::class,
-            ClassesTableSeeder::class,
-            BelongToTableSeeder::class,
+            ClasseSeeder::class,
+            BelongToSeeder::class,
+
+            CompanySeeder::class,
+            OffersSeeder::class,
+            SkillsSeeder::class,
+            WishlistsSeeder::class,
+            SectorsSeeder::class,
+            StatusesSeeder::class,
 
             // Seeders for companies and related data
-            CompanySeeder::class,
-            SituatesTableSeeder::class,
-            WorksTableSeeder::class,
+          
+            SituatesSeeder::class,
+            WorksSeeder::class,
 
             // Seeders for offers and related data
-            OffersTableSeeder::class,
-            NeedsTableSeeder::class,
-            DefinesTableSeeder::class,
+            
+            NeedsSeeder::class,
+            DefinesSeeder::class,
 
             // Seeders for wishlists and related data
-            WishlistsTableSeeder::class,
-            BelongsTableSeeder::class,
+
+            BelongsSeeder::class,
 
             // Seeders for evaluations
-            EvaluationsTableSeeder::class,
+            EvaluationsSeeder::class,
 
             // Seeders for additional data
-            SkillsTableSeeder::class,
-            SectorsTableSeeder::class,
-            StatusesTableSeeder::class,
-            LivesTableSeeder::class,
+  
+
+            LivesSeeder::class,
         ]);
     }
 }
