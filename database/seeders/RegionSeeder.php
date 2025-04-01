@@ -30,39 +30,24 @@ class RegionSeeder extends Seeder
                 'Grand Est',
                 'Occitanie',
                 'Bourgogne-Franche-Comté',
-                'Corse'
+                'Corse',
+                'Guadeloupe',
+                'Martinique',
+                'Réunion',
+                'Guyane',
+                'Mayotte',
+                'Polynésie française',
+                'Nouvelle-Calédonie',
+                'Wallis-et-Futuna',
+                'Saint-Pierre-et-Miquelon',
+                'Saint-Barthélemy',
+                'Saint-Martin',
             ];
 
             foreach ($regionsMetropole as $regionName) {
                 Region::create([
                     'name' => $regionName,
                     'country_id' => $france->id 
-                ]);
-            }
-        }
-
-        // France d'Outre-Mer
-        $regionsOutreMer = [
-            'Guadeloupe' => 'Guadeloupe',
-            'Martinique' => 'Martinique',
-            'La Réunion' => 'Réunion',
-            'Guyane' => 'Guyane',
-            'Mayotte' => 'Mayotte',
-            'Polynésie Française' => 'Polynésie française',
-            'Nouvelle-Calédonie' => 'Nouvelle-Calédonie',
-            'Wallis-et-Futuna' => 'Wallis-et-Futuna',
-            'Saint-Pierre-et-Miquelon' => 'Saint-Pierre-et-Miquelon',
-            'Saint-Barthélemy' => 'Saint-Barthélemy',
-            'Saint-Martin' => 'Saint-Martin'
-        ];
-
-        foreach ($regionsOutreMer as $regionName => $countryName) {
-            $country = Country::where('name', $countryName)->first();
-
-            if ($country) { 
-                Region::create([
-                    'name' => $regionName,
-                    'country_id' => $country->id 
                 ]);
             }
         }

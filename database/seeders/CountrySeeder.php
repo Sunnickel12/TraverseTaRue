@@ -15,23 +15,11 @@ class CountrySeeder extends Seeder
     {
         $countries = [
             'France',
-            'Guadeloupe',
-            'Martinique',
-            'Réunion',
-            'Guyane',
-            'Mayotte',
-            'Polynésie française',
-            'Nouvelle-Calédonie',
-            'Wallis-et-Futuna',
-            'Saint-Pierre-et-Miquelon',
-            'Saint-Barthélemy',
-            'Saint-Martin'
         ];
 
         foreach ($countries as $country) {
             Country::updateOrCreate(
                 ['name' => $country],
-                ['name' => $country]
             );
         }
     }
