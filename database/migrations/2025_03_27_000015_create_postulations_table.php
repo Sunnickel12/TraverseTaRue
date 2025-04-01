@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('motivation_letter', 255)->nullable();
             $table->foreignId('status_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
+            $table->timestamps();
+
         });
     }
 

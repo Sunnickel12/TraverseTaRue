@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,11 +12,16 @@ class Company extends Model
     //protected $primaryKey = 'id'; 
 
     protected $fillable = [
-        'name',
-        'address',
-        'description',
-        'logo',
-        'email',
-        'phone',
+        'id', 
+        'name', 
+        'city', 
+        'address', 
+        'description', 
+        'logo'
     ];
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+    public $timestamps = false; 
 }

@@ -34,7 +34,7 @@
 
                 <!-- Navigation principale (mode PC) -->
                 <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-8 font-bold text-white">
-                    <a href="#"
+                    <a href="{{ route('offers.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Offres</a>
                     <a href="{{ route('companies.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Entreprises</a>
