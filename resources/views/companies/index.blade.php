@@ -102,25 +102,16 @@
                         class="w-full h-full object-contain rounded-md">
                 </a>
                 <a href="{{ route('companies.show', $company->id) }}" class="block">
-                    <h2 class="text-xl font-semibold">{{ $company->name }}</h2>
+                    <h2 class="text-xl font-semibold">
+                        {{ $company->name }}
+                        <span class="text-yellow-500 text-lg">
+                            ({{ is_numeric($company->average_evaluation) ? number_format($company->average_evaluation, 1) : $company->average_evaluation }}/5 ⭐)
+                        </span>
+                    </h2>
                 </a>
                 <a href="{{ route('companies.show', $company->id) }}" class="block">
                     <p class="text-gray-600">{{ Str::limit($company->description, 100) }}</p>
                 </a>
-                @role('admin')
-                <div class="mt-4 flex justify-between">
-                    <a href="{{ route('companies.edit', $company->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
-                        Edit
-                    </a>
-                    <form action="{{ route('companies.destroy', $company->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
-                            Delete
-                        </button>
-                    </form>
-                </div>
-                @endrole
             </div>
             @endforeach
         </div>

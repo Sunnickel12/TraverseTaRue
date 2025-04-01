@@ -15,28 +15,35 @@ class CompanyController extends Controller
         $search = $request->input('search');
         $location = $request->input('location');
         $category = $request->input('category');
-
-        // Récupérer les villes distinctes depuis la base de données
-        $locations = City::distinct()->pluck('name', 'id'); // Ou adapte-le à la structure de votre base de données
-
-        // Récupérer les secteurs (catégories) distincts depuis la base de données
-        $sectors = Sector::distinct()->pluck('name', 'id'); // Adapte cette ligne à ta structure de base de données
-
-        // Query pour filtrer les entreprises
-        $companies = Company::when($search, function ($query, $search) {
-                return $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
+    
+        // Fetch companies with evaluations and calculate the average evaluation score
+        $companies = Company::with('evaluations')
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
             })
             ->when($location, function ($query, $location) {
-                return $query->where('location', $location);
+                $query->whereHas('city', function ($q) use ($location) {
+                    $q->where('id', $location);
+                });
             })
             ->when($category, function ($query, $category) {
-                return $query->where('category', $category); // Assurez-vous que `category` correspond bien à une colonne de la table Company
+                $query->whereHas('sectors', function ($q) use ($category) {
+                    $q->where('id', $category);
+                });
             })
-            ->paginate(4);
-
-        // Passer les données à la vue
-        return view('companies.index', compact('companies', 'locations', 'sectors'));
+            ->paginate(4); // Use paginate instead of get()
+    
+        // Calculate the average evaluation for each company
+        $companies->getCollection()->transform(function ($company) {
+            $company->average_evaluation = $company->evaluations->avg('note') ?? 'N';
+            return $company;
+        });
+    
+        return view('companies.index', [
+            'companies' => $companies,
+            'locations' => City::pluck('name', 'id'),
+            'sectors' => Sector::pluck('name', 'id'),
+        ]);
     }
 
     // Méthode pour créer une nouvelle entreprise
