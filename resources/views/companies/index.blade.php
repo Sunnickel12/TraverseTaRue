@@ -97,7 +97,7 @@
             @foreach ($companies as $company)
             <div class="border-2 border-[#3a3a3a] bg-white p-4 rounded-lg hover:shadow-black hover:shadow-2xl transition hover:scale-105 flex flex-col">
                 <a href="{{ route('companies.show', $company->id) }}" class="block w-full h-30 overflow-hidden mb-4">
-                    <img src="{{ asset('images/' . ($company->logo ? $company->logo : 'default-company.png')) }}"
+                    <img src="{{ asset('images/company/' . ($company->logo ? $company->logo : 'default-company.png')) }}"
                         alt="{{ $company->name }}"
                         class="w-full h-full object-contain rounded-md">
                 </a>
