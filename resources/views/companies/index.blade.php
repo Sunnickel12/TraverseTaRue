@@ -10,7 +10,6 @@
         Companies
     </h1>
 
-<<<<<<< HEAD
     <!-- Search bar -->
     <div class="flex items-center justify-center bg-[#3a3a3a] py-2 mt-1.5 md:mt-2.5">
         <div class="relative w-full max-w-xs md:max-w-lg lg:max-w-xl xl:max-w-2xl">
@@ -20,47 +19,6 @@
                 </button>
                 <input type="search" name="search" value="{{ request('search') }}" id="default-search" class="block w-full p-2 text-white text-sm md:text-lg bg-transparent placeholder-white focus:outline-none transition" placeholder="Rechercher une entreprise..." />
             </form>
-=======
-<!-- Check if the user has the "admin" or "manager" role -->
-@role('admin|manager')
-<a href="{{ route('companies.create') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
-    + Create Company
-</a>
-@endrole
-
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-    @foreach($companies as $company)
-    <div class="border border-gray-300 p-4 rounded-lg hover:shadow-lg transition flex flex-col">
-        <!-- Clickable image -->
-        <a href="{{ route('companies.show', $company->id) }}" class="w-full h-40 overflow-hidden mb-4 block">
-            <img src="{{ asset('images/' . $company->logo) }}" alt="{{ $company->name }}" class="w-full h-full object-cover rounded-md">
-        </a>
-        <!-- Clickable text -->
-        <a href="{{ route('companies.show', $company->id) }}" class="block">
-            <h2 class="text-xl font-semibold">{{ $company->name }}</h2>
-        </a>
-        <a href="{{ route('companies.show', $company->id) }}" class="block">
-            <p class="text-gray-600">{{ Str::limit($company->description, 100) }}</p>
-        </a>
-
-        <!-- Check if the user has the "admin" or "manager" role -->
-        @role('admin')
-        <div class="mt-4 flex justify-between gap-2">
-            <div>
-                <a href="{{ route('companies.edit', $company->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition block">
-                    Edit
-                </a>
-            </div>
-            <div>
-                <form action="{{ route('companies.destroy', $company->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition block">
-                        Delete
-                    </button>
-                </form>
-            </div>
->>>>>>> origin/feature_CRUD_users
         </div>
     </div>
 
