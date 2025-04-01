@@ -11,7 +11,7 @@
         Companies</h1>
 
     <!-- Search bar -->
-    <div class="inset-0 flex items-center justify-center bg-[#3a3a3a] py-2 mt-1.5">
+    <div class="inset-0 flex items-center justify-center bg-[#3a3a3a] py-2 mt-1.5 md:mt-2.5">
         <div class="relative w-[250px] md:w-[450px] lg:w-[600px] xl:w-[800px]">
             <form id="searchForm" action="{{ route('companies.index') }}" method="GET"
                 class="flex items-center border-2 border-[#ffffff] rounded-lg shadow-md transition-colors duration-300 
@@ -28,7 +28,7 @@
                 <input type="search" name="search" value="{{ request('search') }}" id="default-search"
                     class="block w-full p-2 pl-3 text-[8px] md:text-sm lg:text-lg xl:text-xl text-[#ffffff] rounded-r-lg bg-transparent placeholder-white focus:outline-none 
                 transition-colors duration-300"
-                    placeholder="Rechercher une opportunité..." />
+                    placeholder="Rechercher une entreprise..." />
             </form>
         </div>
     </div>

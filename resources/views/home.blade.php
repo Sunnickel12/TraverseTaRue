@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
-@vite(['resources/js/header.js'])
+@vite(['resources/js/app.js'])
 
 <body>
     <nav class="bg-[#ffff] local-font-gliker">
@@ -54,7 +54,7 @@
         </h1>
         <div class="mt-2 md:mt-3 mx-0.5">
             <div id="paragraph-container"
-                class="overflow-hidden max-h-24 md:max-h-full transition-all duration-200 ease-in-out rounded-3xl border-3 border-[#6e9ae6] bg-[#ffffff] shadow-lg p-2 mx-2 z-10">
+                class="overflow-hidden max-h-24 font-sans md:max-h-full transition-all duration-200 ease-in-out rounded-3xl border-3 border-[#6e9ae6] bg-[#ffffff] shadow-lg p-2 mx-2 z-10">
                 <p id="paragraph" class="text-base lg:text-lg text-[#3a3a3a] leading-relaxed">
                     Nous sommes une équipe de jeunes passionnés par l'entrepreneuriat et le développement
                     personnel. Nous avons décidé de créer cette plateforme pour vous aider à trouver des

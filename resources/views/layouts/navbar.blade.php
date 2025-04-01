@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
     <header>
         <nav class="bg-[#3a3a3a] local-font-gliker shadow-md py-3 rounded-b-3xl top-0 left-0 w-full z-50">
             <div class="flex mx-auto items-center">
@@ -28,7 +28,7 @@
                 </button>
 
                 <!-- Logo -->
-                <a href="{{ url('/') }}" class="flex hover:scale-110 transition duration-300">
+                <a href="{{ url(path: '/') }}" class="flex hover:scale-110 transition duration-300">
                     <img src="{{ asset('images/LogoTTR.png') }}" class="h-12 md:h-14 ml-2" alt="Logo" />
                 </a>
 
@@ -93,9 +93,11 @@
                 <button id="close-menu" class="text-white text-3xl">&times;</button>
             </div>
             <div class="flex flex-col local-font-gliker space-y-4 mt-6 px-4">
+                <a href="{{ url(path: '/') }}"
+                    class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Accueil</a>
                 <a href="#"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Offres</a>
-                <a href="#"
+                <a href="{{ route('companies.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
                 <a href="#"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Contact</a>
@@ -131,7 +133,7 @@
                             </ul>
                         </div>
                     @endif
-                    
+
 
                     <div class="mb-6">
                         <label for="password"
@@ -161,11 +163,11 @@
         </div>
     </header>
 
-    <main>
+    <main class="flex-1 local-font-gliker">
         @yield('content')
     </main>
 
-    <footer>
+    <footer class="mt-auto">
         <nav id="footer" class="bottom-0 left-0 w-full mt-6 rounded-t-xl shadow-sm bg-[#3a3a3a] local-font-gliker"
             aria-label="Pied de page">
             <div class="w-full max-w-screen-xl mx-auto p-2 md:py-4">
