@@ -18,7 +18,7 @@
                 <h1 class="text-3xl md:text-5xl text-[#6e9ae6] font-extrabold">{{ $company->name }}</h1>
 
                 <p class="mt-4 text-base md:text-lg text-[#3a3a3a]">
-                    <strong class="text-[#3a3a3a] text-lg md:text-2xl">Address:</strong> {{ $company->address }}
+                    <strong class="text-[#3a3a3a] text-lg md:text-2xl">Adresse:</strong> {{ $company->address }}
                 </p>
                 <p class="mt-2 text-base md:text-lg text-gray-700">
                     <strong class="text-[#3a3a3a]">Description:</strong> {{ $company->description }}
@@ -33,7 +33,7 @@
                             {{ $company->email }}
                         </a>
                     </p>
-                    <p class="text-gray-700"><strong>Phone:</strong> {{ $company->phone }}</p>
+                    <p class="text-gray-700"><strong>Phone:</strong> {{ $company->phone ?? 'Aucun numéro renseigné' }}</p>
                 </div>
             </div>
         </div>

@@ -82,7 +82,7 @@
             </aside>
 
             <!-- Liste des entreprises -->
-            <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-3 flex-1 mx-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-3 flex-1 mx-35 ">
                 @foreach ($companies as $company)
                     <div
                         class="relative border-2 border-[#3a3a3a] bg-white p-4 rounded-lg w-125 
