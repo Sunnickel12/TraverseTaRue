@@ -30,37 +30,70 @@
     </div>
     @endrole
 
+    <!-- Bouton pour afficher/masquer les filtres sur mobile -->
+    <div class="md:hidden text-center mt-4">
+        <button id="filterButton" class="bg-[#6e9ae6] hover:bg-blue-400 text-white py-2 px-4 rounded-md transition">
+            Ouvrir les filtres
+        </button>
+    </div>
+
     <div class="flex flex-col md:flex-row mt-6 gap-4">
         <!-- Sidebar Filtres -->
-        <aside class="w-full md:w-64 bg-white p-4 rounded-lg shadow-md hidden md:block">
-            <h2 class="text-xl font-semibold mb-3">Filtres</h2>
+        <aside id="filterSidebar" class="w-auto mx-2 md:w-64 bg-white p-4 rounded-lg shadow-md hidden md:block border-2 border-[#3a3a3a]">
+            <h2 class="text-xl text-[#3a3a3a] font-semibold mb-3">Filtres</h2>
             <form action="{{ route('companies.index') }}" method="GET">
+                <!-- Champ de recherche pour villes -->
                 <div class="mb-4">
                     <label for="location" class="block text-sm font-medium text-gray-700">Lieu</label>
-                    <select name="location" id="location" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Tous</option>
-                        <option value="paris">Paris</option>
-                        <option value="lyon">Lyon</option>
-                        <option value="marseille">Marseille</option>
+                    <select name="location[]" id="location" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" multiple="multiple">
+                        @foreach ($locations as $id => $city)
+                        <option value="{{ $id }}" {{ in_array($id, request('location', [])) ? 'selected' : '' }}>{{ $city }}</option>
+                        @endforeach
                     </select>
                 </div>
+
+                <!-- Champ de recherche pour secteurs -->
                 <div class="mb-4">
                     <label for="category" class="block text-sm font-medium text-gray-700">Catégorie</label>
-                    <select name="category" id="category" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Toutes</option>
-                        <option value="tech">Tech</option>
-                        <option value="finance">Finance</option>
-                        <option value="santé">Santé</option>
+                    <select name="category[]" id="category" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" multiple="multiple">
+                        @foreach ($sectors as $id => $sector)
+                        <option value="{{ $id }}" {{ in_array($id, request('category', [])) ? 'selected' : '' }}>{{ $sector }}</option>
+                        @endforeach
                     </select>
                 </div>
+
                 <button type="submit" class="w-full bg-[#6e9ae6] text-white py-2 px-4 rounded-md hover:bg-blue-400 hover:scale-105 transition">
                     Filtrer
                 </button>
             </form>
         </aside>
 
+        <!-- Ajouter les fichiers CSS et JS de Select2 -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+        <!-- Initialiser Select2 avec options multiples -->
+        <script>
+            $(document).ready(function() {
+                $('#location').select2({
+                    placeholder: "Sélectionner une ou plusieurs villes",
+                    allowClear: true,
+                    width: '100%'
+                });
+
+                $('#category').select2({
+                    placeholder: "Sélectionner une ou plusieurs catégories",
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+        </script>
+
+
+
         <!-- Liste des entreprises -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:w-full mx-4 md:mx-8 ">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:w-full mx-4 md:mx-8">
             @foreach ($companies as $company)
             <div class="border-2 border-[#3a3a3a] bg-white p-4 rounded-lg hover:shadow-black hover:shadow-2xl transition hover:scale-105 flex flex-col">
                 <a href="{{ route('companies.show', $company->id) }}" class="block w-full h-30 overflow-hidden mb-4">
@@ -96,5 +129,16 @@
     <div class="mt-8 flex justify-center">
         {{ $companies->links() }}
     </div>
+
+    <!-- JavaScript pour gérer l'affichage des filtres -->
+    <script>
+        document.getElementById('filterButton').addEventListener('click', function() {
+            var sidebar = document.getElementById('filterSidebar');
+            var button = document.getElementById('filterButton');
+            sidebar.classList.toggle('hidden');
+            button.textContent = sidebar.classList.contains('hidden') ? 'Ouvrir les filtres' : 'Fermer les filtres';
+        });
+    </script>
+
 </body>
 @endsection

@@ -13,6 +13,7 @@ use Database\Seeders\CitySeeder;
 use Database\Seeders\RolesAndPermissionsSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\CompanySeeder;
+use Database\Seeders\SectorSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
             CompanySeeder::class,
+            SectorSeeder::class,
         ]);
     }
 }
