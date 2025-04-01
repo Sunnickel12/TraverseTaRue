@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
     public function wishlist()
     {
-        return $this->belongsToMany(Offer::class, 'user_wishlist', 'user_id','id_users', 'offer_id','id_offers');
+        return $this->belongsToMany(Offer::class, 'user_wishlist', 'user_id','offer_id');
     }
 
 }

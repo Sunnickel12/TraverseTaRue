@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $offre->title }}</title>
+    <title>{{ $offer->title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('css/off.css') }}">
 </head>
@@ -15,8 +15,8 @@
             <img src="{{ asset('images/LogoTTR.png') }}" alt="Logo TR">
         </div>
         <ul class="nav-links">
-            <li><a href="{{ route('offres') }}" class="active">Offres</a></li>
-            <li><a href="#">Entreprises</a></li>
+            <li><a href="{{ route('offers.index') }}" class="active">Offres</a></li>
+            <li><a href="{{route('companies.index')}}">Entreprises</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
         <div class="user-section">
@@ -37,19 +37,19 @@
         </div>
 
         <section id="job-detail" class="p-4">
-            <h3 class="text-2xl mb-4">{{ $offre->title }}</h3>
-            <p>Publié il y a {{($offre->publication_date)}}</p>
+            <h3 class="text-2xl mb-4">{{ $offer->title }}</h3>
+            <p>Publié il y a {{($offer->publication_date)}}</p>
             
             <div class="characteristics">
-                <button class="toutes">{{ $offre->niveau }}</button>
-                <button class="toutes">{{ $offre->duree }}</button>
-                <button class="toutes">{{ $offre->salary ?? 'Salaire à définir' }} €/mois</button>
-                <button class="toutes">{{ $offre->category ?? 'Informatique' }}</button>
+                <button class="toutes">{{ $offer->level }}</button>
+                <button class="toutes">{{ $offer->duration}}</button>
+                <button class="toutes">{{ $offer->salary ?? 'Salaire à définir' }} €/mois</button>
+                <button class="toutes">{{ $offer->category ?? 'Informatique' }}</button>
             </div>
 
             <div class="job-description mt-4">
                 <p><b>Description du poste :</b></p>
-                <p>{{ $offre->contenu }}</p>
+                <p>{{ $offer->contenu }}</p>
             </div>
 
             <div class="job-requirements">
@@ -64,7 +64,7 @@
         <div class="job-requirements"></div>
             <p><b>Profil recherché :</b></p>
             <ul>
-                <li>Étudiant(e) en informatique ({{ $offre->niveau }} minimum) avec une spécialisation en développement ou DevOps.</li>
+                <li>Étudiant(e) en informatique ({{ $offer->level }} minimum) avec une spécialisation en développement ou DevOps.</li>
                 <li>Bonne maîtrise de Python et des concepts de programmation orientée objet (POO).</li>
                 <li>Connaissances en gestion de bases de données (SQL, NoSQL).</li>
                 <li>Compréhension des langages web (HTML, CSS, JavaScript) est un plus.</li>
@@ -73,7 +73,7 @@
         <div class="job-requirements"></div>
             <p><b>Conditions :</b></p>
             <ul>
-                <li>Stage de {{ $offre->duree }} à Toulouse, rémunéré {{ $offre->salary }} €/mois.</li>
+                <li>Stage de {{ $offer->duration }} à Toulouse, rémunéré {{ $offer->salary }} €/mois.</li>
                 <li>Encadrement par des experts du domaine et opportunité d’évoluer dans un environnement innovant.</li>
             </ul>
         </div>
@@ -88,7 +88,7 @@
                 <div class="bg-white p-6 rounded-lg shadow-lg w-96">
                     <h2 class="text-xl font-bold mb-4">Postuler maintenant</h2>
 
-                    <form id="postulation-form" action="{{ route('postulation.store', $offre->id_offers) }}" method="POST" enctype="multipart/form-data">
+                    <form id="postulation-form" action="{{ route('postulation.store', $offer->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
@@ -160,7 +160,7 @@
             // Masquer le message après 10 secondes et rediriger
             setTimeout(function() {
                 document.getElementById('message').style.display = 'none';
-                window.location.href = '{{ route('offres') }}';  // Rediriger vers la page des offres ou autre page souhaitée
+                window.location.href = '{{ route('offers') }}';  // Rediriger vers la page des offres ou autre page souhaitée
             }, 10000);  // 10 secondes
         </script>
     @endif

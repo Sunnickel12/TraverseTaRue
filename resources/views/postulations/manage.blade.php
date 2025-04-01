@@ -11,7 +11,7 @@
         <h1 class="text-2xl font-bold mb-6 text-center">Gérer la candidature</h1>
         
         <!-- Formulaire de mise à jour -->
-        <form action="{{ route('postulation.update', ['id_postulation' => $postulation->id]) }}" method="POST" class="mb-6">
+        <form action="{{ route('postulation.update', ['postulation_id' => $postulation->id]) }}" method="POST" class="mb-6">
             @csrf
             @method('PUT')
 
@@ -33,7 +33,7 @@
         </form>
 
         <!-- Formulaire pour supprimer -->
-        <form action="{{ route('postulations.delete', ['id_postulation' => $postulation->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette candidature ?');">
+        <form action="{{ route('postulations.delete', ['postulation_id' => $postulation->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette candidature ?');">
             @csrf
             @method('DELETE')
             <div class="text-center">

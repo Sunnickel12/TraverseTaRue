@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     protected $table = 'offers'; 
-    protected $primaryKey = 'id_offers';
+    //protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id_offers', 
+        'id', 
         'title', 
         'contenu', 
         'salary', 

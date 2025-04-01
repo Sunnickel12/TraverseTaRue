@@ -44,7 +44,7 @@ function removeFromWishlist(offreId) {
             "X-CSRF-TOKEN": "{{ csrf_token() }}",
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ id_offers: offreId })
+        body: JSON.stringify({ offer_id: offreId })
     })
     .then(response => response.json())
     .then(data => console.log(data.message))

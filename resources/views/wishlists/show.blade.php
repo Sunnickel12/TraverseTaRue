@@ -31,7 +31,7 @@
 
         <!-- Navigation principale (mode PC) -->
         <div class="hidden md:flex justify-start space-x-8 font-bold text-white">
-            <a href="{{ route('offres') }}" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">Offres</a>
+            <a href="{{ route('offers') }}" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">Offres</a>
             <a href="#" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">Entreprises</a>
             <a href="#" class="text-2xl hover:text-[#6e9ae6] transition duration-200 transform hover:scale-110">Contact</a>
         </div>
@@ -50,7 +50,7 @@
             </div>
             <div class="flex flex-col space-y-6 mt-6 px-4">
                 <div class="space-y-4">
-                    <a href="{{route('offres')}}" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">Offres</a>
+                    <a href="{{route('offers')}}" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">Offres</a>
                     <a href="#" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">Entreprises</a>
                     <a href="#" class="text-2xl text-white hover:text-[#6e9ae6] transition duration-200">Contact</a>
                     <a href="#" class="active">Wishlist</a>
@@ -121,30 +121,26 @@
         @endif
         <!-- Affichage des candidatures dans la wishlist -->
         <div class="wishlist-container flex flex-row flex-wrap gap-6">
-            @if(isset($postulation->offer))
-                <h3 class="text-xl font-bold text-gray-900">{{ $postulation->offer->title }}</h3>
-                @else
-                    <h3 class="text-xl font-bold text-red-500">Offre supprimée</h3>
-                    <p class="text-sm text-gray-600">Cette offre n'existe plus.</p>
-                    <form action="{{ route('wishlist.remove') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="offer_id" value="{{ $postulation->offer_id }}">
-                        <button type="submit" class="text-red-500 text-sm underline">Supprimer la candidature</button>
-                    </form>
-                @endif
-
+            @if(isset($postulations) && $postulations->isEmpty())
+                <p>Aucune candidature enregistrée.</p>
+            @else
+            @foreach($postulations as $postulation)
+                @if($postulation->id) <!-- Vérifiez si l'ID de la postulation est présent -->
+                    <div class="wishlist-item bg-white p-6 rounded-lg shadow-md border border-gray-200 flex-grow-0 flex-shrink-0 md:w-1/3 lg:w-1/4">
+                        <h3 class="text-xl font-bold text-gray-900">
+                            @if(isset($postulation->offer))
+                                {{ $postulation->offer->title }}
+                            @else
+                                <span class="text-red-500">Offre supprimée</span>
+                            @endif
                         </h3>
                         <p><strong>Statut :</strong> {{ ucfirst($postulation->status) }}</p>
 
                         <div class="files">
-                        @if(Storage::exists($postulation->cv))
-                            <a href="{{ Storage::url($postulation->cv) }}" target="_blank">
-                                <img src="{{ asset('images/pdf_icon.png') }}" alt="CV">
+                            <a href="{{ Storage::url($postulation->cv) }}" target="_blank" class="file-link">
+                                <img src="{{ asset('images/pdf_icon.png') }}" alt="CV" class="file-icon">
                                 Télécharger le CV
                             </a>
-                        @else
-                            <p class="text-red-500 text-sm">CV introuvable</p>
-                        @endif
                             @if($postulation->motivation_letter)
                                 <a href="{{ Storage::url($postulation->motivation_letter) }}" target="_blank" class="file-link">
                                     <img src="{{ asset('images/pdf_icon.png') }}" alt="Lettre de Motivation" class="file-icon">
@@ -159,14 +155,14 @@
                         @if($postulation->offer)
                             <div class="postulation-actions flex space-x-4 mt-4">
                                 <!-- Lien "Voir l'offre" -->
-                                <a href="{{ route('offres.show', ['id_offers' => $postulation->offer->id_offers]) }}" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                                <a href="{{ route('offers.show', ['offer_id' => $postulation->offer->offer_id]) }}" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
                                     <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
                                         Voir l'offre
                                     </span>
                                 </a>
 
                                 <!-- Lien "Gérer la candidature" -->
-                                <a href="{{ route('postulation.manage', ['id_postulation' => $postulation->id]) }}" 
+                                <a href="{{ route('postulations.manage', ['postulation_id' => $postulation->id]) }}" 
                                 class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800
                                 @if($postulation->status == null) pointer-events-none opacity-50 @endif">
                                     <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">

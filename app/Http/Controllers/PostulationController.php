@@ -9,119 +9,108 @@ use Illuminate\Support\Facades\Storage;
 
 class PostulationController extends Controller
 {
-    // Affiche le formulaire de postulation
-    public function create($id_offers)
+    // Affiche le formulaire de création de postulation
+    public function create($offer_id)
     {
-        $offers = Offer::findOrFail($id_offers);
-        return view('postulation.create', compact('offers'));
+        $offer = Offer::findOrFail($offer_id); // Assurer que l'offre existe
+        return view('postulations.create', compact('offer'));
     }
 
-    // Gère l'enregistrement de la postulation
-    public function store(Request $request, $id_offers)
-    {
-    $request->validate([
-        'prenom' => 'required|string|max:255',
-        'nom' => 'required|string|max:255',
-        'mail' => 'required|email|max:255',
-        'cv' => 'required|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
-        'motivation' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
-    ]);
-
-    // Commenter la vérification d'authentification pour les tests
-    $userId = 1; // Utilise un ID utilisateur fictif pour les tests
-
-    // Sauvegarde du CV
-    $cvPath = $request->file('cv')->store('cvs', 'public');
-    
-    // Sauvegarde de la lettre de motivation (si elle existe)
-    $motivationLetterPath = $request->file('motivation_letter')
-        ? $request->file('motivation_letter')->store('motivation_letters', 'public')
-        : '';  // Utilisation de '' si aucune lettre de motivation n'est fournie
-
-    // Création de la postulation
-    Postulation::create([
-        'id_users' => $userId,
-        'id_offers' => $id_offers,
-        'cv' => $cvPath,
-        'motivation_letter' => $motivationLetterPath, // Lettre de motivation (ou chaîne vide)
-        'status' => 'Pending',
-    ]);
-
-    return redirect()->route('offres')->with('success', 'Postulation successful !');
-    }
-    /*p
-
-    public function update(Request $request, $id_postulation)
+    // Enregistre une nouvelle postulation dans la base de données
+    public function store(Request $request, $offer_id)
     {
         $request->validate([
-            'cv' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
-            'motivation_letter' => 'nullable|file|mimes:pdf,doc,docx,png,jpg,jpeg|max:2048',
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'motivation_letter' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        $postulation = Postulation::findOrFail($id_postulation);
+        $userId = Auth::id(); // ID de l'utilisateur connecté
 
+        // Sauvegarde du CV
+        $cvPath = $request->file('cv')->store('cvs', 'public');
+
+        // Sauvegarde de la lettre de motivation si elle est fournie
+        $motivationLetterPath = $request->file('motivation_letter')
+            ? $request->file('motivation_letter')->store('motivation_letters', 'public')
+            : null;
+
+        // Création de la postulation
+        Postulation::create([
+            'user_id' => $userId,
+            'offer_id' => $offer_id,
+            'cv' => $cvPath,
+            'motivation_letter' => $motivationLetterPath,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('offers.index')->with('success', 'Postulation créée avec succès !');
+    }
+
+    // Affiche les détails d'une postulation
+    public function show(Postulation $postulation)
+    {
+        return view('postulations.show', compact('postulation'));
+    }
+
+    // Affiche le formulaire d'édition d'une postulation
+    public function edit(Postulation $postulation)
+    {
+        return view('postulations.edit', compact('postulation'));
+    }
+
+    // Met à jour une postulation existante
+    public function update(Request $request, Postulation $postulation)
+    {
+        $request->validate([
+            'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'motivation_letter' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'status' => 'required|in:pending,approved,rejected',
+        ]);
+
+        // Mettre à jour les fichiers si de nouveaux fichiers sont fournis
         if ($request->hasFile('cv')) {
-            $cvPath = $request->file('cv')->store('cvs', 'public');
-            $postulation->cv = $cvPath;
+            // Supprimer l'ancien fichier si nécessaire
+            if ($postulation->cv) {
+                Storage::delete('public/' . $postulation->cv);
+            }
+            $postulation->cv = $request->file('cv')->store('cvs', 'public');
         }
 
         if ($request->hasFile('motivation_letter')) {
-            $motivationPath = $request->file('motivation_letter')->store('motivation_letters', 'public');
-            $postulation->motivation_letter = $motivationPath;
+            if ($postulation->motivation_letter) {
+                Storage::delete('public/' . $postulation->motivation_letter);
+            }
+            $postulation->motivation_letter = $request->file('motivation_letter')->store('motivation_letters', 'public');
         }
 
+        $postulation->status = $request->input('status');
         $postulation->save();
 
-        return redirect()->route('w_candidatures')->with('success', 'Candidature mise à jour avec succès.');
-    }*/
-
-
-
-
-    // Affiche la liste des candidatures de l'utilisateur (wishlist)
-    public function wishlist()
-    {
-        // Récupérer toutes les postulations de l'étudiant connecté
-        $postulations = Postulation::where('id_users', 1)->with('offer')->get(); // Utilisation de l'ID fictif pour les tests
-
-        return view('partials.w_candidatures', compact('postulations'));
-    }
-    public function manage($id_postulation)
-    {
-        $postulation = Postulation::findOrFail($id_postulation); // Récupérer la candidature
-        return view('postulation.manage', compact('postulation')); // Passer les données à la vue
-    }
-    public function update(Request $request, $id_postulation)
-    {
-        $postulation = Postulation::findOrFail($id_postulation);
-        $postulation->status = $request->status;
-        $postulation->save();
-
-        return redirect()->route('w_candidatures')->with('success', 'Statut mis à jour avec succès.');
+        return redirect()->route('postulations.index')->with('success', 'Postulation mise à jour avec succès.');
     }
 
-    public function destroy($id_postulation)
+    // Supprime une postulation
+    public function destroy(Postulation $postulation)
     {
-        $postulation = Postulation::findOrFail($id_postulation);
+        // Supprimer les fichiers associés (CV, lettre de motivation)
+        if ($postulation->cv) {
+            Storage::delete('public/' . $postulation->cv);
+        }
+        if ($postulation->motivation_letter) {
+            Storage::delete('public/' . $postulation->motivation_letter);
+        }
+
         $postulation->delete();
 
-        return redirect()->route('w_candidatures')->with('success', 'Candidature supprimée avec succès.');
+        return redirect()->route('postulations.index')->with('success', 'Postulation supprimée avec succès.');
     }
 
+    // Affiche toutes les postulations de l'utilisateur connecté
+    public function index()
+    {
+        $userId = Auth::id();
+        $postulations = Postulation::where('user_id', $userId)->with('offer')->get();
 
-    
+        return view('postulations.index', compact('postulations'));
+    }
 }
-/*public function wishlist()
-{
-    if (Auth::check()) {
-        $userId = Auth::id(); // Récupère l'ID de l'utilisateur connecté
-        
-        // Récupérer toutes les postulations de l'utilisateur connecté
-        $postulations = Postulation::where('id_users', $userId)->with('offer')->get();
-
-        return view('partials.w_candidatures', compact('postulations'));
-    } else {
-        // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion
-        return redirect()->route('login');
-    }
-}*/

@@ -2,41 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Offer;
+use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
-    public function index()
+    // Display a paginated list of offers with an optional search filter
+    public function index(Request $request)
     {
-        // Récupérer toutes les offres avec la relation 'company'
-        $offres = Offer::with('company')->paginate(5); // Utilisation de with() pour charger la relation company
+        $search = $request->input('search');
 
-        foreach ($offres as $offre) {
-            // Vérifier si l'offre a une société associée avant d'accéder à la propriété 'logo' ou 'name'
-            if ($offre->company) {
-                // Si la société existe, récupérer le chemin du logo et le nom de la société
-                $offre->logo_path = 'images/' . $offre->company->logo ?? 'default_logo.png'; // logo ou logo par défaut
-                $offre->company_name = $offre->company->name ?? 'Nom inconnu'; // Si le nom de la société est manquant
-            } else {
-                // Si la société n'existe pas, assigner un logo par défaut et un nom de société par défaut
-                $offre->logo_path = 'images/default_logo.png';
-                $offre->company_name = 'Nom inconnu';
-            }
-        }
+        $offers = Offer::with('company')->when($search, function ($query, $search) {
+            return $query->where('title', 'like', "%{$search}%")
+                ->orWhere('contenu', 'like', "%{$search}%");
+        })->paginate(9);
 
-        // Retourner la vue avec les offres
-        return view('offres.index', compact('offres'));
+        return view('offers.index', compact('offers'));
     }
 
-    // Affiche les détails d'une offre spécifique
-    public function show($id_offers)
+    // Show the form to create a new offer
+    public function create()
     {
-        // Trouver l'offre par son ID
-        $offre = Offer::where('id_offers', $id_offers)->firstOrFail();
+        return view('offers.create');
+    }
 
-        // Retourner la vue avec l'offre
-        return view('offres.show', compact('offre')); // La vue 'offres.show' pour une seule offre
+    // Store a new offer in the database
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|max:255',
+            'contenu' => 'required',
+            'salary' => 'required|numeric|min:0',
+            'level' => 'required|max:50',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'duration' => 'required|max:50',
+            'company_id' => 'required|exists:companies,id',
+        ]);
+
+        Offer::create($request->all());
+
+        return redirect()->route('offers.index')->with('success', 'Offer created successfully!');
+    }
+
+    // Display a specific offer's details
+    public function show(Offer $offer)
+    {
+        return view('offers.show', compact('offer'));
+    }
+
+    // Show the form to edit an existing offer
+    public function edit(Offer $offer)
+    {
+        return view('offers.edit', compact('offer'));
+    }
+
+    // Update an offer's information
+    public function update(Request $request, Offer $offer)
+    {
+        $request->validate([
+            'title' => 'required|max:255',
+            'contenu' => 'required',
+            'salary' => 'required|numeric|min:0',
+            'level' => 'required|max:50',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'duration' => 'required|max:50',
+            'company_id' => 'required|exists:companies,id',
+        ]);
+
+        $offer->update($request->all());
+
+        return redirect()->route('offers.index')->with('success', 'Offer updated successfully!');
+    }
+
+    // Delete an offer
+    public function destroy(Offer $offer)
+    {
+        $offer->delete();
+
+        return redirect()->route('offers.index')->with('success', 'Offer deleted successfully!');
     }
 }
 ?>
