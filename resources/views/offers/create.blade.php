@@ -94,6 +94,15 @@
             </select>
         </div>
 
+        <div class="mb-4">
+            <label for="sectors" class="block text-sm font-medium text-gray-700">Secteurs</label>
+            <select name="sectors[]" id="sectors" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" multiple>
+                @foreach($sectors as $sector)
+                <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Ville -->
         <div class="mb-4">
             <label for="city_id" class="block text-sm font-medium text-[#3a3a3a]">Ville</label>

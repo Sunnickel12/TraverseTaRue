@@ -39,6 +39,7 @@ class OffersSeeder extends Seeder
                 'duration' => $faker->randomElement(['3 months', '6 months']),
                 'city_id' => $cities->random()->id,
                 'company_id' => $companies->random()->id,
+                'created_at' => now(),
             ]);
         }
     }
