@@ -21,30 +21,30 @@ class UserController extends Controller
         if ($currentUser->roles->contains('name', 'admin')) {
             // Admin sees all users and can search by name, email, or class
             $users = User::with('roles', 'class')
-            ->when($search, function ($query, $search) {
-                $query->where('name', 'like', "%{$search}%")
-                ->orWhere('first_name', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%")
-                ->orWhereHas('class', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                });
-            })
-            ->get();
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('first_name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhereHas('class', function ($query) use ($search) {
+                            $query->where('name', 'like', "%{$search}%");
+                        });
+                })
+                ->get();
         } elseif ($currentUser->roles->contains('name', 'pilote')) {
             // Pilote sees only users with the role 'etudiant' and can search
             $users = User::whereHas('roles', function ($query) {
-            $query->where('name', 'etudiant');
+                $query->where('name', 'etudiant');
             })
-            ->with('roles', 'class')
-            ->when($search, function ($query, $search) {
-                $query->where('name', 'like', "%{$search}%")
-                ->orWhere('first_name', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%")
-                ->orWhereHas('class', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                });
-            })
-            ->get();
+                ->with('roles', 'class')
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('first_name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhereHas('class', function ($query) use ($search) {
+                            $query->where('name', 'like', "%{$search}%");
+                        });
+                })
+                ->get();
         } else {
             // Etudiant sees nothing
             return view('users.index')->with('unauthorized', true);
@@ -164,9 +164,63 @@ class UserController extends Controller
     }
 
     // Delete the specified user from the database (Delete)
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+        $user = User::findOrFail($id);
+
+        // Prevent the currently authenticated user from deleting themselves
+        if ($user->id === optional(auth())->id) {
+            return redirect()->route('users.index')->with('error', 'You cannot delete your own account.');
+        }
+
+        $user->delete(); // Perform a soft delete
+
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore(); // Restore the soft-deleted user
+
+        return redirect()->route('users.index')->with('success', 'User restored successfully.');
+    }
+
+    public function dashboard(Request $request, $id = null)
+    {
+        $authUser = Auth::user();
+
+        // Role-based access control
+        if ($authUser->roles->contains('name', 'admin')) {
+            // Admin can see all users except themselves
+            if ($id === null || $id == $authUser->id) {
+                abort(403, 'Admins cannot view their own profile.');
+            }
+            $user = User::findOrFail($id);
+        } elseif ($authUser->roles->contains('name', 'pilote')) {
+            // Pilote can see their own profile and all "etudiant" users
+            if ($id === null || $id == $authUser->id) {
+                $user = $authUser;
+            } else {
+                $user = User::where('id', $id)->whereHas('roles', function ($query) {
+                    $query->where('name', 'etudiant');
+                })->firstOrFail();
+            }
+        } elseif ($authUser->roles->contains('name', 'etudiant')) {
+            // Etudiant can only see their own profile
+            if ($id === null || $id == $authUser->id) {
+                $user = $authUser;
+            } else {
+                abort(403, 'You are not authorized to view this profile.');
+            }
+        } else {
+            abort(403, 'You are not authorized to view this profile.');
+        }
+
+        // Fetch postulations and wishlist for the user
+        $postulations = $user->postulations ?? collect();
+        $wishlist = $user->wishlist ? $user->wishlist->offers : collect(); // Fetch related offers
+
+        return view('users.dashboard', compact('user', 'postulations', 'wishlist'));
     }
 }

@@ -14,6 +14,7 @@ class CreateBelongsTable extends Migration
             $table->primary(['offer_id', 'wishlist_id']);
             $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
             $table->foreign('wishlist_id')->references('id')->on('wishlists')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -9,10 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\ClassModel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -23,6 +24,8 @@ class User extends Authenticatable
         'pp',
         'classes_id',
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected $hidden = [
         'password',
@@ -48,9 +51,14 @@ class User extends Authenticatable
     {
         return $this->getRoleNames()->first(); // Get the first role name assigned to the user
     }
+
     public function wishlist()
     {
-        return $this->belongsToMany(Offer::class, 'user_wishlist', 'user_id','offer_id');
+        return $this->hasOne(Wishlist::class);
     }
 
+    public function postulations()
+    {
+        return $this->hasMany(Postulation::class);
+    }
 }

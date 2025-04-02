@@ -31,6 +31,8 @@ class BelongsSeeder extends Seeder
                 Belong::create([
                     'offer_id' => $offer->id,
                     'wishlist_id' => $wishlist->id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
         }

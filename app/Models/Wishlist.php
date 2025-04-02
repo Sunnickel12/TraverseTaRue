@@ -29,9 +29,9 @@ class Wishlist extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function offer()
+    public function offers()
     {
-        return $this->belongsTo(Offer::class, 'offer_id');
+        return $this->belongsToMany(Offer::class, 'belongs', 'wishlist_id', 'offer_id')->withTimestamps();
     }
 }
 
