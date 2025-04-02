@@ -131,31 +131,4 @@ if (loginForm && submitButton) {
         submitButton.disabled = true;
         submitButton.innerHTML = 'En cours...'; 
     });
-
-    window.addEventListener('click', (e) => {
-        if (e.target === popupBackground) {
-            loginPopup.classList.add('hidden');
-            popupBackground.classList.remove('opacity-50');
-        }
-    });
-
-    // Fermer la pop-up avec la touche Échap
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !loginPopup.classList.contains('hidden')) {
-            loginPopup.classList.add('hidden');
-            popupBackground.classList.remove('opacity-50');
-        }
-    });
-
-    // Toggle mot de passe
-    const passwordField = document.getElementById('password');
-    const togglePasswordIcon = document.getElementById('toggle-password-icon');
-
-    if (togglePasswordIcon) {
-        togglePasswordIcon.addEventListener('click', () => {
-            const isPassword = passwordField.type === 'password';
-            passwordField.type = isPassword ? 'text' : 'password';
-            togglePasswordIcon.src = isPassword ? window.eyeOpenIcon : window.eyeClosedIcon;
-        });
-    }
-};
+}
