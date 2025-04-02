@@ -177,7 +177,7 @@
     <main class="flex-1 local-font-gliker">
         @if (session('success'))
         <div id="success-popup"
-            class="bg-green-600 opacity-80 m-4 md:mx-150 text-white text-center py-2 text-sm md:text-xl p-4 rounded-2xl local-font-gliker">
+            class="bg-green-600 opacity-80 m-4 md:mx-50 lg:mx-150 text-white text-center py-2 text-sm md:text-xl p-4 rounded-2xl local-font-gliker">
             {{ session('success') }}
         </div>
         @endif <!-- Affichage du message de succès -->
