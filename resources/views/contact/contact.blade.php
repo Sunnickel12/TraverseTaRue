@@ -3,6 +3,7 @@
 @section('title', 'Contact')
 
 @section('content')
+@role('admin|pilote|etudiant')
     <div class="max-w-6xl mx-auto p-6 shadow-xl rounded-2xl border-3 border-[#3a3a3a] my-10">
         <div class="text-center">
             <h1 class="text-3xl md:text-5xl text-[#6e9ae6] font-extrabold mb-6">Contactez-nous</h1>
@@ -63,4 +64,11 @@
             </a>
         </div>
     </div>
+@else
+<h1 class="text-3xl md:text-5xl text-[#6e9ae6] font-extrabold mb-6 text-center">Vous n'avez pas accès à cette page.</h1>
+<p class="text-lg md:text-xl text-[#3a3a3a] mb-4 text-center">
+    Vous devez être connecté en tant qu'administrateur, pilote ou étudiant pour accéder à cette page.
+</p>
+@endrole
 @endsection
+
