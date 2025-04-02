@@ -3,7 +3,7 @@
 @section('title', 'Evaluer')
 
 @section('content')
-@vite(['resources/js/app.js', 'resources/css/css.js'])
+@vite(['resources/js/app.js', 'resources/css/app.css'])
 
 <div class="container mx-auto mt-8 border border-black rounded-lg">
     <h1 class="text-2xl font-bold mb-4 text-center">Add Evaluation for {{ $company->name }}</h1>

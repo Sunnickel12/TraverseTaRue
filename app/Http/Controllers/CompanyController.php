@@ -74,6 +74,16 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
+        // Load related evaluations
+        $company->load('evaluations');
+
+        // Calculate the average evaluation and ratings count
+        $company->average_evaluation = $company->evaluations->avg('note') ?? 'N/A';
+        $company->ratings_count = $company->evaluations->count();
+
+        // Load offers count if needed
+        $company->loadCount('offers');
+
         return view('companies.show', compact('company'));
     }
 

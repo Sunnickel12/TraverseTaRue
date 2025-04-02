@@ -11,9 +11,14 @@ class Company extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'address', 'description', 'logo', 'email', 'phone'
+        'name',
+        'address',
+        'description',
+        'logo',
+        'email',
+        'phone'
     ];
-    
+
     // Relation many-to-many avec City
     public function cities()
     {
@@ -41,5 +46,10 @@ class Company extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
     }
 }
