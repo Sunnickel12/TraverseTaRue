@@ -42,25 +42,31 @@ class CompanyController extends Controller
         return view('companies.index', compact('companies', 'locations', 'sectors'));
     }
 
-    /**
-     * Afficher le formulaire de création d'une entreprise.
-     */
+
     public function create()
     {
-        return view('companies.create');
+        $cities = City::all(); // Fetch all cities
+        return view('companies.create', compact('cities'));
     }
 
-    /**
-     * Stocker une nouvelle entreprise.
-     */
     public function store(Request $request)
     {
-        $data = $this->validateCompany($request);
-        $data['logo'] = $this->handleLogoUpload($request);
+        $validated = $request->validate([
+            'name' => 'required|unique:companies|max:255',
+            'address' => 'required|max:255',
+            'description' => 'required',
+            'logo' => 'nullable|image|max:2048',
+            'email' => 'required|email|unique:companies|max:255',
+            'phone' => 'nullable|max:50',
+            'city_id' => 'required|exists:cities,id', // Validate city ID
+        ]);
 
-        Company::create($data);
+        $company = Company::create($validated);
 
-        return redirect()->route('companies.index')->with('success', 'Company created successfully!');
+        // Attach the company to the selected city
+        $company->cities()->attach($request->city_id);
+
+        return redirect()->route('companies.index')->with('success', 'Entreprise créée avec succès.');
     }
 
     /**

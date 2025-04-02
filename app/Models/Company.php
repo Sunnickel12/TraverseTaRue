@@ -20,6 +20,11 @@ class Company extends Model
         return $this->belongsToMany(City::class, 'situates', 'company_id', 'city_id');
     }
 
+    public function isAddressInCity($cityName)
+    {
+        return $this->cities()->where('name', $cityName)->exists();
+    }
+
     // Relation many-to-many avec Sector
     public function sectors()
     {

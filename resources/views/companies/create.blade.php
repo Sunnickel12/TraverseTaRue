@@ -30,6 +30,17 @@
             <input type="text" name="address" id="address" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
         </div>
 
+        <!-- City -->
+        <div class="mb-4">
+            <label for="city" class="block text-sm font-medium text-[#3a3a3a]">Ville</label>
+            <select name="city_id" id="city" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
+                <option value="" disabled selected>Choisissez une ville</option>
+                @foreach ($cities as $city)
+                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Description -->
         <div class="mb-4">
             <label for="description" class="block text-sm font-medium text-[#3a3a3a]">Description</label>

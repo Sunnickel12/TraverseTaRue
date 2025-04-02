@@ -25,4 +25,9 @@ class City extends Model
         return $this->belongsTo(Departement::class, 'departement_id');
 
     }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'situates', 'city_id', 'company_id');
+    }
 }
