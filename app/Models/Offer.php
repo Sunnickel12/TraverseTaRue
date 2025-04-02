@@ -47,5 +47,10 @@ class Offer extends Model
     {
         return $this->belongsToMany(User::class, 'user_wishlist', 'offer_id', 'id', 'user_id', 'id');
     }
+
+    public function wishlists()
+    {
+        return $this->belongsToMany(Wishlist::class, 'belongs', 'offer_id', 'wishlist_id')->withTimestamps();
+    }
 }
 

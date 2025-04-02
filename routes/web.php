@@ -80,3 +80,7 @@ Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishl
 
 // Pannel Admin 
 Route::view('/Panneau de Configuration', 'admin.pannel-admin')->name('Panneau de Configuration');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
+});

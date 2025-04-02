@@ -95,7 +95,20 @@
                                     <td class="py-3 px-4 border">{{ $user->email }}</td>
                                     <td class="py-3 px-4 border">{{ $user->class->name ?? 'N/A' }}</td>
                                     <td class="py-3 px-4 border">{{ $user->roles->pluck('name')->join(', ') }}</td>
-                                    <td class="py-3 px-4 border">N/A</td>
+                                    <td class="py-3 px-4 border flex gap-2">
+                                        <a href="{{ route('users.edit', $user->id) }}" 
+                                           class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded transition-all duration-300">
+                                            Edit
+                                        </a>
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded transition-all duration-300">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endif
                         @endrole
