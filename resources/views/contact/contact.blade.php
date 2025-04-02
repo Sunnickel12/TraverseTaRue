@@ -6,10 +6,7 @@
 
 
 @section('content')
-    @auth
-
-
-
+    @role('admin|pilote|etudiant')
         <!-- Message de succès -->
         @if (session('successsend'))
             <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show"
@@ -88,5 +85,5 @@
         <p class="text-lg md:text-xl text-[#3a3a3a] mb-4 text-center">
             Vous devez être connecté en tant qu'administrateur, pilote ou étudiant pour accéder à cette page.
         </p>
-    @endauth    
+    @endrole    
 @endsection

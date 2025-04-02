@@ -57,9 +57,13 @@
 
                         <!-- Menu déroulant -->
                         <div id="usermenu"
-                            class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden ring-1 ring-[#6e9ae6] z-50">
+                            class="hidden absolute right-2 top-full mt-2 w-auto text-nowrap bg-white rounded-lg shadow-lg overflow-hidden ring-1 ring-[#6e9ae6] z-50 mr-2">
                             <a href="#"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Profil</a>
+                                @role('admin|pilote')
+                                <a href="#"
+                                class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Panneau de Configuration</a>
+                                @endrole
                             <a href="#"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
                             <a href="#"
