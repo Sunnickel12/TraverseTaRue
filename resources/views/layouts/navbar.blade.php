@@ -34,12 +34,14 @@
 
                 <!-- Navigation principale (mode PC) -->
                 <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-8 font-bold text-white">
-                    <a href="#"
+                    <a href="{{ route('offers.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Offres</a>
                     <a href="{{ route('companies.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Entreprises</a>
                     <a href="{{ route('Contact') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Contact</a>
+                    <a href="{{route('wishlists.index') }}"
+                    class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Wishlist</a>
                 </div>
 
                 <!-- Bouton "Mon Compte" -->
@@ -97,12 +99,14 @@
             <div class="flex flex-col local-font-gliker space-y-4 mt-6 px-4">
                 <a href="{{ url(path: 'home') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Accueil</a>
-                <a href="#"
+                <a href="{{ route('offers.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Offres</a>
                 <a href="{{ route('companies.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
                 <a href="{{ route('Contact') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Contact</a>
+                <a href="{{route('wishlists.index') }}"
+                    class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Wishlist</a>
             </div>
         </div>
 

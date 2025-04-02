@@ -6,13 +6,17 @@ use Illuminate\Database\Seeder;
 use App\Models\User; 
 use Faker\Factory as Faker;
 
+
 class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Exécuter le seeder.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
+
 
         $faker = Faker::create();
 
@@ -54,7 +58,7 @@ class UserSeeder extends Seeder
                 'name' => $lastName,
                 'first_name' => $firstName,
                 'birthdate' => $faker->date('Y-m-d', '2000-01-01'),
-                'email' => strtolower("{$firstName}.{$lastName}@example.com"), // Generate email
+                'email' => strtolower($firstName . '.' . $lastName . '@example.com'), // Generate email
                 'password' => bcrypt('password'),
             ]);
             $teacher->assignRole('pilote');
@@ -68,7 +72,7 @@ class UserSeeder extends Seeder
                 'name' => $lastName,
                 'first_name' => $firstName,
                 'birthdate' => $faker->date('Y-m-d', '2005-01-01'),
-                'email' => strtolower("{$firstName}.{$lastName}@example.com"), // Generate email
+                'email' => strtolower($firstName . '.' . $lastName . '@example.com'), // Generate email
                 'password' => bcrypt('password'),
             ]);
             $student->assignRole('etudiant');

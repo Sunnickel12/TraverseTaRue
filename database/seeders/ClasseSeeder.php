@@ -17,7 +17,7 @@ class ClasseSeeder extends Seeder
         foreach ($categories as $category) {
             foreach ($levels as $level) {
                 ClassModel::create([
-                    'name' => "{$category} {$level}",
+                    'name' => "{$level} {$category}",
                 ]);
             }
         }
@@ -28,3 +28,4 @@ class ClasseSeeder extends Seeder
         ]);
     }
 }
+

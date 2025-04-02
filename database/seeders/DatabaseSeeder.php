@@ -1,7 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\RegionSeeder;
@@ -26,6 +25,7 @@ use Database\Seeders\BelongToSeeder;
 use Database\Seeders\ClasseSeeder;
 
 
+
 class DatabaseSeeder extends Seeder
 {
     public function run()
@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
 
             // Seeders for users and related data
             UserSeeder::class,
+
             ClasseSeeder::class,
             BelongToSeeder::class,
 
@@ -73,6 +74,8 @@ class DatabaseSeeder extends Seeder
   
 
             LivesSeeder::class,
+
         ]);
+        
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,7 +10,13 @@ class Company extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'address', 'description', 'logo', 'email', 'phone'
+        'id', 
+        'name', 
+        'address', 
+        'description', 
+        'logo', 
+        'email', 
+        'phone'
     ];
     
     // Relation many-to-many avec City
@@ -42,4 +47,11 @@ class Company extends Model
     {
         return $this->belongsTo(City::class);
     }
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
+    public $timestamps = false; 
 }
+

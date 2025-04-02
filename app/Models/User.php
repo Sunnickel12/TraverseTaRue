@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->getRoleNames()->first(); // Get the first role name assigned to the user
     }
+    public function wishlist()
+    {
+        return $this->belongsToMany(Offer::class, 'user_wishlist', 'user_id','offer_id');
+    }
+
 }
