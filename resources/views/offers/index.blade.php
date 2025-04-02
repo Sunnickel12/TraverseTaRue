@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\steve\OneDrive\Documentos\01 Cesi\01 CPI 2\Blocs\Web\Projet\Git\WebSite\TraverseTaRue\resources\views\offers\index.blade.php -->
 @extends('layouts.navbar')
 
 @section('title', 'Offres de Stage')
@@ -28,6 +27,7 @@
 </div>
 @endrole
 
+
 <!-- Section des offres -->
 <main class="px-4 max-w-5xl mx-auto">
     <h1 class="text-xl font-bold text-gray-700 text-center">
@@ -41,7 +41,8 @@
                 <a href="{{ route('offers.show', ['offer' => $offer->id]) }}">{{ $offer->title }}</a>
             </h2>
             <!-- Publication Date -->
-            <p class="text-sm text-gray-500">Publié il y a {{ $offer->publication_date }}</p>
+            <p class="text-sm text-gray-500">Publié il y a {{ $offer->created_at->diffForHumans() }}</p>
+
             <!-- Offer Details -->
             <div class="flex flex-wrap gap-2 mt-4">
                 <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->level }}</span>

@@ -5,15 +5,13 @@
 
 @section('content')
 <main class="px-4 max-w-5xl mx-auto">
-    <!-- Banner -->
-    <div class="banner-plane">
-        <img src="{{ asset('images/bannière.png') }}" alt="banner" class="w-full rounded-lg shadow-md">
-    </div>
+
 
     <!-- Offer Details -->
     <section id="job-detail" class="p-4">
         <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $offer->title }}</h3>
-        <p class="text-sm text-gray-500">Publié il y a {{ $offer->publication_date }}</p>
+        <p class="text-sm text-gray-500">Publié il y a {{ $offer->created_at->diffForHumans() }}</p>
+
 
         <!-- Characteristics -->
         <div class="flex flex-wrap gap-2 mt-4">

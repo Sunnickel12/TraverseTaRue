@@ -72,7 +72,8 @@ Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function
 });
 
 // Additional Routes
-Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
+
+Route::get('/wishlists', [WishlistController::class, 'show'])->name('Mes_candidatures');
 Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
 Route::get('/offer/{id}/apply', [PostulationController::class, 'create'])->name('postulation.create');
 Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('postulation.store');

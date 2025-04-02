@@ -61,10 +61,10 @@
                             <a href="#"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Profil</a>
                                 @role('admin|pilote')
-                                <a href="{{ route('Panneau_de_Configuration') }}"
+                            <a href="{{ route('Panneau_de_Configuration') }}"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Panneau de Configuration</a>
                                 @endrole
-                            <a href="#"
+                            <a href="{{ route('Mes_favoris') }}"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
                             <a href="#"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Messagerie</a>
@@ -109,7 +109,7 @@
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
                 <a href="{{ route('Contact') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Contact</a>
-                <a href="{{ route('wishlists.index') }}"
+                <a href="{{ route('Mes_favoris') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Wishlist</a>
             </div>
         </div>
