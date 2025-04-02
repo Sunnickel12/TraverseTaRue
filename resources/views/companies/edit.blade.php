@@ -53,11 +53,11 @@
         <div class="mb-4">
             <label class="block text-sm font-medium text-[#3a3a3a]">Logo actuel</label>
             @if($company->logo)
-                <div class="flex justify-center">
-                    <img src="{{ asset('images/company/' . $company->logo) }}" alt="Company Logo" class="w-40 h-40 object-cover rounded-md border">
-                </div>
+            <div class="flex justify-center">
+                <img src="{{ asset('images/company/' . $company->logo) }}" alt="Company Logo" class="w-auto h-40 object-contain rounded-md border">
+            </div>
             @else
-                <p class="text-center text-[#3a3a3a]">Aucun logo disponible</p>
+            <p class="text-center text-[#3a3a3a]">Aucun logo disponible</p>
             @endif
         </div>
 
@@ -87,7 +87,7 @@
         const preview = document.getElementById('preview');
         const logoPreview = document.getElementById('logoPreview');
         const file = event.target.files[0];
-        
+
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {

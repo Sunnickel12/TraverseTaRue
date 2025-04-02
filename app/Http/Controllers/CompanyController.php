@@ -14,14 +14,16 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
+        // Récupération des paramètres de filtre
         $search = $request->input('search');
         $location = $request->input('location');
         $category = $request->input('category');
 
-
+        // Récupérer les données pour les filtres (pour les villes et les secteurs)
         $locations = City::pluck('name', 'id');
         $sectors = Sector::pluck('name', 'id');
 
+        // Appliquer les filtres sur les entreprises
         $companies = Company::query()
             ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%"))
@@ -29,19 +31,15 @@ class CompanyController extends Controller
             ->when($category, fn($query) => $query->whereHas('sectors', fn($q) => $q->whereIn('sectors.id', $category)))
             ->paginate(4);
 
-        return view('companies.index', compact('companies', 'locations', 'sectors'));
-
-        // Calculate the average evaluation for each company
+        // Calculer la moyenne des évaluations pour chaque entreprise
         $companies->getCollection()->transform(function ($company) {
+            // Si aucune évaluation n'est présente, la valeur par défaut sera 'N'
             $company->average_evaluation = $company->evaluations->avg('note') ?? 'N';
             return $company;
         });
 
-        return view('companies.index', [
-            'companies' => $companies,
-            'locations' => City::pluck('name', 'id'),
-            'sectors' => Sector::pluck('name', 'id'),
-        ]);
+        // Retourner la vue avec les données nécessaires
+        return view('companies.index', compact('companies', 'locations', 'sectors'));
     }
 
     /**
@@ -99,7 +97,6 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-
         // Soft delete the company
         $company->delete();
 
