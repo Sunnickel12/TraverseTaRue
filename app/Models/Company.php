@@ -9,15 +9,17 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $table = 'companies';
-    //protected $primaryKey = 'id'; 
-
     protected $fillable = [
-        'name',
-        'address',
-        'description',
-        'logo',
-        'email',
-        'phone',
+        'name', 'address', 'description', 'logo', 'email', 'phone'
     ];
+
+    public function cities()
+    {
+        return $this->belongsToMany(City::class, 'situates', 'company_id', 'city_id');
+    }
+
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class, 'works', 'company_id', 'sector_id');
+    }
 }

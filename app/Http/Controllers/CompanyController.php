@@ -3,134 +3,135 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use App\Models\City; // Pour les villes
-use App\Models\Sector; // Ajout du modèle Sector pour récupérer les secteurs
+use App\Models\City;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    // Afficher la liste paginée des entreprises avec filtres optionnels
+    /**
+     * Afficher la liste paginée des entreprises avec filtres optionnels.
+     */
     public function index(Request $request)
     {
         $search = $request->input('search');
         $location = $request->input('location');
         $category = $request->input('category');
 
-        // Récupérer les villes distinctes depuis la base de données
-        $locations = City::distinct()->pluck('name', 'id'); // Ou adapte-le à la structure de votre base de données
+        $locations = City::pluck('name', 'id');
+        $sectors = Sector::pluck('name', 'id');
 
-        // Récupérer les secteurs (catégories) distincts depuis la base de données
-        $sectors = Sector::distinct()->pluck('name', 'id'); // Adapte cette ligne à ta structure de base de données
-
-        // Query pour filtrer les entreprises
-        $companies = Company::when($search, function ($query, $search) {
-                return $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
-            })
-            ->when($location, function ($query, $location) {
-                return $query->where('location', $location);
-            })
-            ->when($category, function ($query, $category) {
-                return $query->where('category', $category); // Assurez-vous que `category` correspond bien à une colonne de la table Company
-            })
+        $companies = Company::query()
+            ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%"))
+            ->when($location, fn($query) => $query->whereHas('cities', fn($q) => $q->whereIn('cities.id', $location)))
+            ->when($category, fn($query) => $query->whereHas('sectors', fn($q) => $q->whereIn('sectors.id', $category)))
             ->paginate(4);
 
-        // Passer les données à la vue
         return view('companies.index', compact('companies', 'locations', 'sectors'));
     }
 
-    // Méthode pour créer une nouvelle entreprise
+    /**
+     * Afficher le formulaire de création d'une entreprise.
+     */
     public function create()
     {
         return view('companies.create');
     }
 
-    // Stocker une nouvelle entreprise
+    /**
+     * Stocker une nouvelle entreprise.
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:companies|max:75',
-            'address' => 'required|max:255',
-            'description' => 'required',
-            'logo' => 'nullable|image|max:2048',
-            'email' => 'nullable|email|max:50',
-            'phone' => 'nullable|string|max:50',
-        ]);
-
-        $data = $request->all();
-
-        // Handle the logo upload
-        if ($request->hasFile('logo')) {
-            $file = $request->file('logo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $filename); // Save in public/images
-            $data['logo'] = $filename; // Save the filename in the database
-        }
+        $data = $this->validateCompany($request);
+        $data['logo'] = $this->handleLogoUpload($request);
 
         Company::create($data);
 
         return redirect()->route('companies.index')->with('success', 'Company created successfully!');
     }
 
-    // Afficher les détails d'une entreprise spécifique
+    /**
+     * Afficher les détails d'une entreprise spécifique.
+     */
     public function show(Company $company)
     {
         return view('companies.show', compact('company'));
     }
 
-    // Formulaire d'édition d'une entreprise
+    /**
+     * Afficher le formulaire d'édition d'une entreprise.
+     */
     public function edit(Company $company)
     {
         return view('companies.edit', compact('company'));
     }
 
-    // Mettre à jour une entreprise
+    /**
+     * Mettre à jour une entreprise.
+     */
     public function update(Request $request, Company $company)
     {
-        $request->validate([
-            'name' => 'required|unique:companies,name,' . $company->id . ',id|max:75',
-            'address' => 'required|max:255',
-            'description' => 'required',
-            'logo' => 'nullable|image|max:2048',
-            'email' => 'nullable|email|max:50',
-            'phone' => 'nullable|string|max:50',
-        ]);
-
-        $data = $request->all();
-
-        // Handle the logo upload
-        if ($request->hasFile('logo')) {
-            // Supprimer l'ancien logo si il existe
-            if ($company->logo) {
-                $oldLogoPath = public_path('images/' . $company->logo);
-                if (file_exists($oldLogoPath)) {
-                    unlink($oldLogoPath);
-                }
-            }
-
-            $file = $request->file('logo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $filename); // Save in public/images
-            $data['logo'] = $filename; // Save the filename in the database
-        }
+        $data = $this->validateCompany($request, $company->id);
+        $data['logo'] = $this->handleLogoUpload($request, $company->logo);
 
         $company->update($data);
 
         return redirect()->route('companies.index')->with('success', 'Company updated successfully!');
     }
 
-    // Supprimer une entreprise
+    /**
+     * Supprimer une entreprise.
+     */
     public function destroy(Company $company)
     {
-        if ($company->logo) {
-            $logoPath = public_path('images/' . $company->logo);
+        $this->deleteLogo($company->logo);
+        $company->delete();
+
+        return redirect()->route('companies.index')->with('success', 'Company deleted successfully!');
+    }
+
+    /**
+     * Valider les données de l'entreprise.
+     */
+    private function validateCompany(Request $request, $companyId = null)
+    {
+        return $request->validate([
+            'name' => "required|unique:companies,name,{$companyId},id|max:75",
+            'address' => 'required|max:255',
+            'description' => 'required',
+            'logo' => 'nullable|image|max:2048',
+            'email' => 'nullable|email|max:50',
+            'phone' => 'nullable|string|max:50',
+        ]);
+    }
+
+    /**
+     * Gérer l'upload et la suppression du logo.
+     */
+    private function handleLogoUpload(Request $request, $oldLogo = null)
+    {
+        if ($request->hasFile('logo')) {
+            $this->deleteLogo($oldLogo);
+            $file = $request->file('logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/company'), $filename);
+            return $filename;
+        }
+        return $oldLogo;
+    }
+
+    /**
+     * Supprimer un ancien logo.
+     */
+    private function deleteLogo($logo)
+    {
+        if ($logo) {
+            $logoPath = public_path('images/company/' . $logo);
             if (file_exists($logoPath)) {
                 unlink($logoPath);
             }
         }
-
-        $company->delete();
-
-        return redirect()->route('companies.index')->with('success', 'Company deleted successfully!');
     }
 }

@@ -121,9 +121,6 @@
         <h1
             class="text-[#6e9ae6] text-3xl text-center font-bold local-font-gliker mt-12 md:text-left md:text-5xl md:ml-6">
             Entreprises partenaires</h1>
-        <div class="text-2xl"> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, perspiciatis magnam aspernatur a expedita in. Libero aut quae minima non cumque adipisci. Illum fugit, iure ea praesentium nihil dicta! Eum!
-        </div>
-
     </nav>
 </body>
 @endsection
