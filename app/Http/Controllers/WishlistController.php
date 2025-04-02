@@ -19,7 +19,7 @@ class WishlistController extends Controller
 
         // Validation de l'ID de l'offre
         $validator = Validator::make($request->all(), [
-            'id_offers' => 'required|exists:offres,id' // Vérifie si l'offre existe
+            'offer_id' => 'required|exists:offres,id' // Vérifie si l'offre existe
         ]);
 
         if ($validator->fails()) {
@@ -29,7 +29,7 @@ class WishlistController extends Controller
         // Ajouter l'offre à la wishlist si elle n'existe pas déjà
         Wishlist::firstOrCreate([
             'user_id' => Auth::id(),
-            'offer_id' => $request->id_offers
+            'offer_id' => $request->offer_id
         ]);
 
         return response()->json(['message' => 'Offre ajoutée à la wishlist']);
@@ -45,7 +45,7 @@ class WishlistController extends Controller
 
         // Validation de l'ID de l'offre
         $validator = Validator::make($request->all(), [
-            'id_offers' => 'required|exists:offres,id' // Vérifie si l'offre existe
+            'offer_id' => 'required|exists:offres,id' // Vérifie si l'offre existe
         ]);
 
         if ($validator->fails()) {
@@ -54,8 +54,8 @@ class WishlistController extends Controller
 
         // Supprimer l'offre de la wishlist
         Wishlist::where('user_id', Auth::id())
-                ->where('offer_id', $request->id_offers)
-                ->delete();
+            ->where('offer_id', $request->offer_id)
+            ->delete();
 
         return response()->json(['message' => 'Offre retirée de la wishlist']);
     }
@@ -70,10 +70,10 @@ class WishlistController extends Controller
 
         // Récupérer les offres de la wishlist de l'utilisateur connecté
         $wishlistedOffers = Wishlist::where('user_id', Auth::id())
-                                    ->with('offer') // Récupérer les données de l'offre associée
-                                    ->get();
+            ->with('offer') // Récupérer les données de l'offre associée
+            ->get();
 
-        return view('wishlist.index', compact('wishlistedOffers'));
+        return view('wishlists.index', compact('wishlistedOffers'));
     }
     public function candidatures()
     {
@@ -84,7 +84,7 @@ class WishlistController extends Controller
         // Récupérer les candidatures de l'utilisateur connecté
         $postulations = Wishlist::where('user_id', Auth::id())->with('offer')->get();
 
-        return view('partials.w_candidatures', compact('postulations'));
+        return view('wishlists.show', compact('postulations'));
     }
 
 

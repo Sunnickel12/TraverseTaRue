@@ -6,48 +6,51 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\ClassModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
+        'first_name',
+        'birthdate',
         'email',
         'password',
+        'pp',
+        'classes_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    public function getFullNameAttribute()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->first_name . ' ' . $this->name;
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'id');
+    }
+
+    public function getRoleNameAttribute()
+    {
+        return $this->getRoleNames()->first(); // Get the first role name assigned to the user
     }
     public function wishlist()
     {
-        return $this->belongsToMany(Offer::class, 'user_wishlist', 'user_id','id_users', 'offer_id','id_offers');
+        return $this->belongsToMany(Offer::class, 'user_wishlist', 'user_id','offer_id');
     }
 
 }

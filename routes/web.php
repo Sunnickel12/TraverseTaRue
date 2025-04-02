@@ -1,76 +1,83 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
-use App\Http\Controllers\LoginController;
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
-    Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
-    Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
-});
-
-Route::get('/w_candidatures', [WishlistController::class, 'candidatures'])->name('w_candidatures');
-
+// Home Routes
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', function () {
-    return view('partials.home-page'); // La vue pour l'accueil
+    return view('home');
 })->name('home');
 
+Route::get('home', function () {
+    return view('home');
+});
 
-// Route pour la page de connexion
+// Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::get('/postulations/{id_postulation}/manage', [PostulationController::class, 'manage'])->name('postulation.manage');
-Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulation.delete');
-Route::put('/postulations/{id_postulation}', [PostulationController::class, 'update'])->name('postulation.update');
+// Company Routes
+Route::resource('companies', CompanyController::class);
 
+// User Routes (Requires Authentication)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+});
 
-Route::get('/w_candidatures', [PostulationController::class, 'wishlist'])->name('w_candidatures');
+// Evaluation Routes
+Route::get('evaluations/create/{company}', [EvaluationController::class, 'create'])->name('evaluations.create');
+Route::post('evaluations/store', [EvaluationController::class, 'store'])->name('evaluations.store');
+Route::get('evaluations/{company}', [EvaluationController::class, 'index'])->name('evaluations.index');
+Route::delete('evaluations/{evaluation}', [EvaluationController::class, 'destroy'])->name('evaluations.destroy');
 
-Route::get('/offres', [OfferController::class, 'index'])->name('offres');
-Route::get('/offre/{id_offers}', [OfferController::class, 'show'])->name('offres.show');
+// Static Pages
+Route::view('/Informations-legales', 'balekenvrai.Informations-Légales')->name('Informations-legales');
+Route::view('/Politique de confidentialité', 'balekenvrai.Politique-de-confidentialité')->name('Politique de confidentialité');
+Route::view('/Contact', 'contact.contact')->name('Contact');
 
+// Offer Routes (CRUD)
+Route::resource('offers', OfferController::class);
 
-Route::get('/informations-legales', function () {
-    return view('info'); // Vue pour les informations légales
-})->name('info');
+// Postulation Routes (Requires Authentication)
+Route::prefix('postulations')->name('postulations.')->middleware('auth')->group(function () {
+    Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
+    Route::get('/{id}/manage', [PostulationController::class, 'manage'])->name('manage');
+    Route::put('/{id}', [PostulationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete');
+    Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('apply');
+});
 
-Route::get('/cgu', function () {
-    return view('cgu'); // Vue pour les CGU
-})->name('cgu');
+// Wishlist Routes (Requires Authentication)
+Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function () {
+    Route::get('/', [WishlistController::class, 'index'])->name('index');
+    Route::post('/add', [WishlistController::class, 'add'])->name('add');
+    Route::post('/remove', [WishlistController::class, 'remove'])->name('remove');
+    Route::get('/{id}', [WishlistController::class, 'show'])->name('show');
+});
 
-Route::get('/aide_contact', function () {
-    return view('aide_contact'); // Vue pour l'aide et contact
-})->name('aide_contact');
-Route::get('/w_offres', function () {
-    return view('partials.w_offres'); // La vue pour "Mes offres"
-})->name('w_offres');
-// Afficher le formulaire de postulation
-Route::get('/offer/{id_offers}/apply', [PostulationController::class, 'create'])->name('postulation.create');
-
-// Soumettre la postulation
-Route::post('/offer/{id_offers}/apply', [PostulationController::class, 'store'])->name('postulation.store');
-// Route pour afficher la wishlist (les candidatures)
+// Additional Routes
+Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
+Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
+Route::get('/offer/{id}/apply', [PostulationController::class, 'create'])->name('postulation.create');
+Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('postulation.store');
 Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
 
-Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
-/*
-Route::get('postulations/{id_postulation}/edit', [PostulationController::class, 'edit'])->name('postulations.edit');
-
-Route::put('/postulations/{id_postulation}/update', [PostulationController::class, 'update'])->name('postulations.update');
-Route::delete('/postulations/{id_postulation}', [PostulationController::class, 'destroy'])->name('postulations.destroy');
-Route::get('/wishlist', function () {
-    return view('partials.wishlist'); // La vue pour "Mes favoris"
-})->name('wishlist');
-
-
-
-*/
+// Pannel Admin 
+Route::view('/Panneau de Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
+    

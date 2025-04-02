@@ -10,11 +10,11 @@ class Postulation extends Model
     use HasFactory;
 
     protected $table = 'postulations'; // Table concernée
-    protected $primaryKey = 'id_postulation'; // Clé primaire
+    //protected $primaryKey = 'id_postulation'; // Clé primaire
 
     protected $fillable = [
-        'id_users',
-        'id_offers',
+        'user_id',
+        'offer_id',
         'cv',
         'motivation_letter',
         'status',
@@ -22,11 +22,11 @@ class Postulation extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_users', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function offer()
     {
-        return $this->belongsTo(Offer::class, 'id_offers');
+        return $this->belongsTo(Offer::class, 'offer_id', 'id');
     }
 }
