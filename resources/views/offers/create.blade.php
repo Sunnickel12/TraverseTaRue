@@ -25,42 +25,63 @@
         <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-[#3a3a3a]">Titre de l'offre</label>
             <input type="text" name="title" id="title" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('title') }}" required>
+            @error('title')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Description -->
         <div class="mb-4">
             <label for="contenu" class="block text-sm font-medium text-[#3a3a3a]">Description</label>
             <textarea name="contenu" id="contenu" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>{{ old('contenu') }}</textarea>
+            @error('contenu')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Salaire -->
         <div class="mb-4">
             <label for="salary" class="block text-sm font-medium text-[#3a3a3a]">Salaire (€)</label>
             <input type="number" name="salary" id="salary" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('salary') }}" required>
+            @error('salary')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Durée -->
         <div class="mb-4">
             <label for="duration" class="block text-sm font-medium text-[#3a3a3a]">Durée</label>
             <input type="text" name="duration" id="duration" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('duration') }}" required>
+            @error('duration')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Niveau -->
         <div class="mb-4">
             <label for="level" class="block text-sm font-medium text-[#3a3a3a]">Niveau</label>
             <input type="text" name="level" id="level" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('level') }}" required>
+            @error('level')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Date de début -->
         <div class="mb-4">
             <label for="start_date" class="block text-sm font-medium text-[#3a3a3a]">Date de début</label>
             <input type="date" name="start_date" id="start_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('start_date') }}" required>
+            @error('start_date')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Date de fin -->
         <div class="mb-4">
             <label for="end_date" class="block text-sm font-medium text-[#3a3a3a]">Date de fin</label>
             <input type="date" name="end_date" id="end_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('end_date') }}">
+            @error('end_date')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Entreprise -->

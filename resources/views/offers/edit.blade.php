@@ -8,7 +8,7 @@
 
     <!-- Bouton Retour -->
     <div class="text-center mb-4">
-        <a href="{{ route('offers.index') }}" class="text-[#6e9ae6] hover:text-blue-400 font-semibold text-lg flex items-center justify-center space-x-2">
+        <a href="{{ route('offers.index') }}" class="text-[#6e9ae6] hover:text-blue-400 font-semibold text-lg inline-flex items-center justify-center px-4 py-2 space-x-2 border border-[#6e9ae6] rounded-md hover:bg-blue-50 transition-all duration-300">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
@@ -24,42 +24,63 @@
         <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-[#3a3a3a]">Titre de l'offre</label>
             <input type="text" name="title" id="title" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ $offer->title }}" required>
+            @error('title')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Description -->
+        <!-- Contenu -->
         <div class="mb-4">
             <label for="contenu" class="block text-sm font-medium text-[#3a3a3a]">Description</label>
             <textarea name="contenu" id="contenu" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>{{ $offer->contenu }}</textarea>
+            @error('contenu')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Salaire -->
         <div class="mb-4">
             <label for="salary" class="block text-sm font-medium text-[#3a3a3a]">Salaire (€)</label>
             <input type="number" name="salary" id="salary" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ $offer->salary }}" required>
+            @error('salary')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Durée -->
         <div class="mb-4">
             <label for="duration" class="block text-sm font-medium text-[#3a3a3a]">Durée</label>
             <input type="text" name="duration" id="duration" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ $offer->duration }}" required>
+            @error('duration')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Niveau -->
         <div class="mb-4">
             <label for="level" class="block text-sm font-medium text-[#3a3a3a]">Niveau</label>
             <input type="text" name="level" id="level" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ $offer->level }}" required>
+            @error('level')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Date de début -->
         <div class="mb-4">
             <label for="start_date" class="block text-sm font-medium text-[#3a3a3a]">Date de début</label>
             <input type="date" name="start_date" id="start_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ $offer->start_date }}" required>
+            @error('start_date')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Date de fin -->
         <div class="mb-4">
             <label for="end_date" class="block text-sm font-medium text-[#3a3a3a]">Date de fin</label>
             <input type="date" name="end_date" id="end_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ $offer->end_date }}">
+            @error('end_date')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Entreprise -->

@@ -22,12 +22,18 @@
         <div class="mb-4">
             <label for="name" class="block text-sm font-medium text-[#3a3a3a]">Nom de l'entreprise</label>
             <input type="text" name="name" id="name" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
+            @error('name')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Adresse -->
         <div class="mb-4">
             <label for="address" class="block text-sm font-medium text-[#3a3a3a]">Adresse</label>
             <input type="text" name="address" id="address" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
+            @error('address')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- City -->
@@ -45,18 +51,27 @@
         <div class="mb-4">
             <label for="description" class="block text-sm font-medium text-[#3a3a3a]">Description</label>
             <textarea name="description" id="description" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required></textarea>
+            @error('description')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Email -->
         <div class="mb-4">
             <label for="email" class="block text-sm font-medium text-[#3a3a3a]">Email</label>
             <input type="email" name="email" id="email" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300">
+            @error('email')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Téléphone -->
         <div class="mb-4">
             <label for="phone" class="block text-sm font-medium text-[#3a3a3a]">Téléphone</label>
             <input type="text" name="phone" id="phone" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300">
+            @error('phone')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Logo avec aperçu -->
