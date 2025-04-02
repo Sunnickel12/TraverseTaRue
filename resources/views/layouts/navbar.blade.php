@@ -28,7 +28,7 @@
                 </button>
 
                 <!-- Logo -->
-                <a href="{{ url(path: '/') }}" class="flex hover:scale-110 transition duration-300">
+                <a href="{{ url(path: 'home') }}" class="flex hover:scale-110 transition duration-300">
                     <img src="{{ asset('images/site/LogoTTR.png') }}" class="h-12 md:h-14 ml-2" alt="Logo" />
                 </a>
 
@@ -38,7 +38,7 @@
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Offres</a>
                     <a href="{{ route('companies.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Entreprises</a>
-                    <a href="#"
+                    <a href="{{ route('Contact') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Contact</a>
                 </div>
 
@@ -93,13 +93,13 @@
                 <button id="close-menu" class="text-white text-3xl">&times;</button>
             </div>
             <div class="flex flex-col local-font-gliker space-y-4 mt-6 px-4">
-                <a href="{{ url(path: '/') }}"
+                <a href="{{ url(path: 'home') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Accueil</a>
                 <a href="#"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Offres</a>
                 <a href="{{ route('companies.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
-                <a href="#"
+                <a href="{{ route('Contact') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Contact</a>
             </div>
         </div>
@@ -172,7 +172,7 @@
             aria-label="Pied de page">
             <div class="w-full max-w-screen-xl mx-auto p-2 md:py-4">
                 <div class="sm:flex sm:items-center sm:justify-between mt-2">
-                    <a href="#"
+                    <a href="{{ route('home') }}"
                         class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse transition duration-200 hover:scale-110">
                         <img src="{{ asset('images/site/LogoTTR.png') }}" class="h-4 md:h-8" alt="Logo" />
                         <span
@@ -182,23 +182,23 @@
                     <ul
                         class="flex flex-wrap items-center mb-4 text-[10px] sm:text-xs md:text-sm font-medium text-gray-300 sm:mb-0">
                         <li>
-                            <a href="#"
+                            <a href="{{ route('Informations-legales') }}"
                                 class="hover:underline mx-2 hover:text-[#6e9ae6] sm:me-2 md:me-6">Informations
                                 légales</a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="{{ route('Politique de confidentialité') }}"
                                 class="hover:underline mx-2 hover:text-[#6e9ae6] sm:me-2 md:me-6">Politique de
                                 confidentialité</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:underline mx-2 hover:text-[#6e9ae6]">Contact</a>
+                            <a href="{{ route('Contact') }}" class="hover:underline mx-2 hover:text-[#6e9ae6]">Contact</a>
                         </li>
                     </ul>
                 </div>
                 <hr class="my-2 border-[#ffffff] sm:mx-auto lg:my-6" />
                 <span class="block text-[10px] sm:text-xs md:text-sm text-gray-300 sm:text-center">© 2025 <a
-                        href="#" class="hover:underline hover:text-[#6e9ae6]">Traverse Ta Rue</a>. All Rights
+                        href="{{ route('home') }}" class="hover:underline hover:text-[#6e9ae6]">Traverse Ta Rue</a>. All Rights
                     Reserved.</span>
             </div>
         </nav>

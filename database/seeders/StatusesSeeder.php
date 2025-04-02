@@ -14,16 +14,16 @@ class StatusesSeeder extends Seeder
     {
         // Predefined list of statuses
         $statuses = [
-            'Under Review',
-            'Accepted',
-            'Rejected',
-            'Pending',
-            'Completed',
-            'In Progress',
-            'On Hold',
-            'Cancelled',
-            'Approved',
-            'Declined',
+            'En cours d\'examen',
+            'Accepté',
+            'Rejeté',
+            'En attente',
+            'Terminé',
+            'En cours',
+            'En pause',
+            'Annulé',
+            'Approuvé',
+            'Refusé',
         ];
 
         // Insert statuses into the database

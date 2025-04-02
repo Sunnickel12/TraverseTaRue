@@ -5,12 +5,18 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\ContactController;
 
 
-// Route pour la page d'accueil
+// Route pour la page d'accueil avec '/'
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+// Route pour la page d'accueil avec '/home'
+Route::get('home', function () {
+    return view('home');
+});
 
 // Route pour la page de connexion
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -39,3 +45,11 @@ Route::post('evaluations/store', [EvaluationController::class, 'store'])->name('
 Route::get('evaluations/{company}', [EvaluationController::class, 'index'])->name('evaluations.index');
 Route::delete('evaluations/{evaluation}', [EvaluationController::class, 'destroy'])->name('evaluations.destroy');
 
+Route::view('/Informations-legales', 'balekenvrai.Informations-Légales')->name('Informations-legales');
+Route::view('/Politique de confidentialité', 'balekenvrai.Politique-de-confidentialité')->name('Politique de confidentialité');
+Route::view('/Contact', 'Contact.Contact')->name('Contact');
+
+
+
+Route::get('/contact', [ContactController::class, 'show'])->middleware('auth')->name('contact.show');
+Route::post('/contact', [ContactController::class, 'store'])->middleware('auth')->name('contact.store');

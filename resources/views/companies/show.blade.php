@@ -3,7 +3,7 @@
 @section('title', 'Entreprises')
 
 @section('content')
-@vite(['resources/js/app.js', 'resources/css/css.js'])
+@vite(['resources/js/app.js', 'resources/css/app.css'])
 
 <div class="max-w-6xl mx-4 lg:mx-auto p-6 shadow-xl rounded-2xl border-3 border-[#3a3a3a] my-20">
     <!-- Conteneur principal centré -->

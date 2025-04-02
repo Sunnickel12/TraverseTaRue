@@ -4,7 +4,7 @@
 
 
 @section('content')
-@vite(['resources/js/app.js', 'resources/css/css.js'])
+@vite(['resources/js/app.js', 'resources/css/app.css'])
 
 
 <!-- Ajouter les fichiers CSS et JS de Select2 -->
