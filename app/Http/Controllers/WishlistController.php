@@ -70,7 +70,7 @@ class WishlistController extends Controller
 
         // Récupérer les offres de la wishlist de l'utilisateur connecté
         $wishlistedOffers = Wishlist::where('user_id', Auth::id())
-            ->with('offer') // Récupérer les données de l'offre associée
+            ->with('offers') // Récupérer les données de l'offre associée
             ->get();
 
         return view('wishlists.index', compact('wishlistedOffers'));
@@ -86,6 +86,27 @@ class WishlistController extends Controller
 
         return view('wishlists.show', compact('postulations'));
     }
+    public function show()
+    {
+        // Vérifier si l'utilisateur est authentifié
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Vous devez être connecté.'], 401);
+        }
 
+        // Récupérer la wishlist de l'utilisateur avec ses offres
+        $wishlist = Wishlist::where('user_id', Auth::id())->with('offers.postulations')->first();
+
+        if (!$wishlist) {
+            return view('wishlists.show', ['postulations' => collect()]); // Retourne une collection vide
+        }
+
+        // Récupérer toutes les postulations liées aux offres dans la wishlist
+        $postulations = collect();
+        foreach ($wishlist->offers as $offer) {
+            $postulations = $postulations->merge($offer->postulations);
+        }
+
+        return view('wishlists.show', compact('postulations'));
+    }
 
 }

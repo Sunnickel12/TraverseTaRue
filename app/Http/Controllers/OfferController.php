@@ -46,10 +46,12 @@ class OfferController extends Controller
     }
 
     // Display a specific offer's details
-    public function show(Offer $offer)
-    {
-        return view('offers.show', compact('offer'));
-    }
+    public function show($id)
+{
+    dd(Offer::findOrFail(request('id'))); // Test si l'offre est bien récupérée.
+
+}
+
 
     // Show the form to edit an existing offer
     public function edit(Offer $offer)

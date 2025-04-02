@@ -16,8 +16,9 @@ class Offer extends Model
      *
      * @var array<int, string>
      */
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'tittle',
+        'title',
         'contenu',
         'salary',
         'level',
@@ -45,7 +46,13 @@ class Offer extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_wishlist', 'offer_id', 'id', 'user_id', 'id');
+        return $this->belongsToMany(User::class, 'user_wishlist', 'offer_id', 'user_id');
     }
+    public function postulations()
+    {
+        return $this->hasMany(Postulation::class, 'offer_id'); // 'offer_id' doit être la clé étrangère dans la table 'postulations'
+    }
+
+
 }
 

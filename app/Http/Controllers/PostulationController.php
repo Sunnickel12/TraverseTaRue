@@ -111,6 +111,7 @@ class PostulationController extends Controller
         $userId = Auth::id();
         $postulations = Postulation::where('user_id', $userId)->with('offer')->get();
 
-        return view('postulations.index', compact('postulations'));
+        return view('wishlists.show', compact('postulations'));
     }
+    
 }

@@ -56,7 +56,7 @@ Route::view('/Contact', 'Contact.Contact')->name('Contact');
 // Offres 
 Route::prefix('offers')->name('offers.')->group(function () {
     Route::get('/', [OfferController::class, 'index'])->name('index'); // Affiche la liste des offres 
-    Route::get('/{offer}', [OfferController::class, 'show'])->name('show'); // Affiche les détails d'une offre
+    Route::get('/{id}', [OfferController::class, 'show'])->name('show'); // Affiche les détails d'une offre
 });
 
 // Candidatures
@@ -66,6 +66,8 @@ Route::prefix('postulations')->name('postulations.')->middleware('auth')->group(
     Route::put('/{id}', [PostulationController::class, 'update'])->name('update'); // Mise à jour d'une candidature
     Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete'); // Suppression d'une candidature
     Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('apply'); // Soumettre une candidature
+    Route::get('/create/{id}', [PostulationController::class, 'create'])->name('postulation.create');
+    Route::post('/{id}/store', [PostulationController::class, 'store'])->name('postulation.store');
 });
 
 // Wishlist (authentification requise)
@@ -76,7 +78,9 @@ Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function
     Route::get('/{id}', [WishlistController::class, 'show'])->name('show'); // Détails d'une offre dans la wishlist 
 });
 
+// Page "mes favoris"
 Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index'); // Afficher la wishlist
+Route::get('/wishlists/show', [WishlistController::class, 'show'])->name('wishlists.show');
 Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
 
 // Afficher le formulaire de postulation

@@ -22,10 +22,10 @@
     <main class="px-4 max-w-5xl mx-auto">
         <h1 class="text-xl font-bold text-gray-700 text-center">{{ $offers->isEmpty() ? 'Aucune offre disponible.' : $offers->count() . ' Offres Disponibles !' }}</h1>
 
-        <div class="grid gap-6 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-6 mt-6 sm:grid-cols-1 lg:grid-cols-1">
             @foreach ($offers as $offer)
             <div class="bg-white border border-gray-300 rounded-xl p-6 shadow-lg flex flex-col justify-between relative">
-                <h2 class="text-lg font-bold text-gray-800"><a href="{{ route('offers.show', ['offer' => $offer->id]) }}">{{ $offer->title }}</a></h2>
+                <h2 class="text-lg font-bold text-gray-800"><a href="{{ route('offers.show', ['id' => $offer->id]) }}">{{ $offer->title }}</a></h2>
                 <p class="text-sm text-gray-500">Publié il y a {{ $offer->publication_date }}</p>
                 <div class="flex flex-wrap gap-2 mt-4">
                     <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->level }}</span>
@@ -33,7 +33,7 @@
                     <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->salary }} €/mois</span>
                 </div>
                 <span class="absolute top-3 right-3 text-red-500 text-xl cursor-pointer" data-id="{{ $offer->id }}">♡</span>
-                <img src="{{ asset('images/' . ($offer->logo_path ?? 'default_logo.png')) }}" alt="Logo de {{ $offer->company->name ?? 'Entreprise inconnue' }}" class="h-12 w-auto object-contain mt-4">
+                <img src="{{ asset('images/company/' . ($company->logo ?? 'default_logo.png')) }}" alt="Logo de {{ $offer->company->name ?? 'Entreprise inconnue' }}" class="h-12 w-auto object-contain mt-4">
 
             </div>
             @endforeach
