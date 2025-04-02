@@ -18,6 +18,7 @@ class CompanyController extends Controller
         $location = $request->input('location');
         $category = $request->input('category');
 
+
         $locations = City::pluck('name', 'id');
         $sectors = Sector::pluck('name', 'id');
 
@@ -29,6 +30,18 @@ class CompanyController extends Controller
             ->paginate(4);
 
         return view('companies.index', compact('companies', 'locations', 'sectors'));
+
+        // Calculate the average evaluation for each company
+        $companies->getCollection()->transform(function ($company) {
+            $company->average_evaluation = $company->evaluations->avg('note') ?? 'N';
+            return $company;
+        });
+
+        return view('companies.index', [
+            'companies' => $companies,
+            'locations' => City::pluck('name', 'id'),
+            'sectors' => Sector::pluck('name', 'id'),
+        ]);
     }
 
     /**
@@ -86,10 +99,11 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $this->deleteLogo($company->logo);
+
+        // Soft delete the company
         $company->delete();
 
-        return redirect()->route('companies.index')->with('success', 'Company deleted successfully!');
+        return redirect()->route('companies.index')->with('success', 'Company soft deleted successfully!');
     }
 
     /**

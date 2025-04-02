@@ -75,6 +75,7 @@
             </form>
         </aside>
 
+
         <!-- Liste des entreprises -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:w-full mx-4 md:mx-8">
             @foreach ($companies as $company)
@@ -85,7 +86,12 @@
                         class="w-full h-full object-contain rounded-md">
                 </a>
                 <a href="{{ route('companies.show', $company->id) }}" class="block">
-                    <h2 class="text-xl font-semibold">{{ $company->name }}</h2>
+                    <h2 class="text-xl font-semibold">
+                        {{ $company->name }}
+                        <span class="text-yellow-500 text-lg">
+                            ({{ is_numeric($company->average_evaluation) ? number_format($company->average_evaluation, 1) : $company->average_evaluation }}/5 ⭐)
+                        </span>
+                    </h2>
                 </a>
                 <a href="{{ route('companies.show', $company->id) }}" class="block mb-4"> <!-- Ajout d'un margin-bottom ici -->
                     <p class="text-gray-600">{{ Str::limit($company->description, 100) }}</p>
