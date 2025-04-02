@@ -40,8 +40,6 @@
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Entreprises</a>
                     <a href="{{ route('Contact') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Contact</a>
-                    <a href="{{route('wishlists.index') }}"
-                    class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Wishlist</a>
                 </div>
 
                 <!-- Bouton "Mon Compte" -->
