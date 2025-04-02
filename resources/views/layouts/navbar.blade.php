@@ -158,13 +158,11 @@
                                 class="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer w-6 h-6">
                         </div>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-center items-center">
                         <button type="submit"
                             class="bg-[#6e9ae6] text-white text-[14px] md:text-lg py-2 px-4 rounded-md hover:bg-[#6e9ae6] transform hover:scale-105">
                             Se connecter
                         </button>
-                        <a href="#" class="text-sm text-[#6e9ae6] text-[14px] md:text-lg hover:underline">Mot de
-                            passe oublié ?</a>
                     </div>
                 </form>
                 <button id="close-login-popup"
