@@ -38,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); // Show edit form
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update'); // Update user
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); // Delete user
+    Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 });
 
 Route::get('evaluations/create/{company}', [EvaluationController::class, 'create'])->name('evaluations.create');
@@ -48,8 +50,3 @@ Route::delete('evaluations/{evaluation}', [EvaluationController::class, 'destroy
 Route::view('/Informations-legales', 'balekenvrai.Informations-Légales')->name('Informations-legales');
 Route::view('/Politique de confidentialité', 'balekenvrai.Politique-de-confidentialité')->name('Politique de confidentialité');
 Route::view('/Contact', 'Contact.Contact')->name('Contact');
-
-
-
-Route::get('/contact', [ContactController::class, 'show'])->middleware('auth')->name('contact.show');
-Route::post('/contact', [ContactController::class, 'store'])->middleware('auth')->name('contact.store');
