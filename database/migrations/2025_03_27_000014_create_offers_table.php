@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('start_date', 50);
             $table->date('end_date', 50)->nullable();
             $table->string('duration', 50);
-            // $table->foreignId('city_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('city_id')->constrained()->onDelete('cascade');;
             $table->foreignId('company_id')->constrained()->onDelete('cascade');;
             $table->timestamps();
             $table->softDeletes();

@@ -30,7 +30,7 @@ class OffersSeeder extends Seeder
         // Create 100 offers
         for ($i = 0; $i < 100; $i++) {
             Offer::create([
-                'tittle' => $faker->jobTitle,
+                'title' => $faker->jobTitle,
                 'contenu' => $faker->paragraphs(3, true),
                 'salary' => $faker->randomFloat(2, 600, 1200), 
                 'level' => $faker->randomElement(['Junior', 'Mid-Level', 'Senior']),
