@@ -61,7 +61,7 @@
                             <a href="#"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Profil</a>
                                 @role('admin|pilote')
-                                <a href="#"
+                                <a href="{{ route('Panneau_de_Configuration') }}"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Panneau de Configuration</a>
                                 @endrole
                             <a href="#"
