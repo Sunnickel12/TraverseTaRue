@@ -12,7 +12,7 @@ class CreateContactTable extends Migration
             $table->id();
             $table->string('title', 50);
             $table->string('content', 255);
-            $table->string('file', 255)->unique();
+            $table->string('file', 255)->unique()->nullable();
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');

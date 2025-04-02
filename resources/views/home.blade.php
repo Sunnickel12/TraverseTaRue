@@ -5,11 +5,6 @@
 
 <body>
     <nav class="bg-[#ffff] local-font-gliker">
-        @if (session('success'))
-        <div id="success-popup" class="bg-green-500 text-white text-center py-2 text-sm md:text-xl mx-4 md:mx-96 rounded-2xl local-font-gliker">
-            {{ session('success') }}
-        </div>
-        @endif
         <div>
             <!-- Titre principal -->
             <h1 class="text-[#6e9ae6] text-3xl font-bold mt-4 text-center md:text-left md:text-5xl md:ml-6">

@@ -77,3 +77,6 @@ Route::post('/postuler', [PostulationController::class, 'postuler'])->name('post
 Route::get('/offer/{id}/apply', [PostulationController::class, 'create'])->name('postulation.create');
 Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('postulation.store');
 Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
+
+// Pannel Admin 
+Route::view('/Panneau de Configuration', 'admin.pannel-admin')->name('Panneau de Configuration');

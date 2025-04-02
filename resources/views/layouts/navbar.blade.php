@@ -39,48 +39,48 @@
                     <a href="{{ route('companies.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Entreprises</a>
                     @role('admin|pilote|etudiant')
-                    <a href="{{ route('Contact') }}"
-                        class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Contact</a>
+                        <a href="{{ route('Contact') }}"
+                            class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Contact</a>
                     @endrole
                 </div>
 
                 <!-- Bouton "Mon Compte" -->
                 @if (Auth::check())
-                <!-- Affichage pour un utilisateur connecté -->
-                <div class="relative flex items-center ml-auto mt-1">
-                    <button id="user-btn"
-                        class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center hover:bg-white hover:text-[#6e9ae6] hover:scale-105 transition-all duration-300">
-                        <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/site/default-user.png') }}"
-                            alt="Photo de profil" class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
-                        <span class="ml-2 hidden sm:inline">{{ Auth::user()->first_name }}</span>
-                    </button>
+                    <!-- Affichage pour un utilisateur connecté -->
+                    <div class="relative flex items-center ml-auto mt-1">
+                        <button id="user-btn"
+                            class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center hover:bg-white hover:text-[#6e9ae6] hover:scale-105 transition-all duration-300">
+                            <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/site/default-user.png') }}"
+                                alt="Photo de profil" class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
+                            <span class="ml-2 hidden sm:inline">{{ Auth::user()->first_name }}</span>
+                        </button>
 
-                    <!-- Menu déroulant -->
-                    <div id="usermenu"
-                        class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden ring-1 ring-[#6e9ae6] z-50">
-                        <a href="#"
-                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Profil</a>
-                        <a href="#"
-                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
-                        <a href="#"
-                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Messagerie</a>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">
-                                Déconnexion
-                            </button>
-                        </form>
+                        <!-- Menu déroulant -->
+                        <div id="usermenu"
+                            class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden ring-1 ring-[#6e9ae6] z-50">
+                            <a href="#"
+                                class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Profil</a>
+                            <a href="#"
+                                class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
+                            <a href="#"
+                                class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Messagerie</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">
+                                    Déconnexion
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
             </div>
-            @else
+        @else
             <!-- Affichage pour un utilisateur non connecté -->
             <button id="account-btn"
                 class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300"
                 onclick="document.getElementById('login-popup').classList.remove('hidden');">
-                <img src="{{ asset('images/site/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
-                    alt="User Icon" />
+                <img src="{{ asset('images/site/icon-user.png') }}"
+                    class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8" alt="User Icon" />
                 <span class="ml-2">Compte</span>
             </button>
             @endif
@@ -105,7 +105,7 @@
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
                 <a href="{{ route('Contact') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Contact</a>
-                <a href="{{route('wishlists.index') }}"
+                <a href="{{ route('wishlists.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Wishlist</a>
             </div>
         </div>
@@ -131,13 +131,13 @@
 
                     <!-- Erreurs globales (si présentes) -->
                     @if ($errors->any())
-                    <div class="bg-red-500 text-white p-2 mb-4 rounded-md text-center">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                        <div class="bg-red-500 text-white p-2 mb-4 rounded-md text-center">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
 
 
@@ -169,7 +169,15 @@
         </div>
     </header>
 
+
     <main class="flex-1 local-font-gliker">
+        @if (session('success'))
+            <div id="success-popup"
+                class="bg-green-600 opacity-80 m-4 md:mx-150 text-white text-center py-2 text-sm md:text-xl p-4 rounded-2xl local-font-gliker">
+                {{ session('success') }}
+            </div>
+        @endif      <!-- Affichage du message de succès -->
+
         @yield('content')
     </main>
 
@@ -198,16 +206,17 @@
                                 confidentialité</a>
                         </li>
                         <li>
-                        @role('admin|pilote|etudiant')
-
-                            <a href="{{ route('Contact') }}" class="hover:underline mx-2 hover:text-[#6e9ae6]">Contact</a>
-                        @endrole
+                            @role('admin|pilote|etudiant')
+                                <a href="{{ route('Contact') }}"
+                                    class="hover:underline mx-2 hover:text-[#6e9ae6]">Contact</a>
+                            @endrole
                         </li>
                     </ul>
                 </div>
                 <hr class="my-2 border-[#ffffff] sm:mx-auto lg:my-6" />
                 <span class="block text-[10px] sm:text-xs md:text-sm text-gray-300 sm:text-center">© 2025 <a
-                        href="{{ route('home') }}" class="hover:underline hover:text-[#6e9ae6]">Traverse Ta Rue</a>. All Rights
+                        href="{{ route('home') }}" class="hover:underline hover:text-[#6e9ae6]">Traverse Ta Rue</a>.
+                    All Rights
                     Reserved.</span>
             </div>
         </nav>

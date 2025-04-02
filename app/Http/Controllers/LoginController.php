@@ -7,9 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    /**
+     * Gérer l'authentification de l'utilisateur.
+     */
     public function login(Request $request)
     {
-        // Valider les entrées
+        // Empêcher un utilisateur déjà connecté d'accéder à la connexion
+        if (Auth::check()) {
+            return redirect()->route('home')->with('info', 'Vous êtes déjà connecté.');
+        }
+
+        // Validation des entrées
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -19,24 +27,37 @@ class LoginController extends Controller
 
         // Tentative de connexion
         if (Auth::attempt($credentials, $request->filled('remember'))) {
-            // Rediriger vers la page où l'utilisateur était avant de se connecter
-            return redirect()->to(url()->previous())->with('success', 'Connexion réussie.');
+            $request->session()->regenerate(); // Sécurisation de la session
+            // Si une page précédente existe, rediriger vers elle, sinon rediriger vers la page d'accueil
+            $previousUrl = url()->previous() ?: route('home');
+            return redirect()->to($previousUrl)->with('success', 'Connexion réussie.');
         }
 
         // Si la connexion échoue
         return back()->withErrors(['error' => 'Identifiant ou mot de passe incorrect.'])->withInput();
     }
-    
-    // Déconnexion de l'utilisateur et redirection vers la page d'accueil
+
+    /**
+     * Gérer la déconnexion de l'utilisateur.
+     */
     public function logout(Request $request)
     {
-        $previousUrl = url()->previous();
+        // Vérifier si l'utilisateur est déjà déconnecté
+        if (!Auth::check()) {
+            return redirect()->route('home')->with('info', 'Vous êtes déjà déconnecté.');
+        }
 
+        // Récupérer l'URL précédente ou la page d'accueil si aucune page précédente
+        $previousUrl = url()->previous() ?: route('home');
+
+        // Déconnexion de l'utilisateur
         Auth::logout();
 
+        // Invalidation et régénération de la session
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        // Rediriger vers la page précédente ou la page d'accueil
         return redirect()->to($previousUrl)->with('success', 'Vous avez été déconnecté.');
     }
 }
