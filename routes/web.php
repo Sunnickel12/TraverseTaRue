@@ -49,7 +49,7 @@ Route::delete('evaluations/{evaluation}', [EvaluationController::class, 'destroy
 // Static Pages
 Route::view('/Informations-legales', 'balekenvrai.Informations-Légales')->name('Informations-legales');
 Route::view('/Politique de confidentialité', 'balekenvrai.Politique-de-confidentialité')->name('Politique de confidentialité');
-Route::view('/Contact', 'Contact.Contact')->name('Contact');
+Route::view('/Contact', 'contact.contact')->name('Contact');
 
 // Offer Routes (CRUD)
 Route::resource('offers', OfferController::class);

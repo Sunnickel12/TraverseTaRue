@@ -112,15 +112,5 @@
             </div>
         </div>
     </nav>
-
-    <hr class="my-6 border-t-3 border-[#3a3a3a] opacity-50">
-
-    <!-- Entreprises Partenaires -->
-    <nav>
-        <!-- Titre "Entreprises partenaires" -->
-        <h1
-            class="text-[#6e9ae6] text-3xl text-center font-bold local-font-gliker mt-12 md:text-left md:text-5xl md:ml-6">
-            Entreprises partenaires</h1>
-    </nav>
 </body>
 @endsection
