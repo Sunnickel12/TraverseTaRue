@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Traverse Ta Rue')</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/pagelogo.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('images/site/pagelogo.png') }}" />
 
     <script>
-        window.eyeClosedIcon = "{{ asset('images/eye-closed.png') }}";
-        window.eyeOpenIcon = "{{ asset('images/eye-open.png') }}";
+        window.eyeClosedIcon = "{{ asset('images/site/eye-closed.png') }}";
+        window.eyeOpenIcon = "{{ asset('images/site/eye-open.png') }}";
     </script>
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -23,13 +23,13 @@
 
                 <!-- Menu burger à gauche (affiché sur mobile uniquement) -->
                 <button id="burger-icon" class="md:hidden text-white focus:outline-none mr-2 md:mr-2">
-                    <img src="{{ asset('images/burger.png') }}" alt="Menu"
+                    <img src="{{ asset('images/site/burger.png') }}" alt="Menu"
                         class="w-8 h-8 ml-1.5 justify-space-between md:mr-0">
                 </button>
 
                 <!-- Logo -->
                 <a href="{{ url(path: '/') }}" class="flex hover:scale-110 transition duration-300">
-                    <img src="{{ asset('images/LogoTTR.png') }}" class="h-12 md:h-14 ml-2" alt="Logo" />
+                    <img src="{{ asset('images/site/LogoTTR.png') }}" class="h-12 md:h-14 ml-2" alt="Logo" />
                 </a>
 
                 <!-- Navigation principale (mode PC) -->
@@ -48,7 +48,7 @@
                     <div class="relative flex items-center ml-auto mt-1">
                         <button id="user-btn"
                             class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center hover:bg-white hover:text-[#6e9ae6] hover:scale-105 transition-all duration-300">
-                            <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/default-user.png') }}"
+                            <img src="{{ Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : asset('images/site/default-user.png') }}"
                                 alt="Photo de profil" class="bg-[#ffff] rounded-full w-8 h-8 md:w-10 md:h-10">
                             <span class="ml-2 hidden sm:inline">{{ Auth::user()->first_name }}</span>
                         </button>
@@ -75,7 +75,7 @@
             <button id="account-btn"
                 class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300"
                 onclick="document.getElementById('login-popup').classList.remove('hidden');">
-                <img src="{{ asset('images/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
+                <img src="{{ asset('images/site/icon-user.png') }}" class="bg-[#ffff] rounded-full w-6 h-6 md:w-8 md:h-8"
                     alt="User Icon" />
                 <span class="ml-2">Compte</span>
             </button>
@@ -143,7 +143,7 @@
                             <input type="password" id="password" name="password" placeholder="Mot de passe"
                                 class="w-full p-2 pr-10 border-2 border-[#3a3a3a] rounded-md focus:border-[#6e9ae6] focus:ring-2 focus:ring-[#6e9ae6] focus:outline-none transition-all duration-300"
                                 required>
-                            <img id="toggle-password-icon" src="{{ asset('images/eye-closed.png') }}"
+                            <img id="toggle-password-icon" src="{{ asset('images/site/eye-closed.png') }}"
                                 alt="Afficher/Masquer le mot de passe"
                                 class="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer w-6 h-6">
                         </div>
@@ -174,7 +174,7 @@
                 <div class="sm:flex sm:items-center sm:justify-between mt-2">
                     <a href="#"
                         class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse transition duration-200 hover:scale-110">
-                        <img src="{{ asset('images/LogoTTR.png') }}" class="h-4 md:h-8" alt="Logo" />
+                        <img src="{{ asset('images/site/LogoTTR.png') }}" class="h-4 md:h-8" alt="Logo" />
                         <span
                             class="self-center text-xs sm:text-sm md:text-xl font-semibold whitespace-nowrap hover:text-[#6e9ae6] text-[#ffffff]">Traverse
                             Ta Rue</span>
