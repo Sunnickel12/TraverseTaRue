@@ -67,11 +67,11 @@
                         <a href="#"
                             class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
                         <a href="#"
-                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Messagerie</a>
+                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Mdsqqsdessagerie</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">
+                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#ff7070] hover:text-white">
                                 Déconnexion
                             </button>
                         </form>
@@ -107,11 +107,13 @@
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Offres</a>
                 <a href="{{ route('companies.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
+                    @role('admin|pilote|etudiant')
                 <a href="{{ route('Contact') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Contact</a>
                 <a href="{{ route('wishlists.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Wishlist</a>
-            </div>
+                    @endrole
+                </div>
         </div>
 
         <!-- Pop-up de connexion -->
@@ -178,7 +180,7 @@
             class="bg-green-600 opacity-80 m-4 md:mx-150 text-white text-center py-2 text-sm md:text-xl p-4 rounded-2xl local-font-gliker">
             {{ session('success') }}
         </div>
-        @endif      <!-- Affichage du message de succès -->
+        @endif <!-- Affichage du message de succès -->
 
         @yield('content')
     </main>
