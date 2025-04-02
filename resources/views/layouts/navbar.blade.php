@@ -57,9 +57,13 @@
 
                         <!-- Menu déroulant -->
                         <div id="usermenu"
-                            class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden ring-1 ring-[#6e9ae6] z-50">
+                            class="hidden absolute right-2 top-full mt-2 w-auto text-nowrap bg-white rounded-lg shadow-lg overflow-hidden ring-1 ring-[#6e9ae6] z-50 mr-2">
                             <a href="#"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Profil</a>
+                                @role('admin|pilote')
+                                <a href="{{ route('Panneau_de_Configuration') }}"
+                                class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Panneau de Configuration</a>
+                                @endrole
                             <a href="#"
                                 class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
                             <a href="#"
@@ -154,13 +158,11 @@
                                 class="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer w-6 h-6">
                         </div>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-center items-center">
                         <button type="submit"
                             class="bg-[#6e9ae6] text-white text-[14px] md:text-lg py-2 px-4 rounded-md hover:bg-[#6e9ae6] transform hover:scale-105">
                             Se connecter
                         </button>
-                        <a href="#" class="text-sm text-[#6e9ae6] text-[14px] md:text-lg hover:underline">Mot de
-                            passe oublié ?</a>
                     </div>
                 </form>
                 <button id="close-login-popup"

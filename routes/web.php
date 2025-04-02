@@ -79,8 +79,11 @@ Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name(
 Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
 
 // Pannel Admin 
-Route::view('/Panneau de Configuration', 'admin.pannel-admin')->name('Panneau de Configuration');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
 });
+
+Route::view('/Panneau de Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
+    
+

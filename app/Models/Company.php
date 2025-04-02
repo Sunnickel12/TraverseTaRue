@@ -18,7 +18,7 @@ class Company extends Model
         'email', 
         'phone'
     ];
-    
+
     // Relation many-to-many avec City
     public function cities()
     {
@@ -47,11 +47,13 @@ class Company extends Model
     {
         return $this->belongsTo(City::class);
     }
+
     public function offers()
     {
         return $this->hasMany(Offer::class);
     }
 
-    public $timestamps = false; 
-}
 
+    public $timestamps = false; 
+
+}
