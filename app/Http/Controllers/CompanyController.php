@@ -46,8 +46,9 @@ class CompanyController extends Controller
 
     public function create()
     {
+        $sectors = Sector::all(); // Fetch all sectors
         $cities = City::all(); // Fetch all cities
-        return view('companies.create', compact('cities'));
+        return view('companies.create', compact('sectors','cities'));
     }
 
     public function store(Request $request)

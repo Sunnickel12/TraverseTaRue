@@ -42,9 +42,23 @@
             <select name="city_id" id="city" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
                 <option value="" disabled selected>Choisissez une ville</option>
                 @foreach ($cities as $city)
-                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                    <option value="{{ $city->id }}">{{ $city->name }}</option>
                 @endforeach
             </select>
+        </div>
+        
+        <!-- Secteur d'activité -->
+        <div class="mb-4">
+            <label for="sector_id" class="block text-sm font-medium text-[#3a3a3a]">Secteur d'activité</label>
+            <select name="sector_id" id="sector_id" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
+                <option value="" disabled selected>Choisissez un secteur d'activité</option>
+                @foreach ($sectors as $sector)
+                    <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                @endforeach
+            </select>
+            @error('sector_id')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Description -->
