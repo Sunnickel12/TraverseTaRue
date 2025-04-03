@@ -12,14 +12,22 @@ class Postulation extends Model
     protected $table = 'postulations'; // Table concernée
     //protected $primaryKey = 'id_postulation'; // Clé primaire
 
+    
+    protected $dates = ['deleted_at']; // Enable soft delete timestamps
+
     protected $fillable = [
         'user_id',
         'offer_id',
         'cv',
         'motivation_letter',
-        'status',
+        'status_id',
     ];
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

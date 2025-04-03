@@ -51,7 +51,15 @@
         <!-- Durée -->
         <div class="mb-4">
             <label for="duration" class="block text-sm font-medium text-[#3a3a3a]">Durée</label>
-            <input type="text" name="duration" id="duration" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('duration') }}" required>
+            <select name="duration" id="duration" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
+                <option value="" disabled selected>Choisissez une durée</option>
+                <option value="2 weeks">2 semaines</option>
+                <option value="1 month">1 mois</option>
+                <option value="2 months">2 mois</option>
+                <option value="3 months">3 mois</option>
+                <option value="4 months">4 mois</option>
+                <option value="6 months">6 mois</option>
+            </select>
             @error('duration')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -94,6 +102,15 @@
             </select>
         </div>
 
+        <div class="mb-4">
+            <label for="sectors" class="block text-sm font-medium text-gray-700">Secteurs</label>
+            <select name="sectors[]" id="sectors" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" multiple>
+                @foreach($sectors as $sector)
+                <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Ville -->
         <div class="mb-4">
             <label for="city_id" class="block text-sm font-medium text-[#3a3a3a]">Ville</label>
@@ -102,6 +119,21 @@
                 <option value="{{ $city->id }}">{{ $city->name }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <!-- Compétences -->
+        <div class="mb-4">
+            <label for="skills" class="block text-sm font-medium text-[#3a3a3a]">Compétences</label>
+            <select name="skills[]" id="skills" class="select2 mt-1 block w-full p-2 border border-gray-300 rounded-md" multiple>
+                @foreach ($skills as $id => $skill)
+                <option value="{{ $id }}" {{ in_array($id, old('skills', [])) ? 'selected' : '' }}>
+                    {{ $skill }}
+                </option>
+                @endforeach
+            </select>
+            @error('skills')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Bouton de soumission -->

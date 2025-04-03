@@ -10,12 +10,11 @@ class Status extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name'];
+
+    // Define the relationship with the Postulation model
+    public function postulations()
+    {
+        return $this->hasMany(Postulation::class, 'status_id');
+    }
 }

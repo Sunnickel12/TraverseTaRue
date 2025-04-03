@@ -26,8 +26,10 @@
             <ul>
                 @foreach($postulations as $postulation)
                 <li class="mb-2">
-                    <strong>Offer:</strong> {{ $postulation->offer->title ?? 'N/A' }}<br>
-                    <strong>Status:</strong> {{ $postulation->status }}
+                    <a href="{{ route('postulations.show', ['id' => $postulation->id]) }}" class="text-blue-500 hover:underline">
+                        {{ $postulation->offer->title ?? 'N/A' }}
+                    </a><br> 
+                    <strong>Status:</strong> {{ $postulation->status->name ?? 'N/A' }}
                 </li>
                 @endforeach
             </ul>
