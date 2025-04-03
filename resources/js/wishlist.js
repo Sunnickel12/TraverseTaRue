@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.removeItem('wishlist_' + offreId);
                 removeFromWishlist(offreId);
             }
-        });
+        }, { once: true }); // Prevent duplicate listeners
     });
 });
 

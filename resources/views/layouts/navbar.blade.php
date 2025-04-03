@@ -28,6 +28,27 @@
         window.eyeClosedIcon = "{{ asset('images/site/eye-closed.png') }}";
         window.eyeOpenIcon = "{{ asset('images/site/eye-open.png') }}";
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userBtn = document.getElementById("user-btn");
+            const userMenu = document.getElementById("usermenu");
+
+            if (userBtn && userMenu) {
+                userBtn.addEventListener("click", function () {
+                    userMenu.classList.toggle("hidden");
+                });
+
+                // Close the menu if clicked outside
+                document.addEventListener("click", function (event) {
+                    if (!userBtn.contains(event.target) && !userMenu.contains(event.target)) {
+                        userMenu.classList.add("hidden");
+                    }
+                });
+            }
+        });
+    </script>
+
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/js/header.js'])
