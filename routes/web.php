@@ -70,7 +70,6 @@ Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.
 
 // Admin Panel Routes
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
     Route::view('/Panneau_de_Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
 
     // Contact Management
@@ -82,6 +81,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/{contact}/status', [ContactController::class, 'updateStatus'])->name('updateStatus');
         Route::get('/download/{contactId}', [ContactController::class, 'download'])->name('download');
     });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
 });
 
 // Contact Routes

@@ -7,7 +7,7 @@
 
     <!-- Bouton Retour -->
     <div class="text-center mb-4">
-        <a href="{{ url()->previous() ?: route('companies.index') }}"    class="text-[#6e9ae6] hover:text-blue-400 font-semibold text-lg flex items-center justify-center space-x-2">
+        <a href="{{ url()->previous() ?: route('companies.index') }}" class="text-[#6e9ae6] hover:text-blue-400 font-semibold text-lg flex items-center justify-center space-x-2">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
@@ -52,6 +52,21 @@
             <label for="description" class="block text-sm font-medium text-[#3a3a3a]">Description</label>
             <textarea name="description" id="description" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required></textarea>
             @error('description')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Secteurs -->
+        <div class="mb-4">
+            <label for="sectors" class="block text-sm font-medium text-[#3a3a3a]">Secteurs</label>
+            <select name="sectors[]" id="sectors" class="mt-1 block w-full p-2 border border-[#3a3a3a] rounded-md" multiple="multiple">
+                @foreach ($sectors as $sector)
+                <option value="{{ $sector->id }}" {{ in_array($sector->id, request('sectors', [])) ? 'selected' : '' }}>
+                    {{ $sector->name }}
+                </option>
+                @endforeach
+            </select>
+            @error('sectors')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
@@ -112,6 +127,15 @@
             logoPreview.classList.add('hidden');
         }
     }
+
+    // Initialisation de Select2 pour le champ des secteurs
+    $(document).ready(function() {
+        $('#sectors').select2({
+            placeholder: "Sélectionner un ou plusieurs secteurs", // Placeholder text
+            allowClear: true, // Allow clearing the selection
+            width: '100%' // Ensure the dropdown spans the full width
+        });
+    });
 </script>
 
 @else

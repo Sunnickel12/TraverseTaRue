@@ -47,7 +47,8 @@ class CompanyController extends Controller
     public function create()
     {
         $cities = City::all(); // Fetch all cities
-        return view('companies.create', compact('cities'));
+        $sectors = Sector::all(); // Fetch all sectors
+        return view('companies.create', compact('cities', 'sectors'));
     }
 
     public function store(Request $request)
@@ -60,6 +61,8 @@ class CompanyController extends Controller
             'email' => 'required|email|unique:companies|max:255',
             'phone' => 'nullable|max:50',
             'city_id' => 'required|exists:cities,id', // Validate city ID
+            'sectors' => 'required|array', // Validate sectors as an array
+            'sectors.*' => 'exists:sectors,id', // Validate each sector ID
         ]);
 
         // Handle the logo upload
