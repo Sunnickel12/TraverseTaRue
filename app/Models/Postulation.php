@@ -27,6 +27,6 @@ class Postulation extends Model
 
     public function offer()
     {
-        return $this->belongsTo(Offer::class, 'offer_id', 'id');
+        return $this->belongsTo(Offer::class, 'offer_id');
     }
 }

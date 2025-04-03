@@ -46,3 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('popup').classList.add('hidden');
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const successPopup = document.getElementById('success-popup');
+    if (successPopup) {
+        setTimeout(() => {
+            successPopup.style.display = 'none';
+        }, 5000); // 5 secondes
+    }
+});

@@ -17,6 +17,7 @@ class Offer extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'title',
         'contenu',
         'salary',
@@ -45,7 +46,7 @@ class Offer extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_wishlist', 'offer_id', 'id', 'user_id', 'id');
+        return $this->belongsToMany(User::class, 'belongs', 'offer_id', 'id', 'user_id', 'id');
     }
 }
 

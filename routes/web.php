@@ -69,11 +69,12 @@ Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function
     Route::post('/add', [WishlistController::class, 'add'])->name('add');
     Route::post('/remove', [WishlistController::class, 'remove'])->name('remove');
     Route::get('/{id}', [WishlistController::class, 'show'])->name('show');
+    Route::post('/toggle', [WishlistController::class, 'toggle'])->name('toggle');
+
 });
 
 // Additional Routes
-
-Route::get('/wishlists', [WishlistController::class, 'show'])->name('Mes_candidatures');
+Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
 Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
 Route::get('/offer/{id}/apply', [PostulationController::class, 'create'])->name('postulation.create');
 Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('postulation.store');
@@ -82,3 +83,4 @@ Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishl
 // Pannel Admin 
 Route::view('/Panneau de Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
     
+Route::middleware('auth')->get('/candidatures', [WishlistController::class, 'candidatures'])->name('wishlists.candidatures');

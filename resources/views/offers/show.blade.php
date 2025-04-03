@@ -1,4 +1,4 @@
-<!-- filepath: c:\Users\steve\OneDrive\Documentos\01 Cesi\01 CPI 2\Blocs\Web\Projet\Git\WebSite\TraverseTaRue\resources\views\offers\show.blade.php -->
+
 @extends('layouts.navbar')
 
 @section('title', $offer->title)
@@ -67,16 +67,8 @@
         <div id="popup" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
             <div class="bg-white p-6 rounded-lg shadow-lg w-96">
                 <h2 class="text-xl font-bold mb-4">Postuler maintenant</h2>
-                <form id="postulation-form" action="{{ route('postulation.store', $offer->id) }}" method="POST" enctype="multipart/form-data">
+                <form id="postulation-form" action="{{ route('postulations.store', $offer->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-3">
-                        <label for="prenom" class="block text-sm font-medium">Prénom</label>
-                        <input type="text" id="prenom" name="prenom" class="w-full border rounded-md p-2" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nom" class="block text-sm font-medium">Nom</label>
-                        <input type="text" id="nom" name="nom" class="w-full border rounded-md p-2" required>
-                    </div>
                     <div class="mb-3">
                         <label for="mail" class="block text-sm font-medium">Mail</label>
                         <input type="email" id="mail" name="mail" class="w-full border rounded-md p-2" required>

@@ -86,6 +86,49 @@ class WishlistController extends Controller
 
         return view('wishlists.show', compact('postulations'));
     }
+    public function show(wishlist $wishlist)
+    {
+        $wishlistOffer = Wishlist::find($wishlist->id);
+
+        if (!$wishlistOffer) {
+            return redirect()->route('wishlist.index')->with('error', 'Offre non trouvée');
+        }
+
+        return view('wishlist.show', compact('wishlistOffer'));
+    }
+    public function toggle(Request $request)
+    {
+        // Vérifie si l'utilisateur est authentifié
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Vous devez être connecté.'], 401);
+        }
+
+        // Valider l'ID de l'offre
+        $validated = $request->validate([
+            'offer_id' => 'required|exists:offers,id',
+        ]);
+
+        // Rechercher ou créer une entrée dans la wishlist
+        $wishlist = Wishlist::where('user_id', Auth::id())
+            ->where('offer_id', $validated['offer_id'])
+            ->first();
+
+        if ($wishlist) {
+            // Si l'offre est déjà dans la wishlist, la supprimer
+            $wishlist->delete();
+
+            return response()->json(['message' => 'Offre retirée de la wishlist', 'status' => 'removed']);
+        } else {
+            // Sinon, l'ajouter
+            Wishlist::create([
+                'user_id' => Auth::id(),
+                'offer_id' => $validated['offer_id'],
+            ]);
+
+            return response()->json(['message' => 'Offre ajoutée à la wishlist', 'status' => 'added']);
+        }
+    }
+
 
 
 }
