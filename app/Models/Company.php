@@ -42,12 +42,6 @@ class Company extends Model
         return $this->hasMany(Evaluation::class);
     }
 
-    // Relation one-to-many inverse avec City
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
-
     public function offers()
     {
         return $this->hasMany(Offer::class);

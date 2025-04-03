@@ -94,9 +94,17 @@
                         </span>
                     </h2>
                 </a>
-                <a href="{{ route('companies.show', $company->id) }}" class="block mb-4"> <!-- Ajout d'un margin-bottom ici -->
+                <a href="{{ route('companies.show', $company->id) }}" class="block mb-4">
                     <p class="text-gray-600">{{ Str::limit($company->description, 100) }}</p>
                 </a>
+
+                <!-- Display Sectors -->
+                <div class="flex flex-wrap gap-2 mt-4">
+                    @foreach ($company->sectors as $sector)
+                    <span class="bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-lg">{{ $sector->name }}</span>
+                    @endforeach
+                </div>
+
                 @role('admin|pilote')
                 <div class="mt-auto flex justify-center gap-4">
                     <a href="{{ route('companies.edit', $company->id) }}" class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">

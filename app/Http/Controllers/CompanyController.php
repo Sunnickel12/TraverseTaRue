@@ -23,7 +23,7 @@ class CompanyController extends Controller
         // Récupérer les données pour les filtres (pour les villes et les secteurs)
         $locations = City::pluck('name', 'id');
         $sectors = Sector::pluck('name', 'id');
-
+        
         // Appliquer les filtres sur les entreprises
         $companies = Company::query()
             ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%")
