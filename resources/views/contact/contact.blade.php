@@ -1,8 +1,10 @@
 @extends('layouts.navbar')
 
 @section('title', 'Contact')
-
+ 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
 @section('content')
 @role('admin|pilote|etudiant')
@@ -51,16 +53,15 @@
                 <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
             </div>
-
             <div class="mb-4">
-                <label for="file" class="block text-[#3a3a3a] text-base md:text-lg font-semibold">Joindre un fichier (facultatif)</label>
+                <label for="file" class="block text-[#3a3a3a] text-base md:text-lg font-semibold">
+                    Joindre un fichier (facultatif)
+                </label>
                 <input type="file" id="file" name="file"
                     class="w-full p-4 mt-2 border-2 border-[#6e9ae6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6e9ae6]"
                     accept=".pdf,.doc,.docx">
-                    <p class="text-[#3a3a3a] font-semibold text-sm mb-2 text-end    "> Fichiers autorisés: .pdf,.doc,.docx</p>
-                @error('file')
-                <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
-                @enderror
+                <p class="text-[#3a3a3a] font-semibold text-sm mb-2 text-end">Fichiers autorisés: .pdf, .doc, .docx (Max: 10MB)</p>
+                <p id="file-error" class="text-red-500 text-xs mt-1 hidden">Le fichier dépasse la taille maximale autorisée (10MB).</p>
             </div>
     </div>
 
@@ -71,9 +72,8 @@
         </button>
     </div>
     </form>
-</div>
 
-<!-- Boutons avec centrage et amélioration -->
+    <!-- Boutons avec centrage et amélioration -->
 <div class="mt-6 flex justify-end gap-6">
     <a href="{{ route('home') }}"
         class="bg-[#6e9ae6] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-400 transition duration-300 transform hover:scale-105 text-center">
@@ -81,6 +81,8 @@
     </a>
 </div>
 </div>
+</div>
+
 
 @else
 <h1 class="text-3xl md:text-5xl text-[#6e9ae6] font-extrabold mb-6 text-center">Vous n'avez pas accès à cette page.</h1>

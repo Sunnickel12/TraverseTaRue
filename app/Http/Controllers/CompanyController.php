@@ -59,7 +59,9 @@ class CompanyController extends Controller
             'logo' => 'nullable|image|max:2048',
             'email' => 'required|email|unique:companies|max:255',
             'phone' => 'nullable|max:50',
-            'city_id' => 'required|exists:cities,id', // Validate city ID
+            'city_id' => 'required|exists:cities,id',
+        ], [
+            'logo.max' => 'Le fichier logo est trop volumineux. La taille maximale autorisée est de 2 Mo.', // Message personnalisé
         ]);
 
         $company = Company::create($validated);
@@ -69,7 +71,6 @@ class CompanyController extends Controller
 
         return redirect()->route('companies.index')->with('success', 'Entreprise créée avec succès.');
     }
-
     /**
      * Afficher les détails d'une entreprise spécifique.
      */

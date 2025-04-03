@@ -48,6 +48,24 @@
             @enderror
         </div>
 
+        <!-- Date de début -->
+        <div class="mb-4">
+            <label for="start_date" class="block text-sm font-medium text-[#3a3a3a]">Date de début</label>
+            <input type="date" name="start_date" id="start_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('start_date') }}" required>
+            @error('start_date')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Date de fin -->
+        <div class="mb-4">
+            <label for="end_date" class="block text-sm font-medium text-[#3a3a3a]">Date de fin</label>
+            <input type="date" name="end_date" id="end_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('end_date') }}">
+            @error('end_date')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
         <!-- Durée -->
         <div class="mb-4">
             <label for="duration" class="block text-sm font-medium text-[#3a3a3a]">Durée</label>
@@ -70,24 +88,6 @@
             <label for="level" class="block text-sm font-medium text-[#3a3a3a]">Niveau</label>
             <input type="text" name="level" id="level" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('level') }}" required>
             @error('level')
-            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <!-- Date de début -->
-        <div class="mb-4">
-            <label for="start_date" class="block text-sm font-medium text-[#3a3a3a]">Date de début</label>
-            <input type="date" name="start_date" id="start_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('start_date') }}" required>
-            @error('start_date')
-            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <!-- Date de fin -->
-        <div class="mb-4">
-            <label for="end_date" class="block text-sm font-medium text-[#3a3a3a]">Date de fin</label>
-            <input type="date" name="end_date" id="end_date" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ old('end_date') }}">
-            @error('end_date')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
