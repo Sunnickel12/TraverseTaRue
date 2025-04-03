@@ -7,6 +7,23 @@
     <title>@yield('title', 'Traverse Ta Rue')</title>
     <link rel="icon" type="image/png" href="{{ asset('images/site/pagelogo.png') }}" />
 
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker.register("/sw.js").then(
+                    function(registration) {
+                        console.log("Service Worker registered with scope:", registration.scope);
+                    },
+                    function(error) {
+                        console.log("Service Worker registration failed:", error);
+                    }
+                );
+            });
+        }
+    </script>
+
     <script>
         window.eyeClosedIcon = "{{ asset('images/site/eye-closed.png') }}";
         window.eyeOpenIcon = "{{ asset('images/site/eye-open.png') }}";
@@ -86,6 +103,7 @@
                 <span class="ml-2">Compte</span>
             </button>
             @endif
+            
             </div>
         </nav>
 

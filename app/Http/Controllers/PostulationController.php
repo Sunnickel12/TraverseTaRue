@@ -16,6 +16,13 @@ class PostulationController extends Controller
     // Affiche le formulaire de création de postulation
     public function create($offer_id)
     {
+        $authUser = Auth::user();
+
+        // Role-based access control
+        if (!$authUser->roles->contains('name', 'admin') && !$authUser->roles->contains('name', 'etudiant')) {
+            abort(403, 'You are not authorized to postulate for this offer.');
+        }
+
         $offer = Offer::findOrFail($offer_id); // Ensure the offer exists
         return view('postulations.create', compact('offer'));
     }

@@ -43,10 +43,20 @@
         <!-- Apply Button -->
         <div class="mt-6">
             @auth
+            @role('admin|etudiant')
+            <!-- Show the "Postuler" button for admin and etudiant roles -->
             <a href="{{ route('postulations.create', $offer->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition">
                 Postuler
             </a>
+            @elserole('pilote')
+            <!-- Show a message for the pilote role -->
+            <p class="text-red-500 font-bold">You can't postulate to an offer.</p>
             @else
+            <!-- Show a message for other authenticated users -->
+            <p class="text-gray-500">You are not authorized to postulate for this offer.</p>
+            @endrole
+            @else
+            <!-- Show a login prompt for unauthenticated users -->
             <a href="{{ route('login') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition">
                 Connectez-vous pour postuler
             </a>
