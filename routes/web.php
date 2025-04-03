@@ -14,6 +14,13 @@ use App\Http\Controllers\PostulationController;
 Route::view('/', 'home')->name('home');
 Route::view('home', 'home');
 
+// User Control pannel
+Route::view('/Profil', 'users.dashboard')->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('users', UserController::class);
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+});
+
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -32,7 +39,6 @@ Route::view('/Profil', 'users.dashboard')->name('dashboard');
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
 });
 
 // Evaluation Routes
@@ -71,6 +77,8 @@ Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.
 // Admin Panel Routes
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::view('/Panneau_de_Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
+
+    Route::get('/manage-users', [UserController::class, 'index'])->name('admin.manage-users');
 
     // Contact Management
     Route::prefix('support')->name('admin.support.')->group(function () {

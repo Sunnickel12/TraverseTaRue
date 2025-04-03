@@ -12,7 +12,7 @@
             <li class="mb-4"><a href="#" class="block p-3 rounded-lg hover:bg-gray-700">Tableau de bord</a></li>
             <li class="mb-4"><a href="#" class="block p-3 rounded-lg hover:bg-gray-700">Utilisateurs</a></li>
             <li class="mb-4"><a href="#" class="block p-3 rounded-lg hover:bg-gray-700">Paramètres</a></li>
-            <li><a href="#"  class="block p-3 rounded-lg hover:bg-red-600">Déconnexion</a></li>
+            <li><a href="#" class="block p-3 rounded-lg hover:bg-red-600">Déconnexion</a></li>
         </ul>
     </div>
 
@@ -26,18 +26,29 @@
             <div class="p-6 bg-white shadow-md rounded-lg text-center">
                 <h3 class="text-xl font-semibold text-[#3a3a3a]">Gestion des utilisateurs</h3>
                 <p class="text-gray-600 mt-2">Ajoutez, modifiez ou supprimez des comptes.</p>
-                <a href="#"  class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Gérer</a>
+                <a href="{{ route('admin.manage-users') }}" class= "mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300" >Gérer</a>
             </div>
             <div class="p-6 bg-white shadow-md rounded-lg text-center">
                 <h3 class="text-xl font-semibold text-[#3a3a3a]">Paramètres</h3>
                 <p class="text-gray-600 mt-2">Personnalisez votre expérience d'administration.</p>
-                <a href="#"  class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Configurer</a>
+                <a href="#" class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Configurer</a>
             </div>
             <div class="p-6 bg-white shadow-md rounded-lg text-center">
-                <h3 class="text-xl font-semibold text-[#3a3a3a]">Support Msg</h3>
+                <h3 class="text-xl font-semibold text-[#3a3a3a]">Support</h3>
                 <p class="text-gray-600 mt-2">Gérer les demandes de contact</p>
-                <a href="{{ route('admin.support.index') }}"  class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Gérer</a>
+                <a href="{{ route('admin.support.index') }}" class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Gérer</a>
             </div>
+            <div class="p-6 bg-white shadow-md rounded-lg text-center">
+                <h3 class="text-xl font-semibold text-[#3a3a3a]">Paramètres</h3>
+                <p class="text-gray-600 mt-2">Personnalisez votre expérience d'administration.</p>
+                <a href="#" class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Configurer</a>
+            </div>
+            <div class="p-6 bg-white shadow-md rounded-lg text-center">
+                <h3 class="text-xl font-semibold text-[#3a3a3a]">Paramètres</h3>
+                <p class="text-gray-600 mt-2">Personnalisez votre expérience d'administration.</p>
+                <a href="#" class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Configurer</a>
+            </div>
+            
         </div>
     </div>
 </div>

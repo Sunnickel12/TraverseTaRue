@@ -1,5 +1,3 @@
-<!-- filepath: resources/views/users/index.blade.php -->
-
 @extends('layouts.navbar')
 
 @section('title', 'Users List')

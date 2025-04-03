@@ -8,6 +8,7 @@
     <h1 class="text-3xl font-bold text-center mb-8">User Dashboard</h1>
 
     <!-- User Details -->
+
     <div class="bg-white shadow-md rounded-lg p-6 mb-8">
         <h2 class="text-xl font-bold mb-4">User Details</h2>
         <p><strong>Name:</strong> {{ $user->name }}</p>

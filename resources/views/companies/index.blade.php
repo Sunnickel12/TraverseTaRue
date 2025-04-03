@@ -24,8 +24,8 @@
         <!-- Bouton create admin -->
         @role('admin|pilote')
         <div class="text-start mx-4">
-            <a href="{{ route('companies.create') }}" class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-2 md:py-3 px-4 md:px-6 md:text-lg rounded-lg shadow-md transition">
-                + Create Company
+            <a href="{{ route('companies.create') }}" class="bg-[#6e9ae6] hover:bg-blue-400 text-white text-nowrap font-bold py-2 md:py-3 px-4 md:px-6 text-base md:text-lg rounded-lg shadow-md transition">
+                + Create 
             </a>
         </div>
         @endrole
