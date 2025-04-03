@@ -12,8 +12,7 @@
         <!-- Company Logo -->
         <div class="w-full md:w-1/3 flex items-center justify-center md:self-stretch">
             <div class="w-40 h-40 md:w-60 md:h-60 p-3 rounded-xl flex items-center justify-center">
-                <img src="{{ asset('images/company/' . $company->logo) }}" alt="Logo"
-                    class="w-full h-full object-contain rounded-lg">
+                <img src="{{ file_exists(public_path('images/company/' . ($company->logo ? $company->logo : 'default-company.png'))) ? asset('images/company/' . ($company->logo ? $company->logo : 'default-company.png')) : asset('images/company/default-company.png') }}" class="w-full h-full object-contain rounded-lg">
             </div>
         </div>
 
