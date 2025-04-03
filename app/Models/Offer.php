@@ -48,9 +48,20 @@ class Offer extends Model
         return $this->belongsToMany(User::class, 'user_wishlist', 'offer_id', 'id', 'user_id', 'id');
     }
 
+
     public function wishlists()
     {
         return $this->belongsToMany(Wishlist::class, 'belongs', 'offer_id', 'wishlist_id')->withTimestamps();
     }
-}
 
+
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class, 'defines', 'id_offer', 'id_sector');
+    }
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'needs', 'offer_id', 'skill_id');
+    }
+}

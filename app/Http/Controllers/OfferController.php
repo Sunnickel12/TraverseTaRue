@@ -6,54 +6,98 @@ use App\Models\Offer;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\City;
+use App\Models\Sector;
+use App\Models\Skill;
 
 class OfferController extends Controller
 {
     // Display a paginated list of offers with an optional search filter
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        // Fetch filter inputs
+        $skills = Skill::pluck('name', 'id'); // Fetch all skills
+        $cities = City::pluck('name', 'id'); // Fetch all cities
+        $sectors = Sector::pluck('name', 'id'); // Fetch all sectors
+        $companies = Company::pluck('name', 'id'); // Fetch all companies
 
-        $offers = Offer::with('company')->when($search, function ($query, $search) {
-            return $query->where('title', 'like', "%{$search}%")
-                ->orWhere('contenu', 'like', "%{$search}%");
-        })->paginate(9);
+        // Query offers with filters
+        $offers = Offer::query()
+            ->when($request->input('search'), function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('contenu', 'like', "%{$search}%");
+            })
+            ->when($request->input('skills'), function ($query, $skills) {
+                return $query->whereHas('skills', function ($q) use ($skills) {
+                    $q->whereIn('id', $skills); // Filter by skills
+                });
+            })
+            ->when($request->input('city'), function ($query, $city) {
+                return $query->whereHas('city', function ($q) use ($city) {
+                    $q->whereIn('id', $city); // Filter by city
+                });
+            })
+            ->when($request->input('sector'), function ($query, $sector) {
+                return $query->whereHas('sectors', function ($q) use ($sector) {
+                    $q->whereIn('id', $sector); // Filter by sector
+                });
+            })
+            ->when($request->input('company'), function ($query, $company) {
+                return $query->whereHas('company', function ($q) use ($company) {
+                    $q->whereIn('id', $company); // Filter by company
+                });
+            })
+            ->paginate(9);
 
-        // Count the total number of offers
-        $totalOffers = Offer::count();
-
-        return view('offers.index', compact('offers', 'totalOffers', 'search'));
+        return view('offers.index', compact('offers', 'skills', 'cities', 'sectors', 'companies'));
     }
 
     // Show the form to create a new offer
     public function create()
     {
-        $companies = Company::all(); // Fetch all companies
-        $cities = City::all(); // Fetch all cities
-        return view('offers.create', compact('companies', 'cities'));
+        $sectors = Sector::all();
+        $companies = Company::all();
+        $cities = City::all();
+        $skills = Skill::pluck('name', 'id'); // Fetch all skills
+
+        return view('offers.create', compact('sectors', 'companies', 'cities', 'skills'));
     }
 
     // Store a new offer in the database
     public function store(Request $request)
     {
-        // Validate the incoming data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'contenu' => 'required|string', // Changed 'text' to 'string'
+            'contenu' => 'required|string',
             'salary' => 'required|numeric|min:0',
-            'duration' => 'required|string|max:50',
             'level' => 'required|string|max:50',
             'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'end_date' => [
+                'required',
+                'date',
+                'after:start_date',
+                function ($attribute, $value, $fail) use ($request) {
+                    $startDate = \Carbon\Carbon::parse($request->start_date);
+                    $endDate = \Carbon\Carbon::parse($value);
+                    $diffInMonths = $startDate->diffInMonths($endDate);
+
+                    if ($diffInMonths > 6) {
+                        $fail('The end date must be no more than 6 months after the start date.');
+                    }
+                },
+            ],
+            'duration' => 'required|string|max:50',
+            'city_id' => 'required|exists:cities,id',
             'company_id' => 'required|exists:companies,id',
-            'city_id' => 'required|exists:cities,id', // Validate city_id
+            'sectors' => 'required|array', // Validate sectors as an array
+            'sectors.*' => 'exists:sectors,id', // Ensure each sector exists
         ]);
 
-        // Create a new offer with validated data
-        Offer::create($validated);
+        $offer = Offer::create($validated);
 
-        // Redirect back with a success message
-        return redirect()->route('offers.index')->with('success', 'Offre créée avec succès.');
+        // Sync sectors
+        $offer->sectors()->sync($validated['sectors']);
+
+        return redirect()->route('offers.index')->with('success', 'Offer created successfully.');
     }
 
     // Display a specific offer's details
@@ -66,32 +110,49 @@ class OfferController extends Controller
     // Show the form to edit an existing offer
     public function edit(Offer $offer)
     {
-        $companies = Company::all(); // Fetch all companies for the dropdown
-        $cities = City::all(); // Fetch all cities for the dropdown
-        return view('offers.edit', compact('offer', 'companies', 'cities'));
-    }
+        $sectors = Sector::all();
+        $companies = Company::all();
+        $cities = City::all();
+        $skills = Skill::pluck('name', 'id'); // Fetch all skills
 
+        return view('offers.edit', compact('offer', 'sectors', 'companies', 'cities', 'skills'));
+    }
     // Update an offer's information
     public function update(Request $request, Offer $offer)
     {
-        // Validate the incoming data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'contenu' => 'required|string',
             'salary' => 'required|numeric|min:0',
-            'duration' => 'required|string|max:50',
             'level' => 'required|string|max:50',
             'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'end_date' => [
+                'required',
+                'date',
+                'after:start_date',
+                function ($attribute, $value, $fail) use ($request) {
+                    $startDate = \Carbon\Carbon::parse($request->start_date);
+                    $endDate = \Carbon\Carbon::parse($value);
+                    $diffInMonths = $startDate->diffInMonths($endDate);
+
+                    if ($diffInMonths > 6) {
+                        $fail('The end date must be no more than 6 months after the start date.');
+                    }
+                },
+            ],
+            'duration' => 'required|string|max:50',
+            'city_id' => 'required|exists:cities,id',
             'company_id' => 'required|exists:companies,id',
-            'city_id' => 'required|exists:cities,id', // Validate city_id
+            'sectors' => 'required|array', // Validate sectors as an array
+            'sectors.*' => 'exists:sectors,id', // Ensure each sector exists
         ]);
 
-        // Update the offer with validated data
         $offer->update($validated);
 
-        // Redirect back with a success message
-        return redirect()->route('offers.index')->with('success', 'Offre mise à jour avec succès.');
+        // Sync sectors
+        $offer->sectors()->sync($validated['sectors']);
+
+        return redirect()->route('offers.index')->with('success', 'Offer updated successfully.');
     }
 
     // Delete an offer

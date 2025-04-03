@@ -18,4 +18,9 @@ class Skill extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function offers()
+    {
+        return $this->belongsToMany(Offer::class, 'needs', 'skill_id', 'offer_id')->withTimestamps();
+    }
 }
