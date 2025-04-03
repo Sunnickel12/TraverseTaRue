@@ -23,4 +23,9 @@ class Sector extends Model
     {
         return $this->belongsToMany(Offer::class, 'defines', 'id_sector', 'id_offer')->withTimestamps();
     }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'works', 'sector_id', 'company_id');
+    }
 }

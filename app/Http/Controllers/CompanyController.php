@@ -47,7 +47,8 @@ class CompanyController extends Controller
     public function create()
     {
         $cities = City::all(); // Fetch all cities
-        return view('companies.create', compact('cities'));
+        $sectors = Sector::all(); // Fetch all sectors
+        return view('companies.create', compact('cities', 'sectors'));
     }
 
     public function store(Request $request)
@@ -60,9 +61,19 @@ class CompanyController extends Controller
             'email' => 'required|email|unique:companies|max:255',
             'phone' => 'nullable|max:50',
             'city_id' => 'required|exists:cities,id',
+            'sectors' => 'required|array', // Validate sectors as an array
+            'sectors.*' => 'exists:sectors,id', // Validate each sector ID
         ], [
             'logo.max' => 'Le fichier logo est trop volumineux. La taille maximale autorisée est de 2 Mo.', // Message personnalisé
         ]);
+
+        // Handle the logo upload
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/company'), $filename);
+            $validated['logo'] = $filename; // Add the logo filename to the validated data
+        }
 
         $company = Company::create($validated);
 

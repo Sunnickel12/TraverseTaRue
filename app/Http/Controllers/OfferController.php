@@ -117,6 +117,7 @@ class OfferController extends Controller
 
         return view('offers.edit', compact('offer', 'sectors', 'companies', 'cities', 'skills'));
     }
+    
     // Update an offer's information
     public function update(Request $request, Offer $offer)
     {

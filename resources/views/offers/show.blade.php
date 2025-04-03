@@ -6,7 +6,7 @@
 <div class="px-4 max-w-5xl mx-auto">
     <!-- Banner -->
     <div class="banner-plane">
-        <img src="{{ asset('images/bannière.png') }}" alt="banner" class="w-full rounded-lg shadow-md">
+        <img src="{{ asset('images/site/banner2.png') }}" alt="banner" class="w-full rounded-lg shadow-md border border-gray-300">
     </div>
 
     <!-- Offer Details -->
