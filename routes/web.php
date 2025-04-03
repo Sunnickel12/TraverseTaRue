@@ -28,9 +28,11 @@ Route::view('/Contact', 'contact.contact')->name('Contact');
 Route::resource('companies', CompanyController::class);
 
 // User Routes (Requires Authentication)
+Route::view('/Profil', 'users.dashboard')->name('dashboard');
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 });
 
 // Evaluation Routes
