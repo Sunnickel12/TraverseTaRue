@@ -13,7 +13,7 @@
     </script>
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @vite(['resources/js/header.js'])
 </head>
 
 <body class="flex flex-col min-h-screen">

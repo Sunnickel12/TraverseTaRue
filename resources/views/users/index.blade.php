@@ -43,45 +43,49 @@
     @endif
 
     <!-- Users Table -->
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-lg text-sm">
-            <thead class="bg-[#3a3a3a] text-white">
-                <tr>
-                    <th class="py-2 px-3 border">Name</th>
-                    <th class="py-2 px-3 border">Email</th>
-                    <th class="py-2 px-3 border">Class</th>
-                    <th class="py-2 px-3 border">Role</th>
-                    <th class="py-2 px-3 border">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($users as $user)
-                <tr class="hover:bg-gray-100 transition duration-200">
-                    <td class="py-2 px-3 border">{{ $user->getFullNameAttribute() }}</td>
-                    <td class="py-2 px-3 border">{{ $user->email }}</td>
-                    <td class="py-2 px-3 border">{{ $user->class->name ?? 'N/A' }}</td>
-                    <td class="py-2 px-3 border">{{ $user->roles->pluck('name')->join(', ') }}</td>
-                    <td class="py-2 px-3 border flex flex-col md:flex-row gap-2">
-                        @if(!$user->roles->contains('name', 'admin') && $user->id !== auth()->id())
-                        <a href="{{ route('users.edit', $user->id) }}"
-                            class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">
-                            Edit
-                        </a>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-3 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">
-                                Delete
-                            </button>
-                        </form>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    <<div class="overflow-x-auto">
+    <table class="min-w-full table-auto bg-white border border-gray-300 shadow-md rounded-lg text-sm">
+        <thead class="bg-[#3a3a3a] text-white">
+            <tr>
+                <th class="py-2 px-3 border text-left">Name</th>
+                <th class="py-2 px-3 border text-left">Email</th>
+                <th class="py-2 px-3 border text-left">Class</th>
+                <th class="py-2 px-3 border text-left">Role</th>
+                <th class="py-2 px-3 border text-left">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($users as $user)
+            <tr class="hover:bg-gray-100 transition duration-200">
+                <td class="py-2 px-3 border whitespace-nowrap">{{ $user->getFullNameAttribute() }}</td>
+                <td class="py-2 px-3 border">{{ $user->email }}</td>
+                <td class="py-2 px-3 border">{{ $user->class->name ?? 'N/A' }}</td>
+                <td class="py-2 px-3 border">{{ $user->roles->pluck('name')->join(', ') }}</td>
+                <td class="py-2 px-3 border flex flex-col md:flex-row gap-2">
+                    @if(!$user->roles->contains('name', 'admin') && $user->id !== auth()->id())
+                    <a href="{{ route('users.edit', $user->id) }}"
+                        class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">
+                        Edit
+                    </a>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="bg-red-500 hover:bg-red-900 text-white font-bold py-1 px-3 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">
+                            Delete
+                        </button>
+                    </form>
+                    <a href="{{ route('users.dashboard', $user->id) }}"
+                        class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">
+                        View
+                    </a>
+                    @endif
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
     <!-- Pagination -->
     <div class="mt-6 flex justify-center">
