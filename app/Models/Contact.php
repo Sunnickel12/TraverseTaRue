@@ -21,7 +21,7 @@ class Contact extends Model
         'status_id',
         'user_id',
     ];
-
+    
     // Si tu veux activer la gestion automatique des timestamps
     public $timestamps = true;
 

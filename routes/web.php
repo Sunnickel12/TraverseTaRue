@@ -9,6 +9,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
+use App\Http\Controllers\AdminContactController;
+
 
 // Home Routes
 Route::get('/', function () {
@@ -36,7 +38,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 });
 
@@ -84,6 +85,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
 });
 
-Route::view('/Panneau de Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
+Route::view('/Panneau_de_Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
+Route::view('/Gestion_des_Messages', 'admin.contacts.index')->name('GestionContact');
     
 
+Route::get('/contact/contactsuccess', function () {
+    return view('contact/contactsuccess');
+})->name('contact.success');
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+    // Liste des demandes de contact
+    Route::get('/contacts', [AdminContactController::class, 'index'])->name('contacts.index');
+
+    // Détail d'une demande de contact
+    Route::get('/contacts/{id}', [AdminContactController::class, 'show'])->name('contacts.show');
+
+    // Mettre à jour le statut d'une demande de contact
+    Route::post('/contacts/{id}/status', [AdminContactController::class, 'updateStatus'])->name('contacts.updateStatus');
+});

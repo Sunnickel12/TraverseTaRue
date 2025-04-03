@@ -4,43 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ContactController extends Controller
 {
-    // Affichage du formulaire
-    public function show()
-    {
-        return view('contact.contact');
-    }
-
-    // Traitement du formulaire
     public function store(Request $request)
     {
-        // Validation côté serveur
+        // Validation des données
         $request->validate([
             'title' => 'required|max:50',
             'content' => 'required|max:255',
-            'file' => 'nullable|file|mimes:jpg,png,pdf,docx,txt|max:10240',  // 10MB max
+            'file' => 'nullable|mimes:jpg,jpeg,png,pdf,doc,docx|max:10240', // Limite à 10MB
         ]);
-
-        // Si un fichier est ajouté, on le stocke
-        $filePath = null;
+    
+        // Enregistrement du message de contact
+        $contact = new Contact();
+        $contact->title = $request->title;
+        $contact->content = $request->content;
+        $contact->status_id = 4; // Id du statut
+        $contact->user_id = Auth::id(); // Id de l'utilisateur authentifié
+        $contact->save();
+    
+        // Traitement du fichier téléchargé (un seul fichier)
         if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('documents', 'public');
+            $file = $request->file('file');
+            
+            // Générer un nom unique pour le fichier et le stocker dans le dossier 'contacts'
+            $filePath = $file->store('contacts', 'public');
+            
+            // Enregistrement du chemin du fichier dans la base de données
+            $contact->file = $filePath; // Stocke le chemin du fichier dans la colonne 'file'
+            $contact->save(); // Met à jour le contact avec le chemin du fichier
         }
-
-        // Création d'un nouveau contact avec statut par défaut (id=4)
-        Contact::create([
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
-            'file' => $filePath,
-            'status_id' => 4,  // "En attente" correspond à l'id 4
-            'user_id' => Auth::id(),
-        ]);
-
-        // Redirection avec message de succès
-        return redirect()->route('contact.show')->with('successsend', 'Votre message a bien été envoyé.');
+    
+        // Redirection vers la page de succès avec un message
+        return redirect()->route('contact.success')->with('successsend', 'Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.');
     }
-}
+}   

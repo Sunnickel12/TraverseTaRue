@@ -67,7 +67,7 @@
                         <a href="#"
                             class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
                         <a href="#"
-                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Mdsqqsdessagerie</a>
+                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Messagerie</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit"
