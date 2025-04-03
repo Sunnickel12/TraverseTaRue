@@ -60,4 +60,10 @@ class LoginController extends Controller
         // Rediriger vers la page précédente ou la page d'accueil
         return redirect()->to($previousUrl)->with('success', 'Vous avez été déconnecté.');
     }
+
+    public function showLoginForm()
+    {
+        // Return the login view
+        return view('home');
+    }
 }
