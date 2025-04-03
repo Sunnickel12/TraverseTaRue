@@ -2,6 +2,11 @@
 
 @section('content')
 @role('admin')
+
+<!-- Ajouter les fichiers CSS et JS de Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-[#6e9ae6] text-3xl font-bold text-center mb-8 md:mb-10">Créer une entreprise</h1>
 
@@ -36,30 +41,26 @@
             @enderror
         </div>
 
-        <!-- City -->
+        <!-- Ville -->
         <div class="mb-4">
-            <label for="city" class="block text-sm font-medium text-[#3a3a3a]">Ville</label>
-            <select name="city_id" id="city" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
-                <option value="" disabled selected>Choisissez une ville</option>
-                @foreach ($cities as $city)
-                    <option value="{{ $city->id }}">{{ $city->name }}</option>
-                @endforeach
-            </select>
-        </div>
+    <label for="city" class="block text-sm font-medium text-gray-700">Ville</label>
+    <select name="city[]" id="city" class="mt-1 block w-full p-2 border border-[#3a3a3a] rounded-md select2" multiple="multiple">
+        @foreach ($cities as $id => $city)
+            <option value="{{ $id }}">{{ $city }}</option>
+        @endforeach
+    </select>
+</div>
         
         <!-- Secteur d'activité -->
         <div class="mb-4">
-            <label for="sector_id" class="block text-sm font-medium text-[#3a3a3a]">Secteur d'activité</label>
-            <select name="sector_id" id="sector_id" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
-                <option value="" disabled selected>Choisissez un secteur d'activité</option>
-                @foreach ($sectors as $sector)
-                    <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+            <label for="category" class="block text-sm font-medium text-[#3a3a3a]">Secteur d'activité</label>
+            <select name="category[]" id="category" class="mt-1 block w-full p-2 border border-[#3a3a3a] rounded-md" multiple="multiple">
+                @foreach ($sectors as $id => $sector)
+                    <option value="{{ $id }}" {{ in_array($id, request('category', [])) ? 'selected' : '' }}>{{ $sector }}</option>
                 @endforeach
             </select>
-            @error('sector_id')
-            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
         </div>
+
 
         <!-- Description -->
         <div class="mb-4">
@@ -126,6 +127,22 @@
             logoPreview.classList.add('hidden');
         }
     }
+    $(document).ready(function() {
+    // Initialiser Select2 pour le champ de ville
+    $('#city').select2({
+        placeholder: "Sélectionner une ville",
+        allowClear: true,
+        width: '100%'  // Pour que Select2 prenne toute la largeur du champ
+    });
+
+    // Initialiser Select2 pour le champ de secteur
+    $('#category').select2({
+        placeholder: "Sélectionner un secteur",
+        allowClear: true,
+        width: '100%'
+    });
+});
+
 </script>
 
 @else
