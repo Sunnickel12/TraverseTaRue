@@ -36,7 +36,7 @@
             <div class="p-6 bg-white shadow-md rounded-lg text-center">
                 <h3 class="text-xl font-semibold text-[#3a3a3a]">Support Msg</h3>
                 <p class="text-gray-600 mt-2">Gérer les demandes de contact</p>
-                <a href="{{ route('GestionContact') }}"  class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Gérer</a>
+                <a href="{{ route('admin.support.index') }}"  class="mt-4 inline-block bg-[#6e9ae6] text-white py-2 px-6 rounded-lg shadow hover:bg-blue-300">Gérer</a>
             </div>
         </div>
     </div>

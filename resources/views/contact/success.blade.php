@@ -13,7 +13,7 @@
 
     <!-- Bouton de retour à la page d'accueil -->
     <div class="mt-6 text-center">
-        <a href="{{ route('home') }}" 
+        <a href="{{ route('home') }}"
             class="bg-[#6e9ae6] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-400 transition duration-300 transform hover:scale-105">
             Retour à l'accueil
         </a>

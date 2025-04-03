@@ -6,6 +6,7 @@
 
 @section('content')
 @role('admin|pilote|etudiant')
+
 <!-- Message de succès -->
 @if (session('successsend'))
 <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show"

@@ -11,10 +11,11 @@ class Contact extends Model
     use HasFactory, SoftDeletes;
 
     // La table correspondante dans la base de données
-    protected $table = 'contact';
+    protected $table = 'contacts';
 
     // Attributs assignables (les champs que tu autorises à être remplis)
     protected $fillable = [
+        'id',
         'title',
         'content',
         'file',

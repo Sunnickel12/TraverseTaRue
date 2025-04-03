@@ -9,7 +9,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
-use App\Http\Controllers\AdminContactController;
 
 
 // Home Routes
@@ -86,20 +85,27 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::view('/Panneau_de_Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
-Route::view('/Gestion_des_Messages', 'admin.contacts.index')->name('GestionContact');
+Route::view('/Gestion_des_Messages', 'admin.support.index')->name('GestionContact');
+
+// Route pour afficher le formulaire de contact et soumettre la demande
+Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Route pour afficher la page de succès après soumission de la demande
+Route::get('contact/success', [ContactController::class, 'success'])->name('contact.success');
+
+// Route pour l'index des contacts dans l'administration (l'administrateur voit les contacts soumis)
+Route::get('admin/support/index', [ContactController::class, 'adminContacts'])->name('admin.support.index');
+
+   // Route pour afficher les détails d'un contact
+   Route::get('contacts/{contact}', [ContactController::class, 'show'])->name('admin.contacts.show');
     
+   // Route pour mettre à jour le statut
+   Route::put('contacts/{contact}', [ContactController::class, 'update'])->name('admin.contacts.update');
+   
+   // Route pour supprimer un contact
+   Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('admin.contacts.destroy');
 
-Route::get('/contact/contactsuccess', function () {
-    return view('contact/contactsuccess');
-})->name('contact.success');
+   Route::get('contact/download/{contactId}', [ContactController::class, 'download'])->name('contact.download');
 
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    // Liste des demandes de contact
-    Route::get('/contacts', [AdminContactController::class, 'index'])->name('contacts.index');
 
-    // Détail d'une demande de contact
-    Route::get('/contacts/{id}', [AdminContactController::class, 'show'])->name('contacts.show');
 
-    // Mettre à jour le statut d'une demande de contact
-    Route::post('/contacts/{id}/status', [AdminContactController::class, 'updateStatus'])->name('contacts.updateStatus');
-});
