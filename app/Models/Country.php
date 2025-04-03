@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Country extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
+    protected $fillable = ['name'];
 
-    protected $fillable = [
-        'name',
-    ];
-
-    public function regions(): HasMany
+    public function regions()
     {
-        return $this->hasMany(Region::class, 'countrie_id', 'id');
+        return $this->hasMany(Region::class);
     }
 }

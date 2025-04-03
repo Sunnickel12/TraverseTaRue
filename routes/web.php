@@ -9,37 +9,32 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
+use App\Http\Controllers\CityController; 
+use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\CountryController;
 
-// Home Routes
+// Home & Static Pages
 Route::view('/', 'home')->name('home');
 Route::view('home', 'home');
-
-// User Control pannel
-Route::view('/Profil', 'users.dashboard')->name('dashboard');
-Route::middleware(['auth'])->group(function () {
-    Route::resource('users', UserController::class);
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-});
+Route::view('/Informations-legales', 'footer.Legal-information')->name('Informations-legales');
+Route::view('/Politique-de-confidentialité', 'footer.Privacy-policy')->name('Politique de confidentialité');
+Route::view('/Contact', 'contact.contact')->name('Contact');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
-// Static Pages
-Route::view('/Informations-legales', 'footer.Legal-information')->name('Informations-legales');
-Route::view('/Politique-de-confidentialité', 'footer.Privacy-policy')->name('Politique de confidentialité');
-Route::view('/Contact', 'contact.contact')->name('Contact');
-
-// Company Routes
-Route::resource('companies', CompanyController::class);
-
-// User Routes (Requires Authentication)
-Route::view('/Profil', 'users.dashboard')->name('dashboard');
+// User Routes (auth required)
 Route::middleware(['auth'])->group(function () {
+    Route::view('/Profil', 'users.dashboard')->name('dashboard');
     Route::resource('users', UserController::class);
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 });
+
+// Company Routes
+Route::resource('companies', CompanyController::class);
 
 // Evaluation Routes
 Route::prefix('evaluations')->group(function () {
@@ -49,10 +44,10 @@ Route::prefix('evaluations')->group(function () {
     Route::delete('{evaluation}', [EvaluationController::class, 'destroy'])->name('evaluations.destroy');
 });
 
-// Offer Routes (CRUD)
+// Offer Routes
 Route::resource('offers', OfferController::class);
 
-// Postulation Routes (Requires Authentication)
+// Postulation Routes (auth required)
 Route::middleware('auth')->prefix('postulations')->name('postulations.')->group(function () {
     Route::get('/create/{offer}', [PostulationController::class, 'create'])->name('create');
     Route::post('/store/{offer}', [PostulationController::class, 'store'])->name('store');
@@ -63,24 +58,25 @@ Route::middleware('auth')->prefix('postulations')->name('postulations.')->group(
     Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete');
 });
 
-// Wishlist Routes (Requires Authentication)
+// Wishlist Routes (auth required)
 Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function () {
     Route::get('/', [WishlistController::class, 'index'])->name('index');
     Route::post('/add', [WishlistController::class, 'add'])->name('add');
     Route::post('/remove', [WishlistController::class, 'remove'])->name('remove');
     Route::get('/{id}', [WishlistController::class, 'show'])->name('show');
 });
-
-// Additional Routes
 Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
 
-// Admin Panel Routes
+// Admin Panel Routes (auth required)
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::view('/Panneau_de_Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
-
+    Route::resource('cities', CityController::class);
+    Route::resource('departements', DepartementController::class);
+    Route::resource('regions', RegionController::class);
+    Route::resource('countries', CountryController::class);
     Route::get('/manage-users', [UserController::class, 'index'])->name('admin.manage-users');
 
-    // Contact Management
+    // Contact Management (Admin)
     Route::prefix('support')->name('admin.support.')->group(function () {
         Route::get('/index', [ContactController::class, 'adminContacts'])->name('index');
         Route::get('/{contact}', [ContactController::class, 'show'])->name('show');
@@ -91,11 +87,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     });
 });
 
+// Autres routes (exemple pour dashboard optionnel)
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
 });
 
-// Contact Routes
+// Routes Contact (public ou auth selon vos besoins)
 Route::prefix('contact')->group(function () {
     Route::post('/', [ContactController::class, 'store'])->name('contact.store');
     Route::get('/success', [ContactController::class, 'success'])->name('contact.success');

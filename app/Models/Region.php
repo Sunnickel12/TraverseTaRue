@@ -13,7 +13,7 @@ class Region extends Model
     // Spécifier les attributs pouvant être assignés en masse
     protected $fillable = [
         'name',
-        'countries_id',
+        'country_id',
     ];
 
     /**
@@ -21,6 +21,6 @@ class Region extends Model
      */
     public function country(): BelongsTo
     {
-        return $this->belongsTo(Country::class, 'countrie_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 }
