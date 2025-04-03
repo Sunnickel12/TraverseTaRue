@@ -34,7 +34,7 @@
         </div>
 
         <!-- Formulaire pour changer le statut -->
-        <form action="{{ route('admin.contacts.update', $contact) }}" method="POST">
+        <form action="{{ route('admin.support.update', $contact) }}" method="POST">
             @csrf
             @method('PUT')
             <label for="status" class="block text-sm font-semibold text-gray-700">Changer le statut</label>
@@ -46,7 +46,7 @@
         </form>
 
         <!-- Bouton pour supprimer la demande -->
-        <form action="{{ route('admin.contacts.destroy', $contact) }}" method="POST" class="mt-6">
+        <form action="{{ route('admin.support.destroy', $contact) }}" method="POST" class="mt-6">
             @csrf
             @method('DELETE')
             <button type="submit" class="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">Supprimer la demande</button>

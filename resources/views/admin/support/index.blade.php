@@ -31,7 +31,7 @@
                     </td>
                     <td class="border-b p-3">{{ $contact->user->email }}</td>
                     <td class="border-b p-3">
-                        <a href="{{ route('admin.contacts.show', $contact) }}" class="text-blue-500">Voir</a>
+                        <a href="{{ route('admin.support.show', $contact) }}" class="text-blue-500">Voir</a>
                     </td>
                 </tr>
                 @endforeach

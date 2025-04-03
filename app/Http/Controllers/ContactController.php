@@ -71,8 +71,8 @@ class ContactController extends Controller
         $contact->status_id = $request->input('status');
         $contact->save();
 
-        return redirect()->route('admin.contacts.show', $contact)
-            ->with('success', 'Le statut a été mis à jour.');
+        return redirect()->route('admin.support.show', $contact)
+            ->with('success');
     }
 
     public function destroy(Contact $contact)
