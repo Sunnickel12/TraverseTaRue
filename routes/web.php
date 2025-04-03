@@ -11,7 +11,6 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
 use App\Http\Controllers\AdminContactController;
 
-
 // Home Routes
 Route::get('/', function () {
     return view('home');
@@ -49,7 +48,7 @@ Route::delete('evaluations/{evaluation}', [EvaluationController::class, 'destroy
 
 // Static Pages
 Route::view('/Informations-legales', 'balekenvrai.Informations-Légales')->name('Informations-legales');
-Route::view('/Politique de confidentialité', 'balekenvrai.Politique-de-confidentialité')->name('Politique de confidentialité');
+Route::view('/Politique-de-confidentialité', 'balekenvrai.Politique-de-confidentialité')->name('Politique de confidentialité');
 Route::view('/Contact', 'contact.contact')->name('Contact');
 
 // Offer Routes (CRUD)
@@ -57,11 +56,13 @@ Route::resource('offers', OfferController::class);
 
 // Postulation Routes (Requires Authentication)
 Route::prefix('postulations')->name('postulations.')->middleware('auth')->group(function () {
-    Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
-    Route::get('/{id}/manage', [PostulationController::class, 'manage'])->name('manage');
-    Route::put('/{id}', [PostulationController::class, 'update'])->name('update');
-    Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete');
-    Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('apply');
+    Route::get('/create/{offer}', [PostulationController::class, 'create'])->name('create'); // Create postulation form
+    Route::post('/store/{offer}', [PostulationController::class, 'store'])->name('store'); // Store postulation
+    Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist'); // Wishlist
+    Route::get('/{id}/show', [PostulationController::class, 'show'])->name('show'); // Show specific postulation
+    Route::get('/edit/{id}', [PostulationController::class, 'edit'])->name('edit'); // Display edit form
+    Route::put('/edit/{id}', [PostulationController::class, 'update'])->name('update'); // Update postulation
+    Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete'); // Soft delete postulation
 });
 
 // Wishlist Routes (Requires Authentication)
@@ -74,20 +75,14 @@ Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function
 
 // Additional Routes
 Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
-Route::post('/postuler', [PostulationController::class, 'postuler'])->name('postuler');
-Route::get('/offer/{id}/apply', [PostulationController::class, 'create'])->name('postulation.create');
-Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('postulation.store');
-Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
 
-// Pannel Admin 
-
+// Pannel Admin
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
 });
 
 Route::view('/Panneau_de_Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
 Route::view('/Gestion_des_Messages', 'admin.contacts.index')->name('GestionContact');
-    
 
 Route::get('/contact/contactsuccess', function () {
     return view('contact/contactsuccess');

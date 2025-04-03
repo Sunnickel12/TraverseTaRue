@@ -33,10 +33,10 @@ class OffersSeeder extends Seeder
                 'title' => $faker->jobTitle,
                 'contenu' => $faker->paragraphs(3, true),
                 'salary' => $faker->randomFloat(2, 600, 1200), 
-                'level' => $faker->randomElement(['Junior', 'Mid-Level', 'Senior']),
+                'level' => $faker->randomElement(['3eme', 'Bac+1', 'Bac+2', 'Bac+3', 'Bac+4', 'Bac+5']),
                 'start_date' => $faker->dateTimeBetween('now', '+4 month')->format('Y-m-d'),
                 'end_date' => $faker->dateTimeBetween('+3 months', '+6 months')->format('Y-m-d'),
-                'duration' => $faker->randomElement(['3 months', '6 months']),
+                'duration' => $faker->randomElement(['3 months', '6 months']), //other table
                 'city_id' => $cities->random()->id,
                 'company_id' => $companies->random()->id,
                 'created_at' => now(),

@@ -103,6 +103,8 @@
                     <h2 class="text-xl font-semibold">
                         {{ $offer->title }}
                     </h2>
+                    <p class="text-sm text-gray-500">Publié {{ $offer->created_at->diffForHumans(['locale' => 'fr']) }}</p>
+                    <p class="text-sm text-gray-500">Publié par : {{ $offer->company->name ?? 'Inconnue' }}</p>
                 </a>
                 <a href="{{ route('offers.show', $offer->id) }}" class="block mb-4">
                     <p class="text-gray-600">{{ Str::limit($offer->description, 100) }}</p>

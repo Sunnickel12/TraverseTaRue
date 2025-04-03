@@ -107,23 +107,22 @@
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Offres</a>
                 <a href="{{ route('companies.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Entreprises</a>
-                    @role('admin|pilote|etudiant')
+                @role('admin|pilote|etudiant')
                 <a href="{{ route('Contact') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 px-4 rounded-lg text-center transition duration-200">Contact</a>
                 <a href="{{ route('wishlists.index') }}"
                     class="text-lg text-white bg-[#6e9ae6] hover:bg-[#5a85d1] py-2 rounded-lg text-center transition duration-200">Wishlist</a>
-                    @endrole
-                </div>
+                @endrole
+            </div>
         </div>
 
         <!-- Pop-up de connexion -->
         <div id="login-popup"
-            class="local-font-gliker fixed top-0 w-full h-full flex justify-center items-center {{ session('error') ? '' : 'hidden' }} z-100">
+            class="local-font-gliker fixed top-0 w-full h-full flex justify-center items-center hidden z-100">
             <div class="bg-black opacity-50 absolute inset-0"></div>
             <div class="bg-white w-90 md:w-130 p-8 rounded-lg shadow-xl z-10 relative">
                 <form method="POST" action="{{ route('login') }}" id="login-form">
                     @csrf
-
 
                     <div class="mb-6">
                         <label for="email"
@@ -133,7 +132,6 @@
                             class="w-full p-2 border-2 border-[#3a3a3a] rounded-md focus:border-[#6e9ae6] focus:ring-2 focus:ring-[#6e9ae6] focus:outline-none transition-all duration-300"
                             required>
                     </div>
-
 
                     <!-- Erreurs globales (si présentes) -->
                     @if ($errors->any())
@@ -145,7 +143,6 @@
                         </ul>
                     </div>
                     @endif
-
 
                     <div class="mb-6">
                         <label for="password"
