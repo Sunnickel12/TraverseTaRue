@@ -1,4 +1,3 @@
-
 @extends('layouts.navbar')
 
 @section('title', 'Modifier un Utilisateur')

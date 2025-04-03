@@ -43,7 +43,7 @@
     @endif
 
     <!-- Users Table -->
-    <<div class="overflow-x-auto">
+    <div class="overflow-x-auto">
     <table class="min-w-full table-auto bg-white border border-gray-300 shadow-md rounded-lg text-sm">
         <thead class="bg-[#3a3a3a] text-white">
             <tr>
