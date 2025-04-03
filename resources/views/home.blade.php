@@ -22,7 +22,7 @@
             <!-- Barre de recherche superposée -->
             <div class="absolute inset-0 flex items-center justify-center">
                 <div class="relative w-[250px] md:w-[450px] lg:w-[600px] xl:w-[800px]">
-                    <form id="searchForm"
+                    <form id="searchForm" action="{{ route('offers.index') }}" method="GET"
                         class="flex items-center bg-white border-3 border-[#3a3a3a] rounded-lg shadow-md">
                         <!-- Bouton avec l'image de la loupe -->
                         <button type="submit"
@@ -31,7 +31,7 @@
                                 class="h-4 object-contain md:mx-2 lg:h-6 lg:mx-2 xl:h-8 xl:mx-4">
                         </button>
                         <!-- Champ de recherche -->
-                        <input type="search" id="default-search"
+                        <input type="search" name="search" id="default-search"
                             class="block w-full p-2 pl-3 text-[8px] md:text-sm lg:text-lg xl:text-xl text-[#3a3a3a] rounded-r-lg bg-white placeholder-gray-400 focus:outline-none"
                             placeholder="Rechercher une opportunité..." required />
                     </form>
