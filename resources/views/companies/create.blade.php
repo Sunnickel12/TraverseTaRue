@@ -7,7 +7,7 @@
 
     <!-- Bouton Retour -->
     <div class="text-center mb-4">
-        <a href="{{ url()->previous() ?: route('companies.index') }}"    class="text-[#6e9ae6] hover:text-blue-400 font-semibold text-lg flex items-center justify-center space-x-2">
+        <a href="{{ route('companies.index') }}"    class="text-[#6e9ae6] hover:text-blue-400 font-semibold text-lg flex items-center justify-center space-x-2">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>

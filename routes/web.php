@@ -20,8 +20,8 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
 // Static Pages
-Route::view('/Informations-legales', 'balekenvrai.Informations-Légales')->name('Informations-legales');
-Route::view('/Politique-de-confidentialité', 'balekenvrai.Politique-de-confidentialité')->name('Politique de confidentialité');
+Route::view('/Informations-legales', 'footer.Legal-information')->name('Informations-legales');
+Route::view('/Politique-de-confidentialité', 'footer.Privacy-policy')->name('Politique de confidentialité');
 Route::view('/Contact', 'contact.contact')->name('Contact');
 
 // Company Routes
