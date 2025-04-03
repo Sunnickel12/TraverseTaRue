@@ -13,13 +13,14 @@
     <section id="job-detail" class="p-4">
         <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $offer->title }}</h3>
         <p class="text-sm text-gray-500">Publié {{ $offer->created_at->diffForHumans(['locale' => 'fr']) }}</p>
+        <p class="text-sm text-gray-500">Par : {{ $offer->company->name }}</p>
 
         <!-- Characteristics -->
         <div class="flex flex-wrap gap-2 mt-4">
             <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->level }}</span>
             <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->duration }}</span>
             <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->salary ?? 'Salaire à définir' }} €/mois</span>
-            <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->category ?? 'Informatique' }}</span>
+            <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->city->name }}</span>
         </div>
 
         <!-- Job Description -->

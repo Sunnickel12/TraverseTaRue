@@ -46,7 +46,8 @@ class OfferController extends Controller
                     $q->whereIn('id', $company); // Filter by company
                 });
             })
-            ->paginate(9);
+            ->paginate(9)
+            ->appends($request->query()); // Preserve query parameters in pagination links
 
         return view('offers.index', compact('offers', 'skills', 'cities', 'sectors', 'companies'));
     }

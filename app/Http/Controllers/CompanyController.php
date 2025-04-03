@@ -23,14 +23,15 @@ class CompanyController extends Controller
         // Récupérer les données pour les filtres (pour les villes et les secteurs)
         $locations = City::pluck('name', 'id');
         $sectors = Sector::pluck('name', 'id');
-
+        
         // Appliquer les filtres sur les entreprises
         $companies = Company::query()
             ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%"))
             ->when($location, fn($query) => $query->whereHas('cities', fn($q) => $q->whereIn('cities.id', $location)))
             ->when($category, fn($query) => $query->whereHas('sectors', fn($q) => $q->whereIn('sectors.id', $category)))
-            ->paginate(4);
+            ->paginate(4)
+            ->appends($request->query());
 
         // Calculer la moyenne des évaluations pour chaque entreprise
         $companies->getCollection()->transform(function ($company) {

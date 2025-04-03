@@ -41,9 +41,10 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
 
             // Seeders for users and related data
+            ClasseSeeder::class,
             UserSeeder::class,
 
-            ClasseSeeder::class,
+
             BelongToSeeder::class,
 
             CompanySeeder::class,
