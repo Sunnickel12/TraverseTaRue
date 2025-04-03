@@ -50,8 +50,31 @@
         <!-- Durée -->
         <div class="mb-4">
             <label for="duration" class="block text-sm font-medium text-[#3a3a3a]">Durée</label>
-            <input type="text" name="duration" id="duration" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" value="{{ $offer->duration }}" required>
+            <select name="duration" id="duration" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
+                <option value="" disabled>Choisissez une durée</option>
+                <option value="2 weeks" {{ $offer->duration == '2 weeks' ? 'selected' : '' }}>2 semaines</option>
+                <option value="1 month" {{ $offer->duration == '1 month' ? 'selected' : '' }}>1 mois</option>
+                <option value="2 months" {{ $offer->duration == '2 months' ? 'selected' : '' }}>2 mois</option>
+                <option value="3 months" {{ $offer->duration == '3 months' ? 'selected' : '' }}>3 mois</option>
+                <option value="4 months" {{ $offer->duration == '4 months' ? 'selected' : '' }}>4 mois</option>
+                <option value="6 months" {{ $offer->duration == '6 months' ? 'selected' : '' }}>6 mois</option>
+            </select>
             @error('duration')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Compétences -->
+        <div class="mb-4">
+            <label for="skills" class="block text-sm font-medium text-[#3a3a3a]">Compétences</label>
+            <select name="skills[]" id="skills" class="select2 mt-1 block w-full p-2 border border-gray-300 rounded-md" multiple>
+                @foreach ($skills as $id => $skill)
+                <option value="{{ $id }}" {{ in_array($id, $offer->skills->pluck('id')->toArray()) ? 'selected' : '' }}>
+                    {{ $skill }}
+                </option>
+                @endforeach
+            </select>
+            @error('skills')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>

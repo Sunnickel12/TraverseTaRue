@@ -54,11 +54,12 @@ class OfferController extends Controller
     // Show the form to create a new offer
     public function create()
     {
-        $sectors = Sector::all(); // Fetch all sectors
-        $companies = Company::all(); // Fetch all companies
-        $cities = City::all(); // Fetch all cities
+        $sectors = Sector::all();
+        $companies = Company::all();
+        $cities = City::all();
+        $skills = Skill::pluck('name', 'id'); // Fetch all skills
 
-        return view('offers.create', compact('sectors', 'companies', 'cities'));
+        return view('offers.create', compact('sectors', 'companies', 'cities', 'skills'));
     }
 
     // Store a new offer in the database
@@ -109,11 +110,13 @@ class OfferController extends Controller
     // Show the form to edit an existing offer
     public function edit(Offer $offer)
     {
-        $companies = Company::all(); // Fetch all companies for the dropdown
-        $cities = City::all(); // Fetch all cities for the dropdown
-        return view('offers.edit', compact('offer', 'companies', 'cities'));
-    }
+        $sectors = Sector::all();
+        $companies = Company::all();
+        $cities = City::all();
+        $skills = Skill::pluck('name', 'id'); // Fetch all skills
 
+        return view('offers.edit', compact('offer', 'sectors', 'companies', 'cities', 'skills'));
+    }
     // Update an offer's information
     public function update(Request $request, Offer $offer)
     {
