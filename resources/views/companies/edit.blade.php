@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
-@role('admin')
+@role('admin|pilote')
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-[#6e9ae6] text-3xl font-bold text-center mb-8 md:mb-10">Éditer une entreprise</h1>
 
@@ -67,12 +67,12 @@
         <!-- Logo actuel -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-[#3a3a3a]">Logo actuel</label>
-            @if($company->logo)
+            @if($company->logo && file_exists(public_path('images/company/' . $company->logo)))
             <div class="flex justify-center">
                 <img src="{{ asset('images/company/' . $company->logo) }}" alt="Company Logo" class="w-auto h-40 object-contain rounded-md border">
             </div>
             @else
-            <p class="text-center text-[#3a3a3a]">Aucun logo disponible</p>
+            <p class="text-center text-[#3a3a3a]">Il n'y a pas de logo personalisé</p>
             @endif
         </div>
 
