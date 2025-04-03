@@ -1,10 +1,9 @@
-<!-- filepath: c:\Users\steve\OneDrive\Documentos\01 Cesi\01 CPI 2\Blocs\Web\Projet\Git\WebSite\TraverseTaRue\resources\views\offers\show.blade.php -->
 @extends('layouts.navbar')
 
 @section('title', $offer->title)
 
 @section('content')
-<main class="px-4 max-w-5xl mx-auto">
+<div class="px-4 max-w-5xl mx-auto">
     <!-- Banner -->
     <div class="banner-plane">
         <img src="{{ asset('images/bannière.png') }}" alt="banner" class="w-full rounded-lg shadow-md">
@@ -58,5 +57,5 @@
             {{ session('error') }}
         </div>
         @endif
-
-        @endsection
+</div>
+@endsection
