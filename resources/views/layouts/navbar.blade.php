@@ -7,10 +7,48 @@
     <title>@yield('title', 'Traverse Ta Rue')</title>
     <link rel="icon" type="image/png" href="{{ asset('images/site/pagelogo.png') }}" />
 
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker.register("/sw.js").then(
+                    function(registration) {
+                        console.log("Service Worker registered with scope:", registration.scope);
+                    },
+                    function(error) {
+                        console.log("Service Worker registration failed:", error);
+                    }
+                );
+            });
+        }
+    </script>
+
     <script>
         window.eyeClosedIcon = "{{ asset('images/site/eye-closed.png') }}";
         window.eyeOpenIcon = "{{ asset('images/site/eye-open.png') }}";
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userBtn = document.getElementById("user-btn");
+            const userMenu = document.getElementById("usermenu");
+
+            if (userBtn && userMenu) {
+                userBtn.addEventListener("click", function () {
+                    userMenu.classList.toggle("hidden");
+                });
+
+                // Close the menu if clicked outside
+                document.addEventListener("click", function (event) {
+                    if (!userBtn.contains(event.target) && !userMenu.contains(event.target)) {
+                        userMenu.classList.add("hidden");
+                    }
+                });
+            }
+        });
+    </script>
+
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/js/header.js'])
@@ -86,6 +124,7 @@
                 <span class="ml-2">Compte</span>
             </button>
             @endif
+            
             </div>
         </nav>
 

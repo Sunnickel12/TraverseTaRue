@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\ClassModel;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
+// Removed incorrect Log import
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Traits\HasRoles;
 
 
@@ -170,7 +172,7 @@ class UserController extends Controller
             'classes_id' => 'required|exists:classes,id',
             'role' => 'required|exists:roles,name',
         ]);
-
+        try {
         // Update user details
         $user->name = $validatedData['name'];
         $user->first_name = $validatedData['first_name'];
@@ -197,6 +199,13 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
+    } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Error updating user: ' . $e->getMessage());
+    
+            // Redirect back with an error message
+            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la mise à jour de l\'utilisateur.');
+        }
     }
 
     // Delete the specified user from the database (Delete)

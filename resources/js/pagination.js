@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         link.addEventListener("click", function (e) {
             e.preventDefault();
             const url = this.href;
-            
+
             fetch(url, {
                 headers: { "X-Requested-With": "XMLHttpRequest" }
             })
@@ -17,6 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.history.pushState({}, "", url);
             })
             .catch(error => console.error("Erreur de pagination :", error));
-        });
+        }, { once: true }); // Prevent duplicate listeners
     });
 });
