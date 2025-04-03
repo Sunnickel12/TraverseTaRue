@@ -62,6 +62,14 @@ class CompanyController extends Controller
             'city_id' => 'required|exists:cities,id', // Validate city ID
         ]);
 
+        // Handle the logo upload
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/company'), $filename);
+            $validated['logo'] = $filename; // Add the logo filename to the validated data
+        }
+
         $company = Company::create($validated);
 
         // Attach the company to the selected city

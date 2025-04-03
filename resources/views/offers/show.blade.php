@@ -4,10 +4,10 @@
 @section('title', $offer->title)
 
 @section('content')
-<main class="px-4 max-w-5xl mx-auto">
+<div class="px-4 max-w-5xl mx-auto">
     <!-- Banner -->
-    <div class="banner-plane">
-        <img src="{{ asset('images/bannière.png') }}" alt="banner" class="w-full rounded-lg shadow-md">
+    <div class="banner-plane mt-6">
+        <img src="{{ asset('images/site/banner2.png') }}" alt="banner" class="w-full rounded-lg shadow-md border border-gray-300">
     </div>
 
     <!-- Offer Details -->
@@ -58,5 +58,5 @@
             {{ session('error') }}
         </div>
         @endif
-
-        @endsection
+</div>
+@endsection

@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('content')
-@role('admin')
+@role('admin|pilote')
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-[#6e9ae6] text-3xl font-bold text-center mb-8 md:mb-10">Créer une entreprise</h1>
 

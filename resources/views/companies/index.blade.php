@@ -82,7 +82,7 @@
             @foreach ($companies as $company)
             <div class="border-2 border-[#3a3a3a] bg-white p-4 rounded-lg hover:shadow-black hover:shadow-2xl transition hover:scale-105 flex flex-col">
                 <a href="{{ route('companies.show', $company->id) }}" class="block w-full h-30 overflow-hidden mb-4">
-                    <img src="{{ file_exists(public_path('images/company/' . ($company->logo ? $company->logo : 'default-company.png'))) ? asset('images/company/' . ($company->logo ? $company->logo : 'default-company.png')) : asset('images/company/default-company.png') }}"
+                    <img src="{{ asset(file_exists(public_path($path = 'images/company/' . ($company->logo ?? 'default-company.png'))) ? $path : 'images/company/default-company.png') }}"
                         alt="{{ $company->name }}"
                         class="w-full h-full object-contain rounded-md">
                 </a>
