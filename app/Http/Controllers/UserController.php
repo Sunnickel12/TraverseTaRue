@@ -18,40 +18,55 @@ class UserController extends Controller
         $search = $request->input('search');
         $currentUser = Auth::user();
 
+        // Fetch roles and classes for filters
+        $roles = Role::pluck('name', 'id'); // Fetch all roles
+        $classes = ClassModel::pluck('name', 'id'); // Fetch all classes
+
+        $query = User::query();
+
         if ($currentUser->roles->contains('name', 'admin')) {
-            // Admin sees all users and can search by name, email, or class
-            $users = User::with('roles', 'class')
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', "%{$search}%")
-                        ->orWhere('first_name', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%")
-                        ->orWhereHas('class', function ($query) use ($search) {
-                            $query->where('name', 'like', "%{$search}%");
-                        });
-                })
-                ->get();
+            // Admin sees all users and can filter by role, class, or search
+            $query->with('roles', 'class');
+
+            if ($request->filled('role')) {
+                $query->whereHas('roles', function ($q) use ($request) {
+                    $q->where('id', $request->role);
+                });
+            }
         } elseif ($currentUser->roles->contains('name', 'pilote')) {
-            // Pilote sees only users with the role 'etudiant' and can search
-            $users = User::whereHas('roles', function ($query) {
-                $query->where('name', 'etudiant');
-            })
-                ->with('roles', 'class')
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', "%{$search}%")
-                        ->orWhere('first_name', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%")
-                        ->orWhereHas('class', function ($query) use ($search) {
-                            $query->where('name', 'like', "%{$search}%");
-                        });
-                })
-                ->get();
+            // Pilote sees only users with the role 'etudiant' and can filter by class or search
+            $query->whereHas('roles', function ($q) {
+                $q->where('name', 'etudiant');
+            })->with('roles', 'class');
         } else {
             // Etudiant sees nothing
             return view('users.index')->with('unauthorized', true);
         }
 
-        return view('users.index', compact('users'));
+        // Apply class filter
+        if ($request->filled('class')) {
+            $query->where('classes_id', $request->class); // Use the classes_id column directly
+        }
+
+        // Apply search filter
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('first_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhereHas('class', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Fetch filtered users
+        $users = $query->paginate(10);
+
+        return view('users.index', compact('users', 'roles', 'classes'));
     }
+
+
 
     // Show the form for creating a new user (Create)
     public function create()

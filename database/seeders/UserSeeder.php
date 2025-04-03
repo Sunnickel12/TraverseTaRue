@@ -74,6 +74,7 @@ class UserSeeder extends Seeder
                 'birthdate' => $faker->date('Y-m-d', '2005-01-01'),
                 'email' => strtolower($firstName . '.' . $lastName . '@example.com'), // Generate email
                 'password' => bcrypt('password'),
+                'classes_id' => $faker->numberBetween(1, 17), 
             ]);
             $student->assignRole('etudiant');
         }

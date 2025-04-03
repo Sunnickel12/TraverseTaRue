@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function class()
     {
-        return $this->belongsTo(ClassModel::class, 'id');
+        return $this->belongsTo(ClassModel::class, 'classes_id');
     }
 
     public function getRoleNameAttribute()
