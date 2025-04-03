@@ -5,18 +5,7 @@
 @section('content')
 @role('admin|pilote')
 <div class="flex min-h-screen bg-gray-100">
-    <!-- Sidebar -->
-    <div class="w-64 bg-[#3a3a3a] text-white p-6">
-        <h2 class="text-2xl font-bold text-center mb-6">Admin Panel</h2>
-        <ul>
-            <li class="mb-4"><a href="#" class="block p-3 rounded-lg hover:bg-gray-700">Tableau de bord</a></li>
-            <li class="mb-4"><a href="#" class="block p-3 rounded-lg hover:bg-gray-700">Utilisateurs</a></li>
-            <li class="mb-4"><a href="#" class="block p-3 rounded-lg hover:bg-gray-700">Paramètres</a></li>
-            <li><a href="#" class="block p-3 rounded-lg hover:bg-red-600">Déconnexion</a></li>
-        </ul>
-    </div>
-
-    <!-- Main Content -->
+  <!-- Main Content -->
     <div class="flex-1 p-10">
         <h1 class="text-3xl font-bold text-[#6e9ae6] mb-6">Bienvenue sur le panneau d'administration</h1>
         <p class="text-lg text-gray-700">Gérez les utilisateurs, les paramètres et plus encore depuis cet espace.</p>
