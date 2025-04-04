@@ -1,8 +1,7 @@
-<p align="center"><a href="#" target="_blank"><img src="https://via.placeholder.com/400x150.png?text=Traverse+Ta+Rue" width="400" alt="Traverse Ta Rue Logo"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="public\images\site\LogoTTR.png" width="400" alt="Traverse Ta Rue Logo"></a></p>
 
 <p align="center">
 <a href="#"><img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status"></a>
-<a href="#"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
 </p>
 
 # Traverse Ta Rue
@@ -64,14 +63,6 @@ Traverse Ta Rue is a web application designed to help users find internships eff
 
 6. Access the application at `http://localhost:8000`.
 
-## Contributing
-
-We welcome contributions! Please read our [contribution guide](CONTRIBUTING.md) for details on how to get started.
-
-## License
-
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
 ---
 
 # Français
@@ -130,11 +121,3 @@ Traverse Ta Rue est une application web conçue pour aider les utilisateurs à t
    ```
 
 6. Accédez à l'application à `http://localhost:8000`.
-
-## Contribuer
-
-Les contributions sont les bienvenues ! Veuillez lire notre [guide de contribution](CONTRIBUTING.md) pour savoir comment commencer.
-
-## Licence
-
-Ce projet est un logiciel open source sous licence [MIT](https://opensource.org/licenses/MIT).
