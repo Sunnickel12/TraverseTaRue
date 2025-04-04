@@ -49,7 +49,6 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             OffersSeeder::class,
             SkillsSeeder::class,
-            WishlistsSeeder::class,
             SectorSeeder::class,
             StatusesSeeder::class,
 

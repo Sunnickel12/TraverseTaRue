@@ -54,15 +54,16 @@ Route::view('/Contact', 'contact.contact')->name('Contact');
 // Offer Routes (CRUD)
 Route::resource('offers', OfferController::class);
 
-// Postulation Routes (Requires Authentication)
-Route::prefix('postulations')->name('postulations.')->middleware('auth')->group(function () {
-    Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
-    Route::get('/{id}/manage', [PostulationController::class, 'manage'])->name('manage');
-    Route::put('/{id}', [PostulationController::class, 'update'])->name('update');
-    Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete');
-    Route::post('/offer/{id}/apply', [PostulationController::class, 'store'])->name('apply');
-});
 
+Route::middleware('auth')->prefix('postulations')->name('postulations.')->group(function () {
+    Route::get('/create/{offer}', [PostulationController::class, 'create'])->name('create');
+    Route::post('/store/{offer}', [PostulationController::class, 'store'])->name('store');
+    Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
+    Route::get('/{id}/show', [PostulationController::class, 'show'])->name('show');
+    Route::get('/edit/{id}', [PostulationController::class, 'edit'])->name('edit');
+    Route::put('/edit/{id}', [PostulationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete');
+});
 // Wishlist Routes (Requires Authentication)
 Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function () {
     Route::get('/', [WishlistController::class, 'index'])->name('index');

@@ -1,34 +1,40 @@
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".heart").forEach(function (heart) {
+        heart.addEventListener("click", function () {
+            let offerId = this.getAttribute("data-id");
+            let isFavorite = this.innerText === "❤️"; // Vérifier l'état actuel
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Sélectionner tous les cœurs
-    const hearts = document.querySelectorAll('.heart');
-
-    // Ajout d'un événement de clic sur chaque cœur
-    hearts.forEach(heart => {
-        heart.addEventListener('click', function () {
-            const offerId = this.getAttribute('data-id'); // ID de l'offre
-            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Récupère le token CSRF
-
-            // Envoie une requête AJAX
-            fetch('/wishlist/toggle', {
-                method: 'POST',
+            fetch(`/toggle-favorite/${offerId}`, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': token // Ajoute le token CSRF pour la sécurité
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                 },
-                body: JSON.stringify({ offer_id: offerId }) // Envoie l'ID de l'offre
+                body: JSON.stringify({})
             })
             .then(response => response.json())
             .then(data => {
-                if (data.status === 'added') {
-                    this.classList.remove('text-gray-400');
-                    this.classList.add('text-red-500'); // Change la couleur en rouge
-                } else if (data.status === 'removed') {
-                    this.classList.remove('text-red-500');
-                    this.classList.add('text-gray-400'); // Change la couleur en gris
+                if (data.status === "added") {
+                    this.innerText = "❤️";
+                    this.classList.remove("text-gray-400");
+                    this.classList.add("text-red-500");
+                } else {
+                    this.innerText = "🤍";
+                    this.classList.remove("text-red-500");
+                    this.classList.add("text-gray-400");
                 }
             })
-            .catch(error => console.error('Erreur:', error));
+            .catch(error => console.error("Erreur:", error));
         });
     });
 });
+function toggleHeart(icon) {
+            if (icon.classList.contains("bi-suit-heart")) {
+                icon.classList.remove("bi-suit-heart");
+                icon.classList.add("bi-suit-heart-fill");
+            } else {
+                icon.classList.remove("bi-suit-heart-fill");
+                icon.classList.add("bi-suit-heart");
+            }
+        }
+

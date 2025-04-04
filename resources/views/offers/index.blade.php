@@ -1,15 +1,9 @@
+{{-- resources/views/offers/index.blade.php --}}
 @extends('layouts.navbar')
 
 @section('title', 'Offres de Stage')
 
 @section('content')
-<!-- Section Recherche -->
-<section id="search" class="py-6">
-    <form method="GET" action="{{ route('offers.index') }}" class="max-w-lg mx-auto">
-        <!-- Input et Bouton Rechercher -->
-    </form>
-</section>
-
 <!-- Section des offres -->
 <main class="px-4 max-w-7xl mx-auto">
     <h1 class="text-xl font-bold text-gray-700 text-center">
@@ -33,11 +27,10 @@
             </div>
 
             <!-- Heart for Wishlist -->
-            
-            <span 
-                class=" heart absolute top-3 right-3 text-2xl cursor-pointer 'text-red-500' : 'text-gray-400' }}" 
-                data-id="{{ $offer->id }}">
-                ❤️
+            <span class="heart absolute top-3 right-3 text-2xl cursor-pointer"
+                data-id="{{ $offer->id }}"
+                data-liked="{{ $offer->isInWishlist() ? 'true' : 'false' }}">
+                {!! $offer->isInWishlist() ? '❤️' : '🤍' !!}
             </span>
 
             <!-- Company Logo -->
@@ -53,9 +46,49 @@
     @if ($offers->hasPages())
     <nav class="mt-6 flex justify-center">
         <ul class="flex items-center space-x-2">
-            <!-- Pagination Navigation -->
+            {{ $offers->links() }}
         </ul>
     </nav>
     @endif
 </main>
+
+<!-- Script AJAX pour la Wishlist -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".heart").forEach(heart => {
+            heart.addEventListener("click", function () {
+                let offerId = this.getAttribute("data-id");
+                let isLiked = this.getAttribute("data-liked") === "true";
+                let heartElement = this;
+
+                // Effectuer une requête AJAX pour ajouter/retirer de la wishlist
+                fetch("{{ route('wishlist.toggle') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ offer_id: offerId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Met à jour l'icône en fonction de l'action
+                        if (data.action === 'added') {
+                            heartElement.innerHTML = '❤️';  // Cœur rempli
+                            heartElement.setAttribute("data-liked", "true");
+                        } else {
+                            heartElement.innerHTML = '🤍';  // Cœur vide
+                            heartElement.setAttribute("data-liked", "false");
+                        }
+                    } else {
+                        alert("Erreur lors de la mise à jour du wishlist.");
+                    }
+                })
+                .catch(error => console.error("Erreur:", error));
+            });
+        });
+    });
+</script>
+
 @endsection

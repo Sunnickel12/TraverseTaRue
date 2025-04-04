@@ -22,10 +22,10 @@
                 <div class="job p-4 border rounded-lg shadow-md relative">  <!-- Ajout de relative -->
                     
                     <!-- Icône Cœur en haut à droite -->
-                    <span 
-                        class="heart absolute top-2 right-2 text-2xl cursor-pointer text-red-500" 
-                        data-id="{{ $offer->id }}">
-                        ❤️
+                    <span class="heart absolute top-3 right-3 text-2xl cursor-pointer"
+                        data-id="{{ $offer->id }}"
+                        data-liked="{{ $offer->isInWishlist() ? 'true' : 'false' }}">
+                        {!! $offer->isInWishlist() ? '❤️' : '🤍' !!}
                     </span>
 
                     <h2 class="text-xl font-semibold">
@@ -33,13 +33,16 @@
                     </h2>
                     <p class="text-sm text-gray-500">Publié il y a {{ $offer->created_at->diffForHumans() }}</p>
 
-                    <div class="characteristics">
-                        <button class="toutes">{{ $offer->niveau }}</button>
-                        <button class="toutes">{{ $offer->duree }}</button>
-                        <button class="toutes">{{ $offer->salary }} €/mois</button>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->level }}</span>
+                        <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->duration }}</span>
+                        <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->salary }} €/mois</span>
                     </div>
 
-                    <img src="{{ asset($offer->company->logo ?? 'default-logo.png') }}" alt="Logo de {{ $offer->company->name ?? 'Entreprise inconnue' }}" class="job-logo mt-4">
+                    <img 
+                src="{{ asset('images/company/' . ($offer->company->logo_path ?? 'default-company.png')) }}" 
+                alt="Logo de {{ $offer->company->name ?? 'Entreprise inconnue' }}" 
+                class="h-12 w-auto object-contain mt-4">
                 </div>
             @endforeach
         </div>

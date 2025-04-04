@@ -51,6 +51,7 @@ class CompanyController extends Controller
         return view('companies.create', compact('sectors','cities'));
     }
 
+
     public function store(Request $request)
     {
         $validated = $request->validate([

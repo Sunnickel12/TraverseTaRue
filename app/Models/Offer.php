@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Offer extends Model
 {
@@ -46,7 +47,23 @@ class Offer extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'belongs', 'offer_id', 'id', 'user_id', 'id');
+        return $this->belongsToMany(User::class, 'belongs', 'offer_id', 'user_id');
+    }
+
+    public function wishlists()
+{
+    return $this->belongsToMany(Wishlist::class, 'belongs', 'offer_id', 'wishlist_id');
+}
+
+    public function isInWishlist()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return false;
+        }
+
+        return $this->wishlists()->where('user_id', $user->id)->exists();
+
     }
 }
 
