@@ -1,3 +1,4 @@
+@import url('fonts.css');
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -9,4 +10,13 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Appliquer la police locale aux dropdowns de Select2 */
+.select2-container--default .select2-selection--multiple,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-results__option {
+    font-family: 'Gliker', sans-serif; 
+    font-size: 16px; 
+    color: #3a3a3a; 
 }
