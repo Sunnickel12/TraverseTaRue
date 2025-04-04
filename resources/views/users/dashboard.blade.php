@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\steve\OneDrive\Documentos\01 Cesi\01 CPI 2\Blocs\Web\Projet\Git\WebSite\TraverseTaRue\resources\views\users\dashboard.blade.php -->
 @extends('layouts.navbar')
 
 @section('title', 'User Dashboard')
@@ -30,7 +29,12 @@
                         <tr>
                             <th class="py-2 px-3 border-2 border-black text-left">Offer</th>
                             <th class="py-2 px-3 border-2 border-black text-left">Status</th>
+                            <th class="py-2 px-3 border-2 border-black text-left">CV</th>
+                            <th class="py-2 px-3 border-2 border-black text-left">ML</th>
                             <th class="py-2 px-3 border-2 border-black text-left">Date</th>
+                            @role('admin')
+                            <th class="py-2 px-3 border-2 border-black text-left">Actions</th>
+                            @endrole
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +42,7 @@
                         <tr class="hover:bg-gray-100 transition duration-200">
                             <!-- Offer Column -->
                             <td class="py-2 px-3 border-2 border-black">
-                                <a href="{{ route('postulations.show', ['id' => $postulation->id]) }}" class="text-blue-500 hover:underline">
+                                <a href="{{ route('offers.show', ['offer' => $postulation->offer->id]) }}" class="text-blue-500 hover:underline">
                                     {{ $postulation->offer->title ?? 'N/A' }}
                                 </a>
                             </td>
@@ -46,10 +50,38 @@
                             <td class="py-2 px-3 border-2 border-black">
                                 {{ $postulation->status->name ?? 'N/A' }}
                             </td>
+                            <!-- CV Column -->
+                            <td class="py-2 px-3 border-2 border-black">
+                                @if($postulation->cv)
+                                <a href="{{ route('postulations.download', ['type' => 'cv', 'id' => $postulation->id]) }}" class="text-blue-500 hover:underline">
+                                    CV
+                                </a>
+                                @else
+                                N/A
+                                @endif
+                            </td>
+                            <!-- ML Column -->
+                            <td class="py-2 px-3 border-2 border-black">
+                                @if($postulation->motivation_letter)
+                                <a href="{{ route('postulations.download', ['type' => 'motivation_letter', 'id' => $postulation->id]) }}" class="text-blue-500 hover:underline">
+                                    ML
+                                </a>
+                                @else
+                                N/A
+                                @endif
+                            </td>
                             <!-- Date Column -->
                             <td class="py-2 px-3 border-2 border-black">
                                 {{ $postulation->created_at->format('d/m/Y') }}
                             </td>
+                            <!-- Actions Column (Admin Only) -->
+                            @role('admin')
+                            <td class="py-2 px-3 border-2 border-black">
+                                <a href="{{ route('postulations.edit', $postulation->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-yellow-600 transition">
+                                    Edit
+                                </a>
+                            </td>
+                            @endrole
                         </tr>
                         @endforeach
                     </tbody>

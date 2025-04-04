@@ -48,14 +48,9 @@ Route::prefix('evaluations')->group(function () {
 Route::resource('offers', OfferController::class);
 
 // Postulation Routes (auth required)
-Route::middleware('auth')->prefix('postulations')->name('postulations.')->group(function () {
-    Route::get('/create/{offer}', [PostulationController::class, 'create'])->name('create');
-    Route::post('/store/{offer}', [PostulationController::class, 'store'])->name('store');
-    Route::get('/wishlist', [PostulationController::class, 'wishlist'])->name('wishlist');
-    Route::get('/{id}/show', [PostulationController::class, 'show'])->name('show');
-    Route::get('/edit/{id}', [PostulationController::class, 'edit'])->name('edit');
-    Route::put('/edit/{id}', [PostulationController::class, 'update'])->name('update');
-    Route::delete('/{id}', [PostulationController::class, 'destroy'])->name('delete');
+Route::middleware('auth')->group(function () {
+    Route::resource('postulations', PostulationController::class)->except(['show', 'index']);
+    Route::get('/postulations/download/{type}/{id}', [PostulationController::class, 'download'])->name('postulations.download');
 });
 
 // Wishlist Routes (auth required)

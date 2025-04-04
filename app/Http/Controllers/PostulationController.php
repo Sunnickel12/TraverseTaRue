@@ -70,22 +70,18 @@ class PostulationController extends Controller
     }
 
     // Affiche les détails d'une postulation
-
     public function show(Postulation $postulation)
     {
-        $authUser = auth::user();
+        $authUser = Auth::user();
 
-        // Role-based access control
-        if ($authUser->roles->contains('name', 'admin')) {
-            // Admin can view any postulation
-            return view('postulations.show', compact('postulation'));
-        } elseif ($authUser->id === $postulation->user_id) {
-            // The user who created the postulation can view it
-            return view('postulations.show', compact('postulation'));
-        } else {
-            // Unauthorized access
-            abort(403, 'You are not authorized to view this postulation.');
+        // Allow access for admins or the user who created the postulation
+        if ($authUser->roles->contains('name', 'admin') || $authUser->id === $postulation->user_id) {
+            $statuses = $authUser->roles->contains('name','admin') ? Status::all() : null; // Fetch statuses only for admins
+            return view('postulations.show', compact('postulation', 'statuses'));
         }
+
+        // Unauthorized access
+        abort(403, 'You are not authorized to view this postulation.');
     }
 
     public function manage($id)
@@ -102,17 +98,21 @@ class PostulationController extends Controller
     }
 
     // Met à jour une postulation existante
-    public function update(Request $request, Postulation $postulation)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'status_id' => 'required|exists:statuses,id', // Ensure the status exists
         ]);
 
+        // Find the postulation by ID
+        $postulation = Postulation::findOrFail($id);
+
+        // Update the status of the postulation
         $postulation->update([
             'status_id' => $request->status_id,
         ]);
 
-        return redirect()->route('postulations.show', ['id' => $postulation->id])
+        return redirect()->route('users.dashboard')
             ->with('success', 'Postulation status updated successfully.');
     }
 
@@ -132,7 +132,7 @@ class PostulationController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $postulations = Postulation::where('user_id', $userId)->with('offer')->get();
+        $postulations = Postulation::where('user_id', $userId)->with('offer', 'status')->get();
 
         return view('postulations.index', compact('postulations'));
     }
@@ -142,7 +142,7 @@ class PostulationController extends Controller
         $postulation = Postulation::findOrFail($id);
 
         // Authorization: Only admin or the user who created the postulation can download files
-        if (Auth::id() !== $postulation->user_id && !Auth::user()->role === 'admin') {
+        if (Auth::id() !== $postulation->user_id && !Auth::user()->roles->contains('name', 'admin')) {
             abort(403, 'Unauthorized access.');
         }
 
@@ -155,6 +155,6 @@ class PostulationController extends Controller
         }
 
         // Return the file as a download response
-        return Response::download(storage_path("app/{$filePath}"));
+        return Storage::download($filePath);
     }
 }

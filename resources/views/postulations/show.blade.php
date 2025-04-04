@@ -16,15 +16,48 @@
             <h3 class="text-lg font-bold">Files:</h3>
             <ul>
                 <li>
-                    <strong>CV:</strong> {{ $postulation->cv ?? 'No CV uploaded' }}
+                    <strong>CV:</strong>
+                    @if($postulation->cv)
+                    <a href="{{ route('postulations.download', ['type' => 'cv', 'id' => $postulation->id]) }}" class="text-blue-500 hover:underline">
+                        Download CV
+                    </a>
+                    @else
+                    No CV uploaded
+                    @endif
                 </li>
                 @if($postulation->motivation_letter)
                 <li>
-                    <strong>Motivation Letter:</strong> {{ $postulation->motivation_letter }}
+                    <strong>Motivation Letter:</strong>
+                    <a href="{{ route('postulations.download', ['type' => 'motivation_letter', 'id' => $postulation->id]) }}" class="text-blue-500 hover:underline">
+                        Download Motivation Letter
+                    </a>
                 </li>
                 @endif
             </ul>
         </div>
+
+        @if(auth()->user()->hasRole('admin') && isset($statuses))
+        <div class="mt-6">
+            <h3 class="text-lg font-bold">Modify Status:</h3>
+            <form action="{{ route('postulations.update', ['id' => $postulation->id]) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="mb-4">
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select name="status_id" id="status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        @foreach($statuses as $status)
+                        <option value="{{ $status->id }}" {{ $postulation->status_id == $status->id ? 'selected' : '' }}>
+                            {{ $status->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Update Status
+                </button>
+            </form>
+        </div>
+        @endif
 
         <div class="mt-6 flex space-x-4">
             @if(auth()->user()->hasRole('admin'))
