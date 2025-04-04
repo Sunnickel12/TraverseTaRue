@@ -86,6 +86,16 @@
                     </select>
                 </div>
 
+                <!-- Duration -->
+                <div class="mb-4">
+                    <label for="duration" class="block text-sm font-medium text-gray-700">Durée</label>
+                    <select name="duration" id="duration" class="select2 mt-1 block w-full p-2 border border-[#3a3a3a] rounded-md">
+                        <option value="">Toutes</option>
+                        <option value="1 months" {{ request('duration') == '1 months' ? 'selected' : '' }}>1 months</option>
+                        <option value="3 months" {{ request('duration') == '3 months' ? 'selected' : '' }}>3 months</option>
+                        <option value="6 months" {{ request('duration') == '6 months' ? 'selected' : '' }}>6 months</option>
+                    </select>
+                </div>
                 <button type="submit" class="w-full bg-[#6e9ae6] text-white py-2 px-4 rounded-md hover:bg-blue-400 hover:scale-105 transition">
                     Filtrer
                 </button>
@@ -105,6 +115,9 @@
                     </h2>
                     <p class="text-sm text-gray-500">Publié {{ $offer->created_at->diffForHumans(['locale' => 'fr']) }}</p>
                     <p class="text-sm text-gray-500">Publié par : {{ $offer->company->name ?? 'Inconnue' }}</p>
+                    <p class="text-sm text-gray-500">
+                        {{ $offer->postulations->count() }} {{ Str::plural('postulation', $offer->postulations->count()) }}
+                    </p>
                 </a>
                 <a href="{{ route('offers.show', $offer->id) }}" class="block mb-4">
                     <p class="text-gray-600">{{ Str::limit($offer->description, 100) }}</p>

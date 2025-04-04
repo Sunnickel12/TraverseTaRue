@@ -9,6 +9,36 @@
         <img src="{{ asset('images/site/banner2.png') }}" alt="banner" class="w-full rounded-lg shadow-md border border-gray-300">
     </div>
 
+    @role('admin|etudiant')
+    <div class="mt-4">
+        @if ($offer->isInWishlist())
+        <!-- Button to indicate the offer is already in the wishlist -->
+        <button type="button" class="bg-green-500 text-black px-4 py-2 rounded-md shadow-md cursor-not-allowed">
+            Déjà dans la wishlist!
+        </button>
+        <!-- Button to remove the offer from the wishlist -->
+        <form method="POST" action="{{ route('wishlist.remove') }}" class="inline-block">
+            @csrf
+            @method('DELETE') <!-- Use DELETE since the route is defined for DELETE -->
+            <input type="hidden" name="offer_id" value="{{ $offer->id }}">
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 transition">
+                Retirer de la wishlist
+            </button>
+        </form>
+        @else
+        <!-- Button to add the offer to the wishlist -->
+        <form method="POST" action="{{ route('wishlist.add') }}" class="inline-block">
+            @csrf
+            <input type="hidden" name="offer_id" value="{{ $offer->id }}">
+            <button type="submit" class="bg-[#6e9ae6] text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-400 transition">
+                Ajouter à la wishlist
+            </button>
+        </form>
+        @endif
+    </div>
+    @endrole
+
+
     <!-- Offer Details -->
     <section id="job-detail" class="p-4">
         <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $offer->title }}</h3>

@@ -9,7 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PostulationController;
-use App\Http\Controllers\CityController; 
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CountryController;
@@ -85,6 +85,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/{contact}/status', [ContactController::class, 'updateStatus'])->name('updateStatus');
         Route::get('/download/{contactId}', [ContactController::class, 'download'])->name('download');
     });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
+    Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
+    Route::delete('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
 });
 
 // Autres routes (exemple pour dashboard optionnel)

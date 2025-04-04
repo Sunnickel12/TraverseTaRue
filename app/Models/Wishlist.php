@@ -31,7 +31,7 @@ class Wishlist extends Model
 
     public function offers()
     {
-        return $this->belongsToMany(Offer::class, 'belongs', 'wishlist_id', 'offer_id')->withTimestamps();
+        return $this->belongsToMany(Offer::class, 'belongs', 'wishlist_id', 'offer_id');
     }
 }
 

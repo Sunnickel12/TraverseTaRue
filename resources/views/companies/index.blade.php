@@ -25,7 +25,7 @@
         @role('admin|pilote')
         <div class="text-start mx-4">
             <a href="{{ route('companies.create') }}" class="bg-[#6e9ae6] hover:bg-blue-400 text-white text-nowrap font-bold py-2 md:py-3 px-4 md:px-6 text-base md:text-lg rounded-lg shadow-md transition">
-                + Create 
+                + Create
             </a>
         </div>
         @endrole
@@ -68,6 +68,17 @@
                         @foreach ($sectors as $id => $sector)
                         <option value="{{ $id }}" {{ in_array($id, request('category', [])) ? 'selected' : '' }}>{{ $sector }}</option>
                         @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="average_evaluation" class="block text-sm font-medium text-gray-700">Notation Moyenne</label>
+                    <select name="average_evaluation" id="average_evaluation" class="mt-1 block w-full p-2 border border-[#3a3a3a] rounded-md">
+                        <option value="">Toutes</option>
+                        <option value="5" {{ request('average_evaluation') == '5' ? 'selected' : '' }}>5 étoiles</option>
+                        <option value="4" {{ request('average_evaluation') == '4' ? 'selected' : '' }}>4 étoiles et plus</option>
+                        <option value="3" {{ request('average_evaluation') == '3' ? 'selected' : '' }}>3 étoiles et plus</option>
+                        <option value="2" {{ request('average_evaluation') == '2' ? 'selected' : '' }}>2 étoiles et plus</option>
+                        <option value="1" {{ request('average_evaluation') == '1' ? 'selected' : '' }}>1 étoile et plus</option>
                     </select>
                 </div>
                 <button type="submit" class="w-full bg-[#6e9ae6] text-white py-2 px-4 rounded-md hover:bg-blue-400 hover:scale-105 transition">

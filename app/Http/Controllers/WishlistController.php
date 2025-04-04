@@ -6,58 +6,50 @@ use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Offer;
 
 class WishlistController extends Controller
 {
     // Ajouter une offre à la wishlist
     public function add(Request $request)
     {
-        // Vérifier si l'utilisateur est authentifié
-        if (!Auth::check()) {
-            return response()->json(['message' => 'Vous devez être connecté.'], 401);
-        }
-
-        // Validation de l'ID de l'offre
-        $validator = Validator::make($request->all(), [
-            'offer_id' => 'required|exists:offres,id' // Vérifie si l'offre existe
+        $request->validate([
+            'offer_id' => 'required|exists:offers,id'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['message' => 'Offre invalide.'], 400);
-        }
+        $user = Auth::user();
 
-        // Ajouter l'offre à la wishlist si elle n'existe pas déjà
-        Wishlist::firstOrCreate([
-            'user_id' => Auth::id(),
-            'offer_id' => $request->offer_id
+        $wishlist = Wishlist::firstOrCreate([
+            'user_id' => $user->id
         ]);
 
-        return response()->json(['message' => 'Offre ajoutée à la wishlist']);
+        // Attach only if not already attached
+        if (!$wishlist->offers()->where('offers.id', $request->offer_id)->exists()) {
+            $wishlist->offers()->attach($request->offer_id);
+        }
+
+        return redirect()->route('offers.show', $request->offer_id)
+            ->with('success', 'Offre ajoutée à votre wishlist.');
     }
 
-    // Retirer une offre de la wishlist
     public function remove(Request $request)
     {
-        // Vérifier si l'utilisateur est authentifié
-        if (!Auth::check()) {
-            return response()->json(['message' => 'Vous devez être connecté.'], 401);
-        }
-
-        // Validation de l'ID de l'offre
-        $validator = Validator::make($request->all(), [
-            'offer_id' => 'required|exists:offres,id' // Vérifie si l'offre existe
+        $request->validate([
+            'offer_id' => 'required|exists:offers,id'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['message' => 'Offre invalide.'], 400);
+        $user = Auth::user();
+
+        $wishlist = Wishlist::firstOrCreate([
+            'user_id' => $user->id
+        ]);
+
+        if ($wishlist) {
+            $wishlist->offers()->detach($request->offer_id);
         }
 
-        // Supprimer l'offre de la wishlist
-        Wishlist::where('user_id', Auth::id())
-            ->where('offer_id', $request->offer_id)
-            ->delete();
-
-        return response()->json(['message' => 'Offre retirée de la wishlist']);
+        return redirect()->route('offers.show', $request->offer_id)
+            ->with('success', 'Offre retirée de votre wishlist.');
     }
 
     // Afficher les offres de la wishlist
@@ -86,6 +78,4 @@ class WishlistController extends Controller
 
         return view('wishlists.show', compact('postulations'));
     }
-
-
 }

@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\City;
 use App\Models\Sector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -15,32 +16,44 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        // Récupération des paramètres de filtre
-        $search = $request->input('search');
-        $location = $request->input('location');
-        $category = $request->input('category');
+        $query = Company::query();
 
-        // Récupérer les données pour les filtres (pour les villes et les secteurs)
+        // Join with evaluations to calculate the average evaluation dynamically
+        $query->withCount(['evaluations as average_evaluation' => function ($query) {
+            $query->select(DB::raw('coalesce(avg(note), 0)'));
+        }]);
+
+        // Filter by location
+        if ($request->has('location') && !empty($request->location)) {
+            $query->whereIn('city_id', $request->location);
+        }
+
+        // Filter by category
+        if ($request->has('category') && !empty($request->category)) {
+            $query->whereHas('sectors', function ($q) use ($request) {
+                $q->whereIn('id', $request->category);
+            });
+        }
+
+        // Filter by average evaluation
+        if ($request->has('average_evaluation') && !empty($request->average_evaluation)) {
+            $query->having('average_evaluation', '>=', $request->average_evaluation);
+        }
+
+        // Search by name or description
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $companies = $query->with('sectors')->paginate(10)->appends($request->query());
+
+        // Pass filters to the view
         $locations = City::pluck('name', 'id');
         $sectors = Sector::pluck('name', 'id');
-        
-        // Appliquer les filtres sur les entreprises
-        $companies = Company::query()
-            ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%"))
-            ->when($location, fn($query) => $query->whereHas('cities', fn($q) => $q->whereIn('cities.id', $location)))
-            ->when($category, fn($query) => $query->whereHas('sectors', fn($q) => $q->whereIn('sectors.id', $category)))
-            ->paginate(4)
-            ->appends($request->query());
 
-        // Calculer la moyenne des évaluations pour chaque entreprise
-        $companies->getCollection()->transform(function ($company) {
-            // Si aucune évaluation n'est présente, la valeur par défaut sera 'N'
-            $company->average_evaluation = $company->evaluations->avg('note') ?? 'N';
-            return $company;
-        });
-
-        // Retourner la vue avec les données nécessaires
         return view('companies.index', compact('companies', 'locations', 'sectors'));
     }
 

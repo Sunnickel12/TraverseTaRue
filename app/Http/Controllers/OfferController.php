@@ -46,6 +46,9 @@ class OfferController extends Controller
                     $q->whereIn('id', $company); // Filter by company
                 });
             })
+            ->when($request->input('duration'), function ($query, $duration) {
+                return $query->where('duration', $duration); // Filter by exact duration
+            })
             ->paginate(9)
             ->appends($request->query()); // Preserve query parameters in pagination links
 

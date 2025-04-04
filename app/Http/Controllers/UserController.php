@@ -143,8 +143,8 @@ class UserController extends Controller
         }
 
         // Fetch roles and classes for the dropdowns
-        $roles = Auth::user()->roles->contains('name', 'pilote') 
-            ? Role::where('name', 'etudiant')->get() 
+        $roles = Auth::user()->roles->contains('name', 'pilote')
+            ? Role::where('name', 'etudiant')->get()
             : Role::all();
         $classes = ClassModel::all();
 
@@ -173,36 +173,36 @@ class UserController extends Controller
             'role' => 'required|exists:roles,name',
         ]);
         try {
-        // Update user details
-        $user->name = $validatedData['name'];
-        $user->first_name = $validatedData['first_name'];
-        $user->birthdate = $validatedData['birthdate'];
-        $user->email = $validatedData['email'];
-        $user->classes_id = $validatedData['classes_id'];
+            // Update user details
+            $user->name = $validatedData['name'];
+            $user->first_name = $validatedData['first_name'];
+            $user->birthdate = $validatedData['birthdate'];
+            $user->email = $validatedData['email'];
+            $user->classes_id = $validatedData['classes_id'];
 
-        // Update password if provided
-        if (!empty($validatedData['password'])) {
-            $user->password = bcrypt($validatedData['password']);
-        }
+            // Update password if provided
+            if (!empty($validatedData['password'])) {
+                $user->password = bcrypt($validatedData['password']);
+            }
 
-        // Update profile picture if provided
-        if ($request->hasFile('pp')) {
-            $file = $request->file('pp');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/users'), $filename);
-            $user->pp = $filename;
-        }
+            // Update profile picture if provided
+            if ($request->hasFile('pp')) {
+                $file = $request->file('pp');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('images/users'), $filename);
+                $user->pp = $filename;
+            }
 
-        // Update role
-        $user->syncRoles([$validatedData['role']]);
+            // Update role
+            $user->syncRoles([$validatedData['role']]);
 
-        $user->save();
+            $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
-    } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
+        } catch (\Exception $e) {
             // Log the error for debugging
             Log::error('Error updating user: ' . $e->getMessage());
-    
+
             // Redirect back with an error message
             return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la mise à jour de l\'utilisateur.');
         }
@@ -237,11 +237,12 @@ class UserController extends Controller
 
         // Role-based access control
         if ($authUser->roles->contains('name', 'admin')) {
-            // Admin can see all users except themselves
+            // Admin can see their own profile or any user's profile
             if ($id === null || $id == $authUser->id) {
-                abort(403, 'Admins cannot view their own profile.');
+                $user = $authUser;
+            } else {
+                $user = User::findOrFail($id);
             }
-            $user = User::findOrFail($id);
         } elseif ($authUser->roles->contains('name', 'pilote')) {
             // Pilote can see their own profile and all "etudiant" users
             if ($id === null || $id == $authUser->id) {
@@ -262,10 +263,12 @@ class UserController extends Controller
             abort(403, 'You are not authorized to view this profile.');
         }
 
-        // Fetch postulations and wishlist for the user
-        $postulations = $user->postulations ?? collect();
-        $wishlist = $user->wishlist ? $user->wishlist->offers : collect(); // Fetch related offers
+        // Fetch postulations for the user with pagination
+        $postulations = $user->postulations()->with('offer', 'status')->paginate(5, ['*'], 'postulations_page');
 
-        return view('users.dashboard', compact('user', 'postulations', 'wishlist'));
+        // Fetch wishlist offers for the user with pagination
+        $wishlistOffers = $user->wishlist ? $user->wishlist->offers()->with('company')->paginate(5, ['*'], 'wishlist_page') : collect();
+
+        return view('users.dashboard', compact('user', 'postulations', 'wishlistOffers'));
     }
 }
