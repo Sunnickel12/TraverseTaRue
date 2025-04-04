@@ -49,7 +49,9 @@ Route::resource('offers', OfferController::class);
 
 // Postulation Routes (auth required)
 Route::middleware('auth')->group(function () {
-    Route::resource('postulations', PostulationController::class)->except(['show', 'index']);
+    Route::get('/postulations/create/{offer}', [PostulationController::class, 'create'])->name('postulations.create');
+    Route::post('/postulations/store/{offer}', [PostulationController::class, 'store'])->name('postulations.store'); // Ensure this route is defined
+    Route::resource('postulations', PostulationController::class)->except(['show', 'index', 'create', 'store']);
     Route::get('/postulations/download/{type}/{id}', [PostulationController::class, 'download'])->name('postulations.download');
 });
 

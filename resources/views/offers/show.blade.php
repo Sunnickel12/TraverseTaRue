@@ -75,7 +75,7 @@
             @auth
             @role('admin|etudiant')
             <!-- Show the "Postuler" button for admin and etudiant roles -->
-            <a href="{{ route('postulations.create', $offer->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition">
+            <a href="{{ route('postulations.create', ['offer' => $offer->id]) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition">
                 Postuler
             </a>
             @elserole('pilote')
