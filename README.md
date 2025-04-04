@@ -1,66 +1,140 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="https://via.placeholder.com/400x150.png?text=Traverse+Ta+Rue" width="400" alt="Traverse Ta Rue Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="#"><img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status"></a>
+<a href="#"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"></a>
 </p>
 
-## About Laravel
+# Traverse Ta Rue
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**English** | [Français](#français)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## About Traverse Ta Rue
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Traverse Ta Rue is a web application designed to help users find internships efficiently. The platform provides tools for managing internship listings, creating wishlists, and handling administrative tasks. Built with modern web technologies, it ensures a seamless and user-friendly experience.
 
-## Learning Laravel
+### Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **CRUD Operations**: Create, Read, Update, and Delete internship listings.
+- **Wishlist**: Save and manage your favorite internship opportunities.
+- **Admin Management**: Manage users, internships, and platform settings.
+- **User Authentication**: Secure login and registration system.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Getting Started
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prerequisites
 
-## Laravel Sponsors
+- PHP 8.0 or higher
+- Composer
+- Node.js and npm
+- A web server (e.g., Apache, Nginx)
+- A database (e.g., MySQL, PostgreSQL)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Installation
 
-### Premium Partners
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/traverse-ta-rue.git
+   cd traverse-ta-rue
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Install dependencies:
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. Configure the environment:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. Set up the database:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. Start the development server:
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
+
+6. Access the application at `http://localhost:8000`.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+We welcome contributions! Please read our [contribution guide](CONTRIBUTING.md) for details on how to get started.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+# Français
+
+## À propos de Traverse Ta Rue
+
+Traverse Ta Rue est une application web conçue pour aider les utilisateurs à trouver des stages efficacement. La plateforme offre des outils pour gérer les offres de stage, créer des listes de souhaits et gérer les tâches administratives. Construite avec des technologies web modernes, elle garantit une expérience fluide et conviviale.
+
+### Fonctionnalités
+
+- **Opérations CRUD** : Créer, Lire, Mettre à jour et Supprimer des offres de stage.
+- **Liste de souhaits** : Enregistrez et gérez vos opportunités de stage préférées.
+- **Gestion administrative** : Gérez les utilisateurs, les stages et les paramètres de la plateforme.
+- **Authentification utilisateur** : Système sécurisé de connexion et d'inscription.
+- **Design réactif** : Optimisé pour les ordinateurs de bureau et les appareils mobiles.
+
+## Démarrage
+
+### Prérequis
+
+- PHP 8.0 ou supérieur
+- Composer
+- Node.js et npm
+- Un serveur web (ex. : Apache, Nginx)
+- Une base de données (ex. : MySQL, PostgreSQL)
+
+### Installation
+
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/your-repo/traverse-ta-rue.git
+   cd traverse-ta-rue
+   ```
+
+2. Installez les dépendances :
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. Configurez l'environnement :
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. Configurez la base de données :
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. Lancez le serveur de développement :
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
+
+6. Accédez à l'application à `http://localhost:8000`.
+
+## Contribuer
+
+Les contributions sont les bienvenues ! Veuillez lire notre [guide de contribution](CONTRIBUTING.md) pour savoir comment commencer.
+
+## Licence
+
+Ce projet est un logiciel open source sous licence [MIT](https://opensource.org/licenses/MIT).
