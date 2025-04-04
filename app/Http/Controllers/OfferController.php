@@ -125,6 +125,7 @@ class OfferController extends Controller
     // Update an offer's information
     public function update(Request $request, Offer $offer)
     {
+        
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'contenu' => 'required|string',
@@ -151,6 +152,7 @@ class OfferController extends Controller
             'sectors' => 'required|array', // Validate sectors as an array
             'sectors.*' => 'exists:sectors,id', // Ensure each sector exists
         ]);
+
 
         $offer->update($validated);
 

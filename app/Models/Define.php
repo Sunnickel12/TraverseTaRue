@@ -9,10 +9,18 @@ class Define extends Model
 {
     use HasFactory;
 
-    
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
-    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'id_offer',
         'id_sector',
@@ -20,6 +28,7 @@ class Define extends Model
 
     /**
      * Define the relationship with the Offer model.
+     * A define entry links an offer to a sector.
      */
     public function offer()
     {
@@ -28,6 +37,7 @@ class Define extends Model
 
     /**
      * Define the relationship with the Sector model.
+     * A define entry links a sector to an offer.
      */
     public function sector()
     {

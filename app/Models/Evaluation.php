@@ -10,6 +10,11 @@ class Evaluation extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'note',
         'comment',
@@ -17,14 +22,21 @@ class Evaluation extends Model
         'company_id',
     ];
 
+    /**
+     * Define the relationship with the User model.
+     * An evaluation is written by a specific user.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Define the relationship with the Company model.
+     * An evaluation is associated with a specific company.
+     */
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
-    
 }

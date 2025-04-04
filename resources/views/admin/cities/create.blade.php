@@ -1,5 +1,6 @@
 @extends('layouts.navbar')
 
+@role('admin')
 @section('content')
 <div class="container mx-auto px-4 mt-8">
     <h1 class="text-2xl font-bold mb-4">Ajouter une Ville</h1>
@@ -46,5 +47,8 @@
         });
     });
 </script>
-
+@else
+<h1 class="text-3xl font-extrabold text-red-500 text-center">Accès refusé</h1>
+<p class="text-gray-700 text-center">Vous devez être administrateur pour accéder à cette page.</p>
+@endrole
 @endsection

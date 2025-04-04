@@ -13,7 +13,11 @@ class Contact extends Model
     // La table correspondante dans la base de données
     protected $table = 'contacts';
 
-    // Attributs assignables (les champs que tu autorises à être remplis)
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'id',
         'title',
@@ -22,17 +26,23 @@ class Contact extends Model
         'status_id',
         'user_id',
     ];
-    
+
     // Si tu veux activer la gestion automatique des timestamps
     public $timestamps = true;
 
-    // Relier le modèle Contact avec la table Status
+    /**
+     * Define the relationship with the Status model.
+     * A contact has one status.
+     */
     public function status()
     {
         return $this->belongsTo(Status::class, 'status_id');
     }
 
-    // Relier le modèle Contact avec la table User
+    /**
+     * Define the relationship with the User model.
+     * A contact is created by a specific user.
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

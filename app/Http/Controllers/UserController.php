@@ -8,14 +8,12 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\ClassModel;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
-// Removed incorrect Log import
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Traits\HasRoles;
 
-
 class UserController extends Controller
 {
-
+    // Display a list of users with filters and search functionality
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -69,9 +67,7 @@ class UserController extends Controller
         return view('users.index', compact('users', 'roles', 'classes'));
     }
 
-
-
-    // Show the form for creating a new user (Create)
+    // Show the form for creating a new user
     public function create()
     {
         $roles = Role::all(); // Fetch all roles from Laravel Permission
@@ -125,13 +121,13 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User created successfully!');
     }
 
-    // Display the specified user (Read)
+    // Display the details of a specific user
     public function show(User $user)
     {
         return view('users.show', compact('user'));
     }
 
-    // Show the form for editing a user (Update)
+    // Show the form for editing a user's details
     public function edit($id)
     {
         $currentUser = Auth::user();
@@ -151,7 +147,7 @@ class UserController extends Controller
         return view('users.edit', compact('user', 'roles', 'classes'));
     }
 
-    // Update the specified user in the database (Update)
+    // Update a user's details in the database
     public function update(Request $request, $id)
     {
         $currentUser = Auth::user();
@@ -208,7 +204,7 @@ class UserController extends Controller
         }
     }
 
-    // Delete the specified user from the database (Delete)
+    // Delete a user from the database (soft delete)
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -223,6 +219,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 
+    // Restore a soft-deleted user
     public function restore($id)
     {
         $user = User::onlyTrashed()->findOrFail($id);
@@ -231,6 +228,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User restored successfully.');
     }
 
+    // Display the user's dashboard with postulations and wishlist
     public function dashboard(Request $request, $id = null)
     {
         $authUser = Auth::user();

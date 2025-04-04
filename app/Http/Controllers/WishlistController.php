@@ -10,7 +10,7 @@ use App\Models\Offer;
 
 class WishlistController extends Controller
 {
-    // Add an offer to the wishlist
+    // Add an offer to the user's wishlist
     public function add(Request $request)
     {
         // Validate the offer ID
@@ -25,7 +25,7 @@ class WishlistController extends Controller
             'user_id' => $user->id
         ]);
 
-        // Attach the offer if not already in the wishlist
+        // Attach the offer if it is not already in the wishlist
         if (!$wishlist->offers()->where('offers.id', $request->offer_id)->exists()) {
             $wishlist->offers()->attach($request->offer_id);
         }
@@ -34,48 +34,55 @@ class WishlistController extends Controller
             ->with('success', 'Offer added to your wishlist.');
     }
 
+    // Remove an offer from the user's wishlist
     public function remove(Request $request)
     {
+        // Validate the offer ID
         $request->validate([
             'offer_id' => 'required|exists:offers,id'
         ]);
 
         $user = Auth::user();
 
+        // Find the user's wishlist
         $wishlist = Wishlist::firstOrCreate([
             'user_id' => $user->id
         ]);
 
+        // Detach the offer if it exists in the wishlist
         if ($wishlist) {
             $wishlist->offers()->detach($request->offer_id);
         }
 
         return redirect()->route('offers.show', $request->offer_id)
-            ->with('success', 'Offre retirée de votre wishlist.');
+            ->with('success', 'Offer removed from your wishlist.');
     }
 
-    // Afficher les offres de la wishlist
+    // Display the offers in the user's wishlist
     public function index()
     {
-        // Vérifier si l'utilisateur est authentifié
+        // Check if the user is authenticated
         if (!Auth::check()) {
-            return response()->json(['message' => 'Vous devez être connecté.'], 401);
+            return response()->json(['message' => 'You must be logged in.'], 401);
         }
 
-        // Récupérer les offres de la wishlist de l'utilisateur connecté
+        // Retrieve the offers in the user's wishlist
         $wishlistedOffers = Wishlist::where('user_id', Auth::id())
-            ->with('offer') // Récupérer les données de l'offre associée
+            ->with('offer') // Load the associated offer data
             ->get();
 
         return view('wishlists.index', compact('wishlistedOffers'));
     }
+
+    // Display the user's applications (postulations)
     public function candidatures()
     {
+        // Check if the user is authenticated
         if (!Auth::check()) {
-            return redirect()->route('home')->with('error', 'Vous devez être connecté.');
+            return redirect()->route('home')->with('error', 'You must be logged in.');
         }
 
-        // Récupérer les candidatures de l'utilisateur connecté
+        // Retrieve the user's applications
         $postulations = Wishlist::where('user_id', Auth::id())->with('offer')->get();
 
         return view('wishlists.show', compact('postulations'));

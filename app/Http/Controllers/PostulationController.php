@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Response;
 
 class PostulationController extends Controller
 {
-    // Affiche le formulaire de création de postulation
+    // Show the form for creating a new postulation
     public function create($offer_id)
     {
         $authUser = Auth::user();
@@ -27,7 +27,7 @@ class PostulationController extends Controller
         return view('postulations.create', compact('offer'));
     }
 
-    // Enregistre une nouvelle postulation dans la base de données
+    // Store a new postulation in the database
     public function store(Request $request, $offer_id)
     {
         $request->validate([
@@ -69,14 +69,14 @@ class PostulationController extends Controller
         return redirect()->route('offers.index')->with('success', 'Votre postulation a été envoyée avec succès !');
     }
 
-    // Affiche les détails d'une postulation
+    // Display the details of a specific postulation
     public function show(Postulation $postulation)
     {
         $authUser = Auth::user();
 
         // Allow access for admins or the user who created the postulation
         if ($authUser->roles->contains('name', 'admin') || $authUser->id === $postulation->user_id) {
-            $statuses = $authUser->roles->contains('name','admin') ? Status::all() : null; // Fetch statuses only for admins
+            $statuses = $authUser->roles->contains('name', 'admin') ? Status::all() : null; // Fetch statuses only for admins
             return view('postulations.show', compact('postulation', 'statuses'));
         }
 
@@ -84,20 +84,21 @@ class PostulationController extends Controller
         abort(403, 'You are not authorized to view this postulation.');
     }
 
+    // Manage a specific postulation
     public function manage($id)
     {
         $postulation = Postulation::findOrFail($id); // Fetch the postulation by ID
         return view('postulations.manage', compact('postulation'));
     }
 
-    // Affiche le formulaire d'édition d'une postulation
+    // Show the form for editing a postulation
     public function edit(Postulation $postulation)
     {
         $statuses = Status::all(); // Fetch all statuses
         return view('postulations.edit', compact('postulation', 'statuses'));
     }
 
-    // Met à jour une postulation existante
+    // Update an existing postulation in the database
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -112,11 +113,12 @@ class PostulationController extends Controller
             'status_id' => $request->status_id,
         ]);
 
-        return redirect()->route('users.dashboard')
+        // Redirect to the previous URL or a fallback route
+        return redirect($request->input('previous_url', route('users.dashboard')))
             ->with('success', 'Postulation status updated successfully.');
     }
 
-    // Supprime une postulation
+    // Delete a postulation from the database
     public function destroy(Postulation $postulation)
     {
         // Authorization: Only admin or the user who created the postulation can delete it
@@ -128,7 +130,7 @@ class PostulationController extends Controller
         return redirect()->route('users.dashboard')->with('success', 'Postulation deleted successfully.');
     }
 
-    // Affiche toutes les postulations de l'utilisateur connecté
+    // Display all postulations of the logged-in user
     public function index()
     {
         $userId = Auth::id();
@@ -137,6 +139,7 @@ class PostulationController extends Controller
         return view('postulations.index', compact('postulations'));
     }
 
+    // Download a file (CV or motivation letter) associated with a postulation
     public function download($type, $id)
     {
         $postulation = Postulation::findOrFail($id);

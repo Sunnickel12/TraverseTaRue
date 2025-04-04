@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Company;
 use App\Models\City;
 use App\Models\Sector;
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class CompanyController extends Controller
 {
     /**
-     * Afficher la liste paginée des entreprises avec filtres optionnels.
+     * Display a paginated list of companies with optional filters.
      */
     public function index(Request $request)
     {
@@ -23,12 +22,14 @@ class CompanyController extends Controller
             $query->select(DB::raw('coalesce(avg(note), 0)'));
         }]);
 
-        // Filter by location
+        // Filter by location (city) using the situates table
         if ($request->has('location') && !empty($request->location)) {
-            $query->whereIn('city_id', $request->location);
+            $query->whereHas('cities', function ($q) use ($request) {
+                $q->whereIn('id', $request->location);
+            });
         }
 
-        // Filter by category
+        // Filter by category (sector)
         if ($request->has('category') && !empty($request->category)) {
             $query->whereHas('sectors', function ($q) use ($request) {
                 $q->whereIn('id', $request->category);
@@ -48,7 +49,7 @@ class CompanyController extends Controller
             });
         }
 
-        $companies = $query->with('sectors')->paginate(10)->appends($request->query());
+        $companies = $query->with('sectors')->paginate(4)->appends($request->query());
 
         // Pass filters to the view
         $locations = City::pluck('name', 'id');
@@ -57,7 +58,9 @@ class CompanyController extends Controller
         return view('companies.index', compact('companies', 'locations', 'sectors'));
     }
 
-
+    /**
+     * Show the form to create a new company.
+     */
     public function create()
     {
         $cities = City::all(); // Fetch all cities
@@ -65,6 +68,9 @@ class CompanyController extends Controller
         return view('companies.create', compact('cities', 'sectors'));
     }
 
+    /**
+     * Store a new company in the database.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -78,7 +84,7 @@ class CompanyController extends Controller
             'sectors' => 'required|array', // Validate sectors as an array
             'sectors.*' => 'exists:sectors,id', // Validate each sector ID
         ], [
-            'logo.max' => 'Le fichier logo est trop volumineux. La taille maximale autorisée est de 2 Mo.', // Message personnalisé
+            'logo.max' => 'The logo file is too large. The maximum allowed size is 2 MB.', // Custom message
         ]);
 
         // Handle the logo upload
@@ -94,10 +100,11 @@ class CompanyController extends Controller
         // Attach the company to the selected city
         $company->cities()->attach($request->city_id);
 
-        return redirect()->route('companies.index')->with('success', 'Entreprise créée avec succès.');
+        return redirect()->route('companies.index')->with('success', 'Company created successfully.');
     }
+
     /**
-     * Afficher les détails d'une entreprise spécifique.
+     * Display the details of a specific company.
      */
     public function show(Company $company)
     {
@@ -115,7 +122,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Afficher le formulaire d'édition d'une entreprise.
+     * Show the form to edit a company.
      */
     public function edit(Company $company)
     {
@@ -123,7 +130,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Mettre à jour une entreprise.
+     * Update a company's information.
      */
     public function update(Request $request, Company $company)
     {
@@ -136,18 +143,17 @@ class CompanyController extends Controller
     }
 
     /**
-     * Supprimer une entreprise.
+     * Soft delete a company.
      */
     public function destroy(Company $company)
     {
-        // Soft delete the company
         $company->delete();
 
         return redirect()->route('companies.index')->with('success', 'Company soft deleted successfully!');
     }
 
     /**
-     * Valider les données de l'entreprise.
+     * Validate company data.
      */
     private function validateCompany(Request $request, $companyId = null)
     {
@@ -162,7 +168,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Gérer l'upload et la suppression du logo.
+     * Handle logo upload and deletion.
      */
     private function handleLogoUpload(Request $request, $oldLogo = null)
     {
@@ -177,7 +183,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Supprimer un ancien logo.
+     * Delete an old logo file.
      */
     private function deleteLogo($logo)
     {

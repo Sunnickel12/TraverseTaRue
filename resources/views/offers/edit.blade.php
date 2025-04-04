@@ -118,6 +118,36 @@
             </select>
         </div>
 
+        <!-- Secteurs -->
+        <div class="mb-4">
+            <label for="sectors" class="block text-sm font-medium text-[#3a3a3a]">Secteurs</label>
+            <select name="sectors[]" id="sectors" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" multiple>
+                @foreach($sectors as $sector)
+                <option value="{{ $sector->id }}" {{ in_array($sector->id, $offer->sectors->pluck('id')->toArray()) ? 'selected' : '' }}>
+                    {{ $sector->name }}
+                </option>
+                @endforeach
+            </select>
+            @error('sectors')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Ville -->
+        <div class="mb-4">
+            <label for="city_id" class="block text-sm font-medium text-[#3a3a3a]">Ville</label>
+            <select name="city_id" id="city_id" class="mt-1 block w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6e9ae6] transition-all duration-300" required>
+                @foreach ($cities as $city)
+                <option value="{{ $city->id }}" {{ $offer->city_id == $city->id ? 'selected' : '' }}>
+                    {{ $city->name }}
+                </option>
+                @endforeach
+            </select>
+            @error('city_id')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
         <!-- Bouton de soumission -->
         <div class="text-center">
             <button type="submit" class="bg-[#6e9ae6] text-white font-bold py-3 px-8 rounded-md hover:bg-blue-400 transition-all ease-in-out duration-300 transform hover:scale-105 focus:ring-4 focus:ring-[#6e9ae6]">

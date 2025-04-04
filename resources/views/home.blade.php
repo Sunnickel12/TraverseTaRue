@@ -1,5 +1,7 @@
 @extends('layouts.navbar')
 
+@section('title', 'Home')
+
 @section('content')
 @vite(['resources/js/app.js'])
 

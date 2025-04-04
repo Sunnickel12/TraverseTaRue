@@ -11,6 +11,10 @@
             @csrf
             @method('PUT') <!-- Ensure the PUT method is specified -->
 
+            <!-- Hidden input to store the previous URL -->
+            <input type="hidden" name="previous_url" value="{{ url()->previous() }}">
+
+            <!-- Status -->
             <div class="mb-4">
                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                 <select name="status_id" id="status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
@@ -22,6 +26,7 @@
                 </select>
             </div>
 
+            <!-- CV -->
             <div class="mb-4">
                 <label for="cv" class="block text-sm font-medium text-gray-700">CV</label>
                 <p class="text-gray-500">
@@ -35,6 +40,7 @@
                 </p>
             </div>
 
+            <!-- Motivation Letter -->
             <div class="mb-4">
                 <label for="motivation_letter" class="block text-sm font-medium text-gray-700">Motivation Letter</label>
                 <p class="text-gray-500">
@@ -48,6 +54,7 @@
                 </p>
             </div>
 
+            <!-- Submit Button -->
             <div class="text-right">
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     Update Postulation

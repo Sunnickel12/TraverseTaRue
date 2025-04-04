@@ -3,7 +3,7 @@
 @section('title', 'Panneau d\'Administration')
 
 @section('content')
-@role('admin|pilote')
+@role('admin')
 <div class="flex min-h-screen bg-gray-100">
     <div class="flex-1 p-10">
         <h1 class="text-3xl font-bold text-[#6e9ae6] mb-4">Panneau d'Administration</h1>
@@ -91,7 +91,7 @@
 <div class="flex justify-center items-center min-h-screen">
     <div class="text-center">
         <h1 class="text-3xl font-extrabold text-red-500">Accès refusé</h1>
-        <p class="text-gray-700 mt-2">Vous devez être administrateur ou pilote pour accéder à cette page.</p>
+        <p class="text-gray-700 mt-2">Vous devez être administrateur pour accéder à cette page.</p>
     </div>
 </div>
 @endrole

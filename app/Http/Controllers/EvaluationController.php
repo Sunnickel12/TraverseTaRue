@@ -9,17 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class EvaluationController extends Controller
 {
-    /**
-     * Show the form for creating a new evaluation for a company.
-     */
+    // Show the form for creating a new evaluation for a company
     public function create(Company $company)
     {
         return view('evaluations.create', compact('company'));
     }
 
-    /**
-     * Store a newly created evaluation in the database.
-     */
+    // Store a new evaluation in the database
     public function store(Request $request)
     {
         $request->validate([
@@ -39,9 +35,7 @@ class EvaluationController extends Controller
             ->with('success', 'Evaluation created successfully.');
     }
 
-    /**
-     * Display a list of evaluations for a specific company.
-     */
+    // Display a list of evaluations for a specific company
     public function index(Company $company)
     {
         $evaluations = $company->evaluations()->latest()->paginate(10);
@@ -51,6 +45,7 @@ class EvaluationController extends Controller
         return view('evaluations.index', compact('company', 'evaluations', 'averageRating'));
     }
 
+    // Delete an evaluation from the database
     public function destroy(Evaluation $evaluation)
     {
         $evaluation->delete(); // Soft delete the evaluation

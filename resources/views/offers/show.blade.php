@@ -1,32 +1,33 @@
-@extends('layouts.navbar')
+@extends('layouts.navbar') 
 
-@section('title', $offer->title)
+@section('title', $offer->title) 
 
 @section('content')
 <div class="px-4 max-w-5xl mx-auto">
-    <!-- Banner -->
+    <!-- Banner Section -->
     <div class="banner-plane">
         <img src="{{ asset('images/site/banner2.png') }}" alt="banner" class="w-full rounded-lg shadow-md border border-gray-300">
     </div>
 
-    @role('admin|etudiant')
+    @role('admin|etudiant') 
+    <!-- Wishlist Section for admin and etudiant roles -->
     <div class="mt-4">
         @if ($offer->isInWishlist())
-        <!-- Button to indicate the offer is already in the wishlist -->
+        <!-- Display if the offer is already in the wishlist -->
         <button type="button" class="bg-green-500 text-black px-4 py-2 rounded-md shadow-md cursor-not-allowed">
             Déjà dans la wishlist!
         </button>
-        <!-- Button to remove the offer from the wishlist -->
+        <!-- Remove from wishlist button -->
         <form method="POST" action="{{ route('wishlist.remove') }}" class="inline-block">
             @csrf
-            @method('DELETE') <!-- Use DELETE since the route is defined for DELETE -->
+            @method('DELETE')
             <input type="hidden" name="offer_id" value="{{ $offer->id }}">
             <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 transition">
                 Retirer de la wishlist
             </button>
         </form>
         @else
-        <!-- Button to add the offer to the wishlist -->
+        <!-- Add to wishlist button -->
         <form method="POST" action="{{ route('wishlist.add') }}" class="inline-block">
             @csrf
             <input type="hidden" name="offer_id" value="{{ $offer->id }}">
@@ -38,14 +39,13 @@
     </div>
     @endrole
 
-
-    <!-- Offer Details -->
+    <!-- Offer Details Section -->
     <section id="job-detail" class="p-4">
         <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $offer->title }}</h3>
         <p class="text-sm text-gray-500">Publié {{ $offer->created_at->diffForHumans(['locale' => 'fr']) }}</p>
         <p class="text-sm text-gray-500">Par : {{ $offer->company->name }}</p>
 
-        <!-- Characteristics -->
+        <!-- Offer Characteristics -->
         <div class="flex flex-wrap gap-2 mt-4">
             <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->level }}</span>
             <span class="bg-[#6e9ae6] text-white text-sm px-3 py-1 rounded-lg">{{ $offer->duration }}</span>
@@ -59,6 +59,7 @@
             <p class="text-gray-700 mt-2">{{ $offer->contenu }}</p>
         </div>
 
+        <!-- Job Requirements -->
         <div class="job-requirements mt-6">
             <h4 class="text-lg font-semibold text-gray-800">Conditions :</h4>
             <ul class="list-disc list-inside text-gray-700 mt-2">
@@ -70,23 +71,23 @@
             </ul>
         </div>
 
-        <!-- Apply Button -->
+        <!-- Apply Button Section -->
         <div class="mt-6">
             @auth
             @role('admin|etudiant')
-            <!-- Show the "Postuler" button for admin and etudiant roles -->
+            <!-- Show "Postuler" button for admin and etudiant roles -->
             <a href="{{ route('postulations.create', ['offer' => $offer->id]) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 transition">
                 Postuler
             </a>
             @elserole('pilote')
-            <!-- Show a message for the pilote role -->
+            <!-- Message for pilote role -->
             <p class="text-red-500 font-bold">You can't postulate to an offer.</p>
             @else
-            <!-- Show a message for other authenticated users -->
+            <!-- Message for other authenticated users -->
             <p class="text-gray-500">You are not authorized to postulate for this offer.</p>
             @endrole
             @else
-            <!-- Show a login prompt for unauthenticated users -->
+            <!-- Login prompt for unauthenticated users -->
             <a href="{{ route('login') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition">
                 Connectez-vous pour postuler
             </a>
@@ -94,6 +95,7 @@
         </div>
 
         @if (session('error'))
+        <!-- Error message display -->
         <div class="bg-red-500 text-white p-4 rounded-md mb-4">
             {{ session('error') }}
         </div>

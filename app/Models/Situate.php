@@ -28,6 +28,7 @@ class Situate extends Model
 
     /**
      * Define the relationship with the Company model.
+     * A situate entry belongs to a specific company.
      */
     public function company()
     {
@@ -36,6 +37,7 @@ class Situate extends Model
 
     /**
      * Define the relationship with the City model.
+     * A situate entry belongs to a specific city.
      */
     public function city()
     {

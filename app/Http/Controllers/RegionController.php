@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class RegionController extends Controller
 {
+    // Display a list of regions with optional filters
     public function index(Request $request)
     {
         $query = Region::query()->with('country');
@@ -26,12 +27,14 @@ class RegionController extends Controller
         return view('admin.regions.index', compact('regions', 'countries'));
     }
 
+    // Show the form for creating a new region
     public function create()
     {
         $countries = Country::orderBy('name')->get();
         return view('admin.regions.create', compact('countries'));
     }
 
+    // Store a new region in the database
     public function store(Request $request)
     {
         $request->validate([
@@ -44,12 +47,14 @@ class RegionController extends Controller
         return redirect()->route('regions.index')->with('success', 'Région ajoutée avec succès.');
     }
 
+    // Show the form for editing an existing region
     public function edit(Region $region)
     {
         $countries = Country::orderBy('name')->get();
         return view('admin.regions.edit', compact('region', 'countries'));
     }
 
+    // Update an existing region in the database
     public function update(Request $request, Region $region)
     {
         $request->validate([
@@ -62,6 +67,7 @@ class RegionController extends Controller
         return redirect()->route('regions.index')->with('success', 'Région mise à jour avec succès.');
     }
 
+    // Delete a region from the database
     public function destroy(Region $region)
     {
         $region->delete();

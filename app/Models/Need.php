@@ -28,6 +28,7 @@ class Need extends Model
 
     /**
      * Define the relationship with the Offer model.
+     * A need entry belongs to a specific offer.
      */
     public function offer()
     {
@@ -36,6 +37,7 @@ class Need extends Model
 
     /**
      * Define the relationship with the Skill model.
+     * A need entry belongs to a specific skill.
      */
     public function skill()
     {

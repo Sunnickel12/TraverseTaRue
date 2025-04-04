@@ -19,6 +19,10 @@ class Skill extends Model
         'name',
     ];
 
+    /**
+     * Define the many-to-many relationship with the Offer model.
+     * A skill can be required by multiple offers.
+     */
     public function offers()
     {
         return $this->belongsToMany(Offer::class, 'needs', 'skill_id', 'offer_id')->withTimestamps();

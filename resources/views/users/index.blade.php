@@ -1,9 +1,11 @@
-@extends('layouts.navbar')
+@extends('layouts.navbar') 
 
-@section('title', 'Users List')
+@section('title', 'Users List') 
 
-@section('content')
-@role('admin|pilote')
+@section('content') 
+
+@role('admin|pilote') 
+
 <div class="container mx-auto px-4 mt-8">
     <!-- Filters -->
     <form action="{{ route('users.index') }}" method="GET" class="mb-6 flex flex-col md:flex-row items-center gap-4 justify-center">
@@ -30,6 +32,7 @@
     </form>
 
     @role('admin|pilote')
+    <!-- Add User Button -->
     <a href="{{ route('users.create') }}"
         class="bg-[#6e9ae6] hover:bg-[#5a85d1] text-white font-bold py-2 px-4 rounded-lg shadow-md mb-4 inline-block transition-all duration-300 text-center">
         + Add User
@@ -37,6 +40,7 @@
     @endrole
 
     @if(session('success'))
+    <!-- Success Message -->
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
         {{ session('success') }}
     </div>
@@ -57,16 +61,19 @@
         <tbody>
             @foreach($users as $user)
             <tr class="hover:bg-gray-100 transition duration-200">
+                <!-- User Details -->
                 <td class="py-2 px-3 border whitespace-nowrap">{{ $user->getFullNameAttribute() }}</td>
                 <td class="py-2 px-3 border">{{ $user->email }}</td>
                 <td class="py-2 px-3 border">{{ $user->class->name ?? 'N/A' }}</td>
                 <td class="py-2 px-3 border">{{ $user->roles->pluck('name')->join(', ') }}</td>
                 <td class="py-2 px-3 border flex flex-col md:flex-row gap-2">
                     @if(!$user->roles->contains('name', 'admin') && $user->id !== auth()->id())
+                    <!-- Edit Button -->
                     <a href="{{ route('users.edit', $user->id) }}"
                         class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">
                         Edit
                     </a>
+                    <!-- Delete Button -->
                     <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                         @csrf
                         @method('DELETE')
@@ -75,6 +82,7 @@
                             Delete
                         </button>
                     </form>
+                    <!-- View Button -->
                     <a href="{{ route('users.dashboard', $user->id) }}"
                         class="bg-[#6e9ae6] hover:bg-blue-400 text-white font-bold py-1 px-3 rounded-lg shadow-md transition text-sm md:text-base lg:text-lg">
                         View

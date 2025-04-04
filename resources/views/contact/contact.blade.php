@@ -1,7 +1,7 @@
 @extends('layouts.navbar')
 
 @section('title', 'Contact')
- 
+
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -74,20 +74,20 @@
     </form>
 
     <!-- Boutons avec centrage et amélioration -->
-<div class="mt-6 flex justify-end gap-6">
-    <a href="{{ route('home') }}"
-        class="bg-[#6e9ae6] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-400 transition duration-300 transform hover:scale-105 text-center">
-        ← Retour à la page précédente
-    </a>
+    <div class="mt-6 flex justify-end gap-6">
+        <a href="{{ route('home') }}"
+            class="bg-[#6e9ae6] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-400 transition duration-300 transform hover:scale-105 text-center">
+            ← Retour à la page précédente
+        </a>
+    </div>
 </div>
-</div>
-</div>
+
 
 
 @else
 <h1 class="text-3xl md:text-5xl text-[#6e9ae6] font-extrabold mb-6 text-center">Vous n'avez pas accès à cette page.</h1>
-<p class="text-lg md:text-xl text-[#3a3a3a] mb-4 text-center">
-    Vous devez être connecté en tant qu'administrateur, pilote ou étudiant pour accéder à cette page.
-</p>
+    <p class="text-lg md:text-xl text-[#3a3a3a] mb-4 text-center">
+        Vous devez être connecté en tant qu'administrateur, pilote ou étudiant pour accéder à cette page.
+    </p>
 @endrole
 @endsection

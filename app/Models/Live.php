@@ -21,6 +21,7 @@ class Live extends Model
 
     /**
      * Define the relationship with the User model.
+     * A live entry belongs to a specific user.
      */
     public function user()
     {
@@ -29,6 +30,7 @@ class Live extends Model
 
     /**
      * Define the relationship with the City model.
+     * A live entry belongs to a specific city.
      */
     public function city()
     {

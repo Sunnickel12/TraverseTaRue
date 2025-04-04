@@ -2,13 +2,20 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <!-- Meta tags for character encoding and responsive design -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Page title with a default value -->
     <title>@yield('title', 'Traverse Ta Rue')</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/site/pagelogo.png') }}" />
 
+    <!-- Manifest for PWA -->
     <link rel="manifest" href="{{ asset('manifest.json') }}">
 
+    <!-- Service Worker registration -->
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function() {
@@ -24,11 +31,13 @@
         }
     </script>
 
+    <!-- Global variables for icons -->
     <script>
         window.eyeClosedIcon = "{{ asset('images/site/eye-closed.png') }}";
         window.eyeOpenIcon = "{{ asset('images/site/eye-open.png') }}";
     </script>
 
+    <!-- User menu toggle functionality -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const userBtn = document.getElementById("user-btn");
@@ -49,17 +58,17 @@
         });
     </script>
 
-    <!-- Styles / Scripts -->
+    <!-- Include styles and scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/js/header.js'])
 </head>
 
 <body class="flex flex-col min-h-screen">
     <header>
+        <!-- Navigation bar -->
         <nav class="bg-[#3a3a3a] local-font-gliker shadow-md py-3 rounded-b-3xl top-0 left-0 w-full z-50">
             <div class="flex mx-auto items-center">
-
-                <!-- Menu burger à gauche (affiché sur mobile uniquement) -->
+                <!-- Mobile menu button -->
                 <button id="burger-icon" class="md:hidden text-white focus:outline-none mr-2 md:mr-2">
                     <img src="{{ asset('images/site/burger.png') }}" alt="Menu"
                         class="w-8 h-8 ml-1.5 justify-space-between md:mr-0">
@@ -70,7 +79,7 @@
                     <img src="{{ asset('images/site/LogoTTR.png') }}" class="h-12 md:h-14 ml-2" alt="Logo" />
                 </a>
 
-                <!-- Navigation principale (mode PC) -->
+                <!-- Main navigation for desktop -->
                 <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-8 font-bold text-white">
                     <a href="{{ route('offers.index') }}"
                         class="md:text-2xl lg:text-3xl hover:text-[#6e9ae6] transition duration-200 hover:scale-110">Offres</a>
@@ -82,9 +91,9 @@
                     @endrole
                 </div>
 
-                <!-- Bouton "Mon Compte" -->
+                <!-- User account button -->
                 @if (Auth::check())
-                <!-- Affichage pour un utilisateur connecté -->
+                <!-- For logged-in users -->
                 <div class="relative flex items-center ml-auto mt-1">
                     <button id="user-btn"
                         class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center hover:bg-white hover:text-[#6e9ae6] hover:scale-105 transition-all duration-300">
@@ -93,7 +102,7 @@
                         <span class="ml-2 hidden sm:inline">{{ Auth::user()->first_name }}</span>
                     </button>
 
-                    <!-- Menu déroulant -->
+                    <!-- Dropdown menu -->
                     <div id="usermenu"
                         class="hidden absolute right-2 top-full mt-2 w-auto text-nowrap bg-white rounded-lg shadow-lg overflow-hidden ring-1 ring-[#6e9ae6] z-50 mr-2">
                         <a href="{{ route('users.dashboard', ['id' => Auth::user()->id]) }}"
@@ -102,8 +111,12 @@
                         <a href="{{ route('Panneau_de_Configuration') }}"
                             class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Panneau de Configuration</a>
                         @endrole
-                        <a href="#"
-                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">Wishlist</a>
+                        @role('admin|pilote')
+                        <a href="{{ route('users.index') }}"
+                            class="block px-4 py-2 text-gray-700 hover:bg-[#6e9ae6] hover:text-white">
+                            User List
+                        </a>
+                        @endrole
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit"
@@ -115,7 +128,7 @@
                 </div>
             </div>
             @else
-            <!-- Affichage pour un utilisateur non connecté -->
+            <!-- For guests -->
             <button id="account-btn"
                 class="bg-[#6e9ae6] text-white text-base md:text-xl lg:text-2xl xl:text-3xl rounded-full mr-2 px-2 py-2 flex items-center ml-auto hover:bg-white hover:text-[#6e9ae6] hover:scale-105 hover:ring-2 hover:ring-[#6e9ae6] transition-all duration-300"
                 onclick="document.getElementById('login-popup').classList.remove('hidden');">
@@ -128,10 +141,10 @@
             </div>
         </nav>
 
-        <!-- Overlay pour le menu mobile -->
+        <!-- Mobile menu overlay -->
         <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black opacity-50 z-80"></div>
 
-        <!-- Menu mobile (barre latérale) -->
+        <!-- Mobile menu sidebar -->
         <div id="mobile-menu"
             class="md:hidden fixed top-0 left-0 w-50 h-full bg-[#2d2d2d] transform translate-x-full transition-transform duration-300 z-90 hidden">
             <div class="flex justify-end p-4">
@@ -153,7 +166,7 @@
             </div>
         </div>
 
-        <!-- Pop-up de connexion -->
+        <!-- Login popup -->
         <div id="login-popup"
             class="local-font-gliker fixed top-0 w-full h-full flex justify-center items-center hidden z-100">
             <div class="bg-black opacity-50 absolute inset-0"></div>
@@ -201,25 +214,28 @@
                         </button>
                     </div>
                 </form>
+                <!-- Close button -->
                 <button id="close-login-popup"
                     class="absolute top-4 right-4 text-3xl text-gray-600 hover:text-[#6e9ae6] transition-all duration-200 transform hover:scale-110">&times;</button>
             </div>
         </div>
     </header>
 
-
     <main class="flex-1 local-font-gliker">
+        <!-- Success message -->
         @if (session('success'))
         <div id="success-popup"
             class="bg-green-600 opacity-80 m-4 md:mx-50 lg:mx-150 text-white text-center py-2 text-sm md:text-xl p-4 rounded-2xl local-font-gliker">
             {{ session('success') }}
         </div>
-        @endif <!-- Affichage du message de succès -->
+        @endif
 
+        <!-- Main content -->
         @yield('content')
     </main>
 
     <footer class="mt-auto">
+        <!-- Footer navigation -->
         <nav id="footer" class="bottom-0 left-0 w-full mt-6 rounded-t-xl shadow-sm bg-[#3a3a3a] local-font-gliker"
             aria-label="Pied de page">
             <div class="w-full max-w-screen-xl mx-auto p-2 md:py-4">
