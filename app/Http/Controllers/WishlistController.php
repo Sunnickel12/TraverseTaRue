@@ -10,26 +10,28 @@ use App\Models\Offer;
 
 class WishlistController extends Controller
 {
-    // Ajouter une offre à la wishlist
+    // Add an offer to the wishlist
     public function add(Request $request)
     {
+        // Validate the offer ID
         $request->validate([
             'offer_id' => 'required|exists:offers,id'
         ]);
 
         $user = Auth::user();
 
+        // Create or find the user's wishlist
         $wishlist = Wishlist::firstOrCreate([
             'user_id' => $user->id
         ]);
 
-        // Attach only if not already attached
+        // Attach the offer if not already in the wishlist
         if (!$wishlist->offers()->where('offers.id', $request->offer_id)->exists()) {
             $wishlist->offers()->attach($request->offer_id);
         }
 
         return redirect()->route('offers.show', $request->offer_id)
-            ->with('success', 'Offre ajoutée à votre wishlist.');
+            ->with('success', 'Offer added to your wishlist.');
     }
 
     public function remove(Request $request)

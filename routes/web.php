@@ -28,8 +28,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 
 // User Routes (auth required)
 Route::middleware(['auth'])->group(function () {
+    // User dashboard and resource routes
     Route::view('/Profil', 'users.dashboard')->name('dashboard');
     Route::resource('users', UserController::class);
+    // Contact form submission
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 });
 
@@ -38,6 +40,7 @@ Route::resource('companies', CompanyController::class);
 
 // Evaluation Routes
 Route::prefix('evaluations')->group(function () {
+    // Routes for creating, storing, and managing evaluations
     Route::get('create/{company}', [EvaluationController::class, 'create'])->name('evaluations.create');
     Route::post('store', [EvaluationController::class, 'store'])->name('evaluations.store');
     Route::get('{company}', [EvaluationController::class, 'index'])->name('evaluations.index');
@@ -49,14 +52,18 @@ Route::resource('offers', OfferController::class);
 
 // Postulation Routes (auth required)
 Route::middleware('auth')->group(function () {
+    // Routes for creating and storing postulations
     Route::get('/postulations/create/{offer}', [PostulationController::class, 'create'])->name('postulations.create');
-    Route::post('/postulations/store/{offer}', [PostulationController::class, 'store'])->name('postulations.store'); // Ensure this route is defined
+    Route::post('/postulations/store/{offer}', [PostulationController::class, 'store'])->name('postulations.store');
+    // Resource routes for postulations
     Route::resource('postulations', PostulationController::class)->except(['show', 'index', 'create', 'store']);
+    // Route for downloading files related to postulations
     Route::get('/postulations/download/{type}/{id}', [PostulationController::class, 'download'])->name('postulations.download');
 });
 
 // Wishlist Routes (auth required)
 Route::middleware('auth')->prefix('wishlist')->name('wishlist.')->group(function () {
+    // Routes for managing wishlist items
     Route::get('/', [WishlistController::class, 'index'])->name('index');
     Route::post('/add', [WishlistController::class, 'add'])->name('add');
     Route::post('/remove', [WishlistController::class, 'remove'])->name('remove');
@@ -66,6 +73,7 @@ Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.
 
 // Admin Panel Routes (auth required)
 Route::middleware(['auth'])->prefix('admin')->group(function () {
+    // Admin dashboard and resource routes
     Route::view('/Panneau_de_Configuration', 'admin.Pannel')->name('Panneau_de_Configuration');
     Route::resource('cities', CityController::class);
     Route::resource('departements', DepartementController::class);
@@ -95,8 +103,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{id?}', [UserController::class, 'dashboard'])->name('users.dashboard');
 });
 
-// Routes Contact (public ou auth selon vos besoins)
+// Routes for Contact (public or auth as needed)
 Route::prefix('contact')->group(function () {
+    // Contact form submission and success page
     Route::post('/', [ContactController::class, 'store'])->name('contact.store');
     Route::get('/success', [ContactController::class, 'success'])->name('contact.success');
     Route::get('/download/{contactId}', [ContactController::class, 'download'])->name('contact.download');
